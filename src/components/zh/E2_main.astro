@@ -1,0 +1,126 @@
+---
+/* E2_main.astro — 左右整块背景强对比（奇点 vs 其他） */
+const rows = [
+  { tag: '自研算法',
+    ours: '自研适配 AI 的内容优化算法，大幅提高 AI 系统收录成功率',
+    others: '批量生成的低质内容，收录成功率低、时效短' },
+  { tag: '产品模式',
+    ours: '重账号人工发布；可接入客户高权重账号增强效果',
+    others: '低权重新号自发，收录不稳定' },
+  { tag: '优化模式',
+    ours: '核心词→产品词/问题词联动拓展；词量与概率双提升',
+    others: '仅“指定词上线”，依赖系统分发，缺少持续性' },
+  { tag: '覆盖平台',
+    ours: 'DeepSeek / 豆包 / 通义 / Kimi 等多引擎协同',
+    others: '不做保障，单平台尝试，收录随机' },
+  { tag: '上线时间',
+    ours: '资料齐全最快 1 天；平均 1–3 天可见',
+    others: '通常 7–30 天，波动大' },
+  { tag: '额外展现',
+    ours: '可合规收录联系方式与兑换口令（按平台规范）',
+    others: '个人号挂载风险高，易被屏蔽' },
+  { tag: '操作步骤',
+    ours: '客户提交资料并确认；全流程代办；确认无误后付款',
+    others: '客户自注册多账号并授权，流程繁琐' },
+  { tag: '维护优化',
+    ours: '上线期持续监测与优化，异常快速回滚',
+    others: '维护滞后，内容与账号风险不可知' },
+];
+---
+
+<section id="advantage"
+  class="max-w-[90rem] px-4 py-16 sm:px-6 lg:px-8 mx-auto"
+  aria-labelledby="advantage-title">
+  <!-- Title -->
+  <div class="text-center mb-10 lg:mb-14">
+    <h2 id="advantage-title" class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100">
+      奇点GEO · 产品优势对比
+    </h2>
+    <!-- <p class="mt-3 text-gray-600 dark:text-gray-300">整行强对比：左=奇点（绿），右=其他（灰），中间 VS</p> -->
+  </div>
+
+  <div class="space-y-6">
+    {rows.map((row, idx) => (
+      <div class="relative rounded-2xl overflow-hidden ring-1 ring-gray-200/70 dark:ring-gray-700/70 shadow-sm">
+        <!-- 中间竖分割线（桌面） -->
+        <div class="hidden lg:block absolute inset-y-0 left-1/2 -translate-x-1/2 w-px
+                    bg-gradient-to-b from-transparent via-white/60 to-transparent
+                    dark:via-gray-500/50 z-10" aria-hidden="true"></div>
+
+        <!-- VS 徽章（桌面） -->
+        <div class="hidden lg:flex absolute inset-y-0 left-1/2 -translate-x-1/2 z-20
+                    items-center justify-center pointer-events-none">
+          <span class="inline-flex items-center justify-center h-12 w-12 rounded-full
+                        bg-indigo-600 text-white font-extrabold shadow-md
+                        ring-8 ring-white/80 dark:ring-gray-900/80">VS</span>
+        </div>
+
+        <!-- 行内容 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <!-- 左：奇点（整块绿色渐变） -->
+          <article class="relative p-5 sm:p-7 lg:p-8 text-white
+                          bg-gradient-to-br from-indigo-500 to-indigo-600
+                          dark:from-indigo-600 dark:to-indigo-700">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="inline-flex items-center rounded-md bg-white/20 px-2 py-0.5 text-[11px] font-semibold">奇点GEO</span>
+              <h3 class="text-base sm:text-lg font-semibold">{row.tag}</h3>
+            </div>
+            <div class="mt-1 flex items-start gap-3 text-sm sm:text-[15px] leading-6">
+              <svg class="mt-1 h-5 w-5 flex-none text-white/90" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M16.704 5.29a1 1 0 0 1 .006 1.414l-7.2 7.3a1 1 0 0 1-1.42.01L3.29 9.51a1 1 0 1 1 1.42-1.41l3.05 3.07 6.5-6.59a1 1 0 0 1 1.444.01z" clip-rule="evenodd" />
+              </svg>
+              <p>{row.ours}</p>
+            </div>
+          </article>
+
+          <!-- 右：其他（整块灰色渐变） -->
+          <article class="relative p-5 sm:p-7 lg:p-8
+                          bg-gradient-to-br from-gray-100 to-gray-200
+                          text-gray-800
+                          dark:from-gray-800 dark:to-gray-700 dark:text-gray-100">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="inline-flex items-center rounded-md bg-gray-700/15 dark:bg-black/30
+                             px-2 py-0.5 text-[11px] font-semibold text-gray-700 dark:text-gray-200">其他GEO</span>
+              <h3 class="text-base sm:text-lg font-semibold">{row.tag}</h3>
+            </div>
+            <div class="mt-1 flex items-start gap-3 text-sm sm:text-[15px] leading-6">
+              <svg class="mt-1 h-5 w-5 flex-none text-gray-500 dark:text-gray-300" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M6.22 6.22a.75.75 0 0 1 1.06 0L10 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06L11.06 10l2.72 2.72a.75.75 0 1 1-1.06 1.06L10 11.06l-2.72 2.72a.75.75 0 1 1-1.06-1.06L8.94 10 6.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+              </svg>
+              <p>{row.others}</p>
+            </div>
+          </article>
+        </div>
+
+        <!-- 移动端 VS 徽章（上下堆叠时显示） -->
+        <div class="lg:hidden flex items-center justify-center -my-2" aria-hidden="true">
+          <span class="inline-flex items-center justify-center h-8 w-8 rounded-full
+                        bg-blue-600 text-white text-xs font-extrabold shadow">VS</span>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <p class="mt-6 text-center text-xs text-gray-500">
+    * 展示为典型情境对比；不同平台的合规策略与时效会有差异。
+  </p>
+
+  <!-- JSON-LD（保守型 ItemList） -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "奇点GEO vs 其他方案 · 强对比清单",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "自研算法" },
+      { "@type": "ListItem", "position": 2, "name": "产品模式" },
+      { "@type": "ListItem", "position": 3, "name": "优化模式" },
+      { "@type": "ListItem", "position": 4, "name": "覆盖平台" },
+      { "@type": "ListItem", "position": 5, "name": "上线时间" },
+      { "@type": "ListItem", "position": 6, "name": "额外展现" },
+      { "@type": "ListItem", "position": 7, "name": "操作步骤" },
+      { "@type": "ListItem", "position": 8, "name": "维护优化" }
+    ]
+  }
+  </script>
+</section>

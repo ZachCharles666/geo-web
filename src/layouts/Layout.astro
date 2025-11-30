@@ -1,22 +1,116 @@
 ---
-export interface Props {
-	title: string;
+export interface Hreflang {
+  href: string
+  hreflang: string
 }
 
-const { title } = Astro.props;
+export interface Props {
+  title: string
+  description?: string
+  lang?: string               // 页面语言，如 "en" / "zh-CN"
+  canonical?: string          // 建议传相对路径，如 "/en/"、"/zh/"
+  ogImage?: string            // OG 封面
+  hreflangs?: Hreflang[]      // 多语言互链，可以传相对路径
+  noindex?: boolean           // 是否禁止索引（可用于 staging）
+}
+
+// ✅ 从环境变量里读默认语言 & 站点 URL
+const defaultLang = import.meta.env.DEFAULT_LANG || "en"
+const envSiteUrl  = import.meta.env.SITE_URL
+
+const {
+  title,
+  description,
+  lang = defaultLang,
+  canonical,
+  ogImage = "/og/geo-default.png",
+  hreflangs = [],
+  noindex = false,
+} = Astro.props
+
+// ✅ 如果环境变量没配置，就给一个合理的默认值（避免本地报错）
+const siteName = "GEO-Max"
+const siteUrl  = (envSiteUrl && envSiteUrl.trim().length > 0)
+  ? envSiteUrl.trim()
+  : "https://geo-max.tech"
+
+// ✅ 根据 canonical 路径拼出完整 URL
+//    - 若 canonical 为空，则退回站点根地址
+const canonicalUrl = canonical
+  ? new URL(canonical, siteUrl).toString()
+  : siteUrl
+
+// ✅ 规范化 hreflang：支持传相对路径，如 "/en/"、"/zh/"
+//    - 若 href 以 "http" 开头，则认为是完整 URL，直接使用
+//    - 否则使用 siteUrl 进行拼接
+const normalizedHreflangs = hreflangs.map((h) => {
+  const href = h.href.startsWith("http")
+    ? h.href
+    : new URL(h.href, siteUrl).toString()
+
+  return {
+    ...h,
+    href,
+  }
+})
+
+// ✅ robots：支持 noindex 开关
+const robotsContent = noindex
+  ? "noindex,nofollow"
+  : "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"
 ---
 
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-		<script>import "preline/dist/preline.js";</script>
-	</body>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description || title} />
+
+    {/* ✅ 使用经过 SITE_URL 计算后的 canonicalUrl */}
+    <link rel="canonical" href={canonicalUrl} />
+
+    {/* ✅ 多语言互链（hreflang） */}
+    {normalizedHreflangs.map((h) => (
+      <link rel="alternate" hreflang={h.hreflang} href={h.href} />
+    ))}
+    {/* x-default 兜底 */}
+    {normalizedHreflangs.length > 0 && (
+      <link
+        rel="alternate"
+        hreflang="x-default"
+        href={normalizedHreflangs[0].href}
+      />
+    )}
+
+    {/* ✅ OG / Twitter */}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description || title} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description || title} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {/* ✅ 机器人指令（支持 noindex） */}
+    <meta name="robots" content={robotsContent} />
+
+    {/* ✅ 全局样式 */}
+    <style is:global>
+      @import "../styles/tailwind.css";
+    </style>
+  </head>
+  <body>
+    <slot />
+    <script is:inline type="module">
+      import "preline/dist/preline.js";
+    </script>
+  </body>
 </html>

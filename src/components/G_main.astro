@@ -1,0 +1,140 @@
+---
+/* G_main.astro — Client & Media Trust Zone (Logo Wall + Testimonials) */
+
+/* ① Unified Data Source */
+const logos = [
+  { name: 'Acme Foods',   src: '/assets/logos/acme.png',   alt: 'Acme Foods',   href: '#' },
+  { name: 'Nebula Labs',  src: '/assets/logos/nebula.png', alt: 'Nebula Labs',  href: '#' },
+  { name: 'Aurora Media', src: '/assets/logos/aurora.png', alt: 'Aurora Media', href: '#' },
+  { name: 'Pioneer Tech', src: '/assets/logos/pioneer.png',alt: 'Pioneer Tech', href: '#' },
+  { name: 'Atlas Retail', src: '/assets/logos/atlas.png',  alt: 'Atlas Retail', href: '#' },
+  { name: 'Vertex AI',    src: '/assets/logos/vertex.png', alt: 'Vertex AI',    href: '#' },
+];
+
+type Testimonial = {
+  quote: string;
+  author: string;
+  org: string;
+  avatar: string;
+  rating?: number;
+};
+
+const testimonials: Testimonial[] = [
+  {
+    quote:
+      'GEO-Max boosted our AI visibility significantly. Key brand messages now appear consistently across multiple generative engines.',
+    author: 'Liu Yi · Head of Growth',
+    org: 'Acme Foods',
+    avatar: '/assets/avatars/a1.png',
+    rating: 5,
+  },
+  {
+    quote:
+      'Compared with traditional SEO, GEO’s reproducible metrics give us far clearer insight into how AI models interpret our content.',
+    author: 'Zane · Director of Data',
+    org: 'Nebula Labs',
+    avatar: '/assets/avatars/a2.png',
+    rating: 5,
+  },
+  {
+    quote:
+      'For media teams, credibility signals matter. GEO-Max’s source-enhancement workflow makes our citations more reliable and easier to verify.',
+    author: 'Cora · Senior Journalist',
+    org: 'Aurora Media',
+    avatar: '/assets/avatars/a3.png',
+    rating: 5,
+  },
+];
+
+/* ② JSON-LD (single source of truth) */
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "GEO-Max",
+  "url": "https://geo-max.tech",
+  "logo": "https://geo-max.tech/assets/logo.png",
+  "review": testimonials.map(t => ({
+    "@type": "Review",
+    "reviewBody": t.quote,
+    "author": { "@type": "Person", "name": t.author.split('·')[0].trim() },
+    "itemReviewed": { "@type": "Organization", "name": "GEO-Max" },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": String(t.rating ?? 5),
+      "bestRating": "5"
+    }
+  }))
+};
+---
+
+<section
+  class="w-full max-w-[100rem] px-4 py-12 sm:px-6 lg:px-8 lg:py-16 mx-auto"
+  aria-labelledby="trust-title">
+
+  <!-- Title -->
+  <div class="mx-auto max-w-2xl text-center mb-10">
+    <h2 id="trust-title" class="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-gray-100">
+      Trusted by Brands & Media
+    </h2>
+    <p class="mt-3 text-gray-600 dark:text-gray-300">
+      Organizations across industries rely on GEO-Max to strengthen AI visibility, improve factual alignment,
+      and deliver reproducible results across major generative engines.
+    </p>
+  </div>
+  <!-- End Title -->
+
+  <!-- Logo Wall -->
+  <div class="relative rounded-2xl border bg-white/60 backdrop-blur p-6 sm:p-8 dark:bg-slate-900/60 dark:border-gray-700">
+    <ul role="list"
+        class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-6 sm:gap-8 items-center">
+      {logos.map((l) => (
+        <li class="flex items-center justify-center">
+          <a href={l.href} aria-label={l.name} class="group block" rel="nofollow noopener">
+            <div class="h-12 sm:h-14 lg:h-16 w-full max-w-[160px] mx-auto flex items-center justify-center">
+              <img
+                src={l.src}
+                alt={l.alt}
+                class="max-h-full w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+                loading="lazy"
+                decoding="async"
+                sizes="(min-width:1024px) 160px, 33vw"
+              />
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <!-- End Logo Wall -->
+
+  <!-- Testimonials -->
+  <div class="grid gap-6 sm:gap-8 md:grid-cols-3 mt-10">
+    {testimonials.map((t) => (
+      <figure class="h-full rounded-2xl border bg-white p-6 md:p-7 shadow-sm dark:bg-slate-900 dark:border-gray-700">
+        <div class="flex items-center gap-3">
+          <img
+            src={t.avatar}
+            alt={`${t.author} avatar`}
+            class="w-10 h-10 rounded-full object-cover bg-gray-200 dark:bg-gray-700"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>
+            <div class="text-sm font-semibold text-gray-900 dark:text-gray-100">{t.author}</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">{t.org}</div>
+          </figcaption>
+        </div>
+        <blockquote class="mt-4">
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed">“{t.quote}”</p>
+        </blockquote>
+      </figure>
+    ))}
+  </div>
+  <!-- End Testimonials -->
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+    {JSON.stringify(orgJsonLd)}
+  </script>
+
+</section>

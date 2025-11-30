@@ -1,9 +1,10 @@
-import preline from 'preline/plugin.js';
+// tailwind.config.mjs
+import preline from 'preline/plugin';
 
 export default {
   content: [
-    './public/**/*.astro',
-    './src/**/*.{astro,js,ts}',
+    './src/**/*.{astro,html,js,jsx,ts,tsx,md,mdx}',
+    './public/**/*.html',
     'node_modules/preline/dist/*.js',
   ],
   darkMode: 'class',

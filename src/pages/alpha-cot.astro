@@ -1,0 +1,653 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Alpha COT · GEO-Max 实验台">
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+    <header class="space-y-2">
+      <h1 class="text-2xl font-bold text-gray-900">
+        Alpha COT · GEO-Max 逻辑链实验台
+      </h1>
+      <p class="text-gray-600 text-sm">
+        左侧输入品牌信息和目标问题，右侧查看 Stage1 生成的 Markdown 草稿与解析后的 JSON 逻辑链。
+      </p>
+      <p id="alpha-cot-status" class="text-xs text-gray-400">
+        就绪
+      </p>
+
+      <!-- 新增：运行信息（run_id + 上次成功时间） -->
+      <div class="flex flex-wrap items-center gap-3 text-[11px] text-gray-500">
+        <span>
+          当前 run_id：
+          <span id="alpha-cot-run-id" class="font-mono text-gray-700">尚未生成</span>
+        </span>
+        <span>
+          上次成功生成：
+          <span id="alpha-cot-last-success" class="font-mono text-gray-700">-</span>
+        </span>
+      </div>
+    </header>
+
+
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- 左侧：输入表单 -->
+      <div class="space-y-6">
+        <form id="alpha-cot-form" class="space-y-4">
+          <!-- 目标问题 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+              目标问题（user_question）
+            </label>
+            <textarea
+              name="user_question"
+              rows="2"
+              class="w-full border rounded-md px-3 py-2 text-sm"
+              placeholder="例如：请帮我为一家制造业CRM软件写一个 GEO 友好的产品介绍大纲"
+            ></textarea>
+          </div>
+
+          <!-- 品牌基本信息 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                品牌名称（brand_name）
+              </label>
+              <input
+                type="text"
+                name="brand_name"
+                class="w-full border rounded-md px-3 py-2 text-sm"
+                placeholder="例如：超兔 CRM"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                品类（category）
+              </label>
+              <input
+                type="text"
+                name="category"
+                class="w-full border rounded-md px-3 py-2 text-sm"
+                placeholder="例如：制造业 CRM 软件"
+              />
+            </div>
+          </div>
+
+          <!-- 目标人群 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+              目标人群（target_audience）
+            </label>
+            <input
+              type="text"
+              name="target_audience"
+              class="w-full border rounded-md px-3 py-2 text-sm"
+              placeholder="例如：工厂老板、销售总监"
+            />
+          </div>
+
+          <!-- 核心价值 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+              核心价值（core_value）
+            </label>
+            <textarea
+              name="core_value"
+              rows="2"
+              class="w-full border rounded-md px-3 py-2 text-sm"
+              placeholder="例如：帮助制造企业打通线索、订单与售后数据，让老板随时看到销售漏斗和订单利润情况"
+            ></textarea>
+          </div>
+
+          <!-- 关键特性 / 差异化 / 场景 -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                关键特性（key_features）
+              </label>
+              <textarea
+                name="key_features"
+                rows="4"
+                class="w-full border rounded-md px-3 py-2 text-xs"
+                placeholder="一行一个特性"
+              ></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                差异化卖点（differentiators）
+              </label>
+              <textarea
+                name="differentiators"
+                rows="4"
+                class="w-full border rounded-md px-3 py-2 text-xs"
+                placeholder="一行一个差异点"
+              ></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                典型使用场景（use_cases）
+              </label>
+              <textarea
+                name="use_cases"
+                rows="4"
+                class="w-full border rounded-md px-3 py-2 text-xs"
+                placeholder="一行一个场景"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- 露出控制 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                必须露出的内容（must_expose）
+              </label>
+              <textarea
+                name="must_expose"
+                rows="2"
+                class="w-full border rounded-md px-3 py-2 text-xs"
+                placeholder="例如：品牌名 + 公众号引导文案"
+              ></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                露出提示（expo_hint）
+              </label>
+              <textarea
+                name="expo_hint"
+                rows="2"
+                class="w-full border rounded-md px-3 py-2 text-xs"
+                placeholder="例如：请自然嵌入品牌，而不是硬广"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- 模型选择 -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">
+                使用模型（model_ui）
+              </label>
+              <select
+                name="model_ui"
+                class="w-full border rounded-md px-3 py-2 text-sm"
+              >
+                <option value="groq">Groq / DeepSeek（演示）</option>
+                <option value="openai">OpenAI</option>
+                <option value="qwen">通义千问</option>
+                <option value="deepseek">DeepSeek</option>
+              </select>
+            </div>
+
+            <div class="flex gap-3 md:col-span-2">
+              <button
+                id="alpha-cot-validate"
+                type="button"
+                class="inline-flex items-center px-3 py-2 rounded-md border text-xs font-medium bg-white text-gray-700 hover:bg-gray-50"
+              >
+                仅校验品牌简介
+              </button>
+              <button
+                id="alpha-cot-stage1"
+                type="button"
+                class="inline-flex items-center px-4 py-2 rounded-md border border-indigo-600 text-xs font-medium bg-indigo-600 text-white hover:bg-indigo-700"
+              >
+                生成 Stage1 逻辑链草稿
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <!-- 校验结果 / 原始 JSON -->
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">
+            /api/brand-brief/validate 返回结果（debug）
+          </label>
+          <textarea
+            id="alpha-cot-result-json"
+            rows="10"
+            class="w-full border rounded-md px-3 py-2 text-[11px] font-mono"
+            placeholder="点击「仅校验品牌简介」或「生成 Stage1 逻辑链草稿」后，会在这里显示校验结果 JSON。"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- 右侧：Stage1 Markdown + 解析 JSON -->
+      <div class="space-y-6">
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="block text-xs font-medium text-gray-700">
+              Stage1 Markdown 草稿（stage1_md）
+            </label>
+            <button
+              id="alpha-cot-copy-md"
+              type="button"
+              class="px-2 py-1 text-[11px] border rounded-md bg-white hover:bg-gray-50"
+            >
+              复制 Markdown
+            </button>
+          </div>
+
+          <!-- 新增：Markdown 渲染预览区 -->
+          <div
+            id="alpha-cot-stage1-md-preview"
+            class="prose prose-sm max-w-none border rounded-md bg-slate-50 px-3 py-2 overflow-auto"
+          >
+            <p class="text-[11px] text-gray-400">
+              点击「生成 Stage1 逻辑链草稿」后，这里会以 Markdown 格式预览结果。
+            </p>
+          </div>
+
+          <!-- 保留原始 textarea，不隐藏，兼容你之前的 debug 使用方式 -->
+          <textarea
+            id="alpha-cot-stage1-md"
+            rows="14"
+            class="w-full border rounded-md px-3 py-2 text-[11px] font-mono"
+            placeholder="点击「生成 Stage1 逻辑链草稿」后，这里显示模型返回的 Stage1 Markdown。"
+          ></textarea>
+        </div>
+
+
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="block text-xs font-medium text-gray-700">
+              Stage1 解析后的逻辑链 JSON（含 UUID）
+            </label>
+            <button
+              id="alpha-cot-copy-json"
+              type="button"
+              class="px-2 py-1 text-[11px] border rounded-md bg-white hover:bg-gray-50"
+            >
+              复制 JSON
+            </button>
+          </div>
+
+          <!-- 新增：JSON 预览区 -->
+          <pre
+            class="w-full border rounded-md bg-black text-green-100 text-[11px] font-mono max-h-80 overflow-auto px-3 py-2"
+          >
+        <code id="alpha-cot-logic-json-view">
+        // 点击「生成 Stage1 逻辑链草稿」后，这里会显示 /cot/stage1/parse 的 data 部分。
+        </code>
+          </pre>
+
+          <!-- 原始 textarea 保留 -->
+          <textarea
+            id="alpha-cot-logic-json"
+            rows="14"
+            class="w-full border rounded-md px-3 py-2 text-[11px] font-mono"
+            placeholder="点击「生成 Stage1 逻辑链草稿」后，这里显示 /cot/stage1/parse 解析结果。"
+          ></textarea>
+        </div>
+
+
+      </div>
+    </section>
+  </main>
+
+      <script type="module">
+    // @ts-nocheck
+
+    // 本地 FastAPI Alpha API 地址；如需改为线上，可替换为你的域名
+    const API_BASE = "http://127.0.0.1:8001";
+
+    function initAlphaCot() {
+      const formEl = document.getElementById("alpha-cot-form");
+      const validateBtn = document.getElementById("alpha-cot-validate");
+      const stage1Btn = document.getElementById("alpha-cot-stage1");
+      const statusEl = document.getElementById("alpha-cot-status");
+
+      const resultJsonEl = document.getElementById("alpha-cot-result-json");
+      const stage1MdEl = document.getElementById("alpha-cot-stage1-md");
+      const logicJsonEl = document.getElementById("alpha-cot-logic-json");
+
+      // 新增：预览区 & 按钮 DOM
+      const stage1MdPreviewEl = document.getElementById(
+        "alpha-cot-stage1-md-preview",
+      );
+      const copyMdBtn = document.getElementById("alpha-cot-copy-md");
+      const logicJsonViewEl = document.getElementById(
+        "alpha-cot-logic-json-view",
+      );
+      const copyJsonBtn = document.getElementById("alpha-cot-copy-json");
+
+      // 新增：运行信息展示 DOM
+      const runIdEl = document.getElementById("alpha-cot-run-id");
+      const lastSuccessEl = document.getElementById("alpha-cot-last-success");
+
+      if (!formEl || !validateBtn || !stage1Btn || !statusEl) {
+        console.warn("[alpha-cot] 核心 DOM 未找到，脚本不执行");
+        return;
+      }
+
+      // 运行态缓存
+      let currentRunId = null;
+      let lastSuccessAt = null;
+      let currentStage1Markdown = "";
+      let currentParsedJson = null;
+
+      function setStatus(msg, type = "idle") {
+        if (!statusEl) return;
+        statusEl.textContent = msg || "";
+        statusEl.classList.remove(
+          "text-gray-400",
+          "text-blue-400",
+          "text-green-400",
+          "text-red-400",
+        );
+
+        if (type === "loading") {
+          statusEl.classList.add("text-blue-400");
+        } else if (type === "ok") {
+          statusEl.classList.add("text-green-400");
+        } else if (type === "error") {
+          statusEl.classList.add("text-red-400");
+        } else {
+          statusEl.classList.add("text-gray-400");
+        }
+      }
+
+      function updateRunInfo() {
+        if (runIdEl) {
+          runIdEl.textContent = currentRunId || "尚未生成";
+        }
+        if (lastSuccessEl) {
+          lastSuccessEl.textContent = lastSuccessAt
+            ? new Date(lastSuccessAt).toLocaleString()
+            : "-";
+        }
+      }
+
+      // 纯文本形式预览 Markdown（不做富文本渲染，先追求稳定）
+      function renderStage1Markdown(text) {
+        currentStage1Markdown = text || "";
+        if (stage1MdEl) {
+          stage1MdEl.value = currentStage1Markdown;
+        }
+        if (stage1MdPreviewEl) {
+          if (!currentStage1Markdown) {
+            stage1MdPreviewEl.innerHTML =
+              '<p class="text-[11px] text-gray-400">暂无内容，请先点击「生成 Stage1 逻辑链草稿」。</p>';
+          } else {
+            // 使用 textContent，保持安全、无需额外库
+            stage1MdPreviewEl.textContent = currentStage1Markdown;
+          }
+        }
+      }
+
+      function renderStage1Json(jsonObj) {
+        currentParsedJson = jsonObj || {};
+        const pretty = JSON.stringify(currentParsedJson, null, 2);
+        if (logicJsonEl) {
+          logicJsonEl.value = pretty;
+        }
+        if (logicJsonViewEl) {
+          logicJsonViewEl.textContent = pretty || "{}";
+        }
+      }
+
+      function getFormJson() {
+        const fd = new FormData(formEl);
+
+        const pick = (name) => (fd.get(name) || "").toString().trim();
+
+        const pickLines = (name) => {
+          const raw = pick(name);
+          if (!raw) return [];
+          return raw
+            .split(/\r?\n/)
+            .map((s) => s.trim())
+            .filter(Boolean);
+        };
+
+        return {
+          user_question: pick("user_question"),
+          brand_name: pick("brand_name"),
+          category: pick("category"),
+          target_audience: pick("target_audience"),
+          core_value: pick("core_value"),
+          key_features: pickLines("key_features"),
+          differentiators: pickLines("differentiators"),
+          use_cases: pickLines("use_cases"),
+          must_expose: pick("must_expose"),
+          expo_hint: pick("expo_hint"),
+          model_ui: pick("model_ui") || "groq",
+        };
+      }
+
+      // 仅校验品牌简介
+      async function callValidateBrandBrief() {
+        try {
+          setStatus("校验品牌信息中…", "loading");
+          validateBtn.disabled = true;
+          stage1Btn.disabled = true;
+
+          const payload = getFormJson();
+
+          const res = await fetch(`${API_BASE}/api/brand-brief/validate`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await res.json().catch(() => null);
+
+          if (!res.ok || !data) {
+            console.error(
+              "[alpha-cot] /brand-brief/validate HTTP 错误",
+              res.status,
+            );
+            setStatus(`品牌简介校验失败（HTTP ${res.status}）`, "error");
+            return;
+          }
+
+          if (!data.ok) {
+            setStatus("品牌简介校验未通过，请检查必填字段", "error");
+          } else {
+            setStatus("品牌简介校验完成 ✅", "ok");
+          }
+
+          if (resultJsonEl) {
+            resultJsonEl.textContent = JSON.stringify(data, null, 2);
+          }
+        } catch (err) {
+          console.error("[alpha-cot] validate exception", err);
+          setStatus("品牌简介校验异常，请查看控制台", "error");
+        } finally {
+          validateBtn.disabled = false;
+          stage1Btn.disabled = false;
+        }
+      }
+
+      // 生成 Stage1 + 解析
+      async function callStage1RunAndParse() {
+        try {
+          setStatus("正在生成 Stage1 逻辑链…", "loading");
+          validateBtn.disabled = true;
+          stage1Btn.disabled = false;
+
+          const basePayload = getFormJson();
+
+          // 1) 先调用 /brand-brief/validate 拿到 brand_brief_text
+          const resValidate = await fetch(
+            `${API_BASE}/api/brand-brief/validate`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(basePayload),
+            },
+          );
+
+          const validateData = await resValidate.json().catch(() => null);
+
+          if (!resValidate.ok || !validateData) {
+            console.error(
+              "[alpha-cot] /brand-brief/validate HTTP 错误",
+              resValidate.status,
+            );
+            setStatus(
+              `Stage1 前置校验失败（HTTP ${resValidate.status}）`,
+              "error",
+            );
+            return;
+          }
+
+          if (!validateData.ok || !validateData.brand_brief_text) {
+            setStatus("Stage1 前置校验未通过，请先修正品牌简介", "error");
+            if (resultJsonEl) {
+              resultJsonEl.textContent = JSON.stringify(validateData, null, 2);
+            }
+            return;
+          }
+
+          if (resultJsonEl) {
+            resultJsonEl.textContent = JSON.stringify(validateData, null, 2);
+          }
+
+          // 2) 调用 /cot/stage1/run 生成 Stage1 Markdown
+          const runPayload = {
+            user_question: basePayload.user_question,
+            brand_brief_text: validateData.brand_brief_text,
+            must_expose: basePayload.must_expose,
+            expo_hint: basePayload.expo_hint,
+            model_ui: basePayload.model_ui || "groq",
+          };
+
+          const resRun = await fetch(`${API_BASE}/api/cot/stage1/run`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(runPayload),
+          });
+
+          const runData = await resRun.json().catch(() => null);
+
+          if (!resRun.ok || !runData) {
+            console.error(
+              "[alpha-cot] /cot/stage1/run HTTP 错误",
+              resRun.status,
+            );
+            setStatus(`Stage1 生成失败（HTTP ${resRun.status}）`, "error");
+            return;
+          }
+
+          // 后端字段名兼容处理
+          const stage1Md =
+            runData.stage1_md ||
+            runData.stage1_markdown || // FastAPI 实际返回
+            runData.stage1 ||
+            "";
+
+          if (!runData.ok || !stage1Md) {
+            console.error("[alpha-cot] Stage1 业务错误", runData);
+            setStatus("Stage1 生成失败，返回内容为空，请查看控制台", "error");
+            return;
+          }
+
+          // 渲染 Markdown（同步写入 textarea + 预览）
+          renderStage1Markdown(stage1Md);
+
+          // 3) 调用 /cot/stage1/parse 解析逻辑链 JSON
+          const parsePayload = {
+            stage1_md: stage1Md,
+            user_question: basePayload.user_question,
+            brand_brief: validateData.brand_brief_text,
+            must_expose: basePayload.must_expose,
+            expo_hint: basePayload.expo_hint,
+          };
+
+          const resParse = await fetch(`${API_BASE}/api/cot/stage1/parse`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(parsePayload),
+          });
+
+          const parseData = await resParse.json().catch(() => null);
+
+          if (!resParse.ok || !parseData) {
+            console.error(
+              "[alpha-cot] /cot/stage1/parse HTTP 错误",
+              resParse.status,
+            );
+            setStatus(`Stage1 解析失败（HTTP ${resParse.status}）`, "error");
+            return;
+          }
+
+          if (!parseData.ok || !parseData.data) {
+            console.error("[alpha-cot] Stage1 解析业务错误", parseData);
+            setStatus("Stage1 解析失败，请查看控制台", "error");
+            return;
+          }
+
+          // 渲染 JSON
+          renderStage1Json(parseData.data);
+
+          // 更新 run_id & 时间
+          currentRunId =
+            parseData.data.run_id ||
+            (parseData.data.meta && parseData.data.meta.run_id) ||
+            null;
+          lastSuccessAt = new Date().toISOString();
+          updateRunInfo();
+
+          setStatus("Stage1 生成 + 解析完成 ✅", "ok");
+        } catch (err) {
+          console.error("[alpha-cot] stage1/run error", err);
+          setStatus("Stage1 生成或解析异常，请查看控制台", "error");
+        } finally {
+          validateBtn.disabled = false;
+          stage1Btn.disabled = false;
+        }
+      }
+
+      // 事件绑定
+      validateBtn.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        callValidateBrandBrief();
+      });
+
+      stage1Btn.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        callStage1RunAndParse();
+      });
+
+      // 复制 Markdown
+      if (copyMdBtn) {
+        copyMdBtn.addEventListener("click", async () => {
+          if (!currentStage1Markdown) return;
+          try {
+            await navigator.clipboard.writeText(currentStage1Markdown);
+            setStatus("Stage1 Markdown 已复制到剪贴板", "ok");
+          } catch (e) {
+            console.warn("[alpha-cot] 复制 Markdown 失败", e);
+            setStatus("复制 Markdown 失败，请检查浏览器权限", "error");
+          }
+        });
+      }
+
+      // 复制 JSON
+      if (copyJsonBtn) {
+        copyJsonBtn.addEventListener("click", async () => {
+          if (!currentParsedJson) return;
+          try {
+            await navigator.clipboard.writeText(
+              JSON.stringify(currentParsedJson, null, 2),
+            );
+            setStatus("解析后的 JSON 已复制到剪贴板", "ok");
+          } catch (e) {
+            console.warn("[alpha-cot] 复制 JSON 失败", e);
+            setStatus("复制 JSON 失败，请检查浏览器权限", "error");
+          }
+        });
+      }
+
+      console.log("[alpha-cot] initAlphaCot 完成");
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initAlphaCot);
+    } else {
+      initAlphaCot();
+    }
+  </script>
+
+
+</Layout>

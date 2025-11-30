@@ -1,0 +1,59 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import ContactHero from "../../components/contact/ContactHero.astro"
+import ContactForm from "../../components/contact/ContactForm.astro"
+import ContactCooperate from "../../components/contact/ContactCooperate.astro"
+
+// ✅ 英文站：以 geo-max.tech 为主入口
+const pageTitle = "Contact｜GEO-Max"
+const pageDesc  = "Tell us what you want to rank for in AI search. We’ll suggest the fastest path to measurable GEO visibility."
+
+// ✅ 这里用相对路径，Layout 会结合 SITE_URL 生成完整 canonical
+const canonical = "/en/contact"
+
+// ✅ 多语言互链：EN（geo-max.tech） + ZH（oldriver.work）
+const hreflangs = [
+  { href: "/en/contact", hreflang: "en" },
+  { href: "/zh/contact", hreflang: "zh-CN" },
+]
+
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="en"
+  hreflangs={hreflangs}
+  ogImage="/og/geo-contact.png"
+>
+  <ContactHero />
+  <ContactCooperate />
+  <ContactForm />
+
+  <!-- ✅ ContactPage + Organization + ContactPoint（EN + geo-max.tech） -->
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "@id": `${canonical}#contact-page`,
+      "url": canonical,
+      "name": "Contact GEO-Max",
+      "description": pageDesc,
+      "inLanguage": "en",
+      "publisher": {
+        "@id": "https://geo-max.tech/#organization"
+      },
+      "about": {
+        "@id": "https://geo-max.tech/#organization"
+      },
+      "potentialAction": {
+        "@type": "ContactAction",
+        "name": "Submit business inquiry",
+        // 如果你的 API 还是在 api.oldriver.work，可以把下面这个地址改回去
+        "target": "https://geo-max.tech/lead-collect?json=1"
+      }
+    })}
+  </script>
+
+</Layout>

@@ -1,0 +1,133 @@
+---
+/* G_main.astro — 客户 & 媒体信任区（Logo 墙 + 引用推荐） */
+
+// ① 统一数据源
+const logos = [
+  { name: 'Acme Foods',   src: '/assets/logos/acme.png',   alt: 'Acme Foods',   href: '#' },
+  { name: 'Nebula Labs',  src: '/assets/logos/nebula.png', alt: 'Nebula Labs',  href: '#' },
+  { name: 'Aurora Media', src: '/assets/logos/aurora.png', alt: 'Aurora Media', href: '#' },
+  { name: 'Pioneer Tech', src: '/assets/logos/pioneer.png',alt: 'Pioneer Tech', href: '#' },
+  { name: 'Atlas Retail', src: '/assets/logos/atlas.png',  alt: 'Atlas Retail', href: '#' },
+  { name: 'Vertex AI',    src: '/assets/logos/vertex.png', alt: 'Vertex AI',    href: '#' },
+];
+
+type Testimonial = {
+  quote: string;
+  author: string;   // 例如：'刘一 · 增长负责人'
+  org: string;
+  avatar: string;
+  rating?: number;  // 可选，默认 5
+};
+
+const testimonials: Testimonial[] = [
+  {
+    quote: '奇点GEO 让我们在 AI 搜索中的复述率提升显著，品牌要点不再“丢包”。两周内完成从诊断到分发的闭环。',
+    author: '刘一 · 增长负责人',
+    org: 'Acme Foods',
+    avatar: '/assets/avatars/a1.png',
+    rating: 5,
+  },
+  {
+    quote: '相比传统 SEO，GEO 的“可见度 + 可复述性”指标更贴近业务目标。报表能复现、过程可审计。',
+    author: 'Zane · 数据总监',
+    org: 'Nebula Labs',
+    avatar: '/assets/avatars/a2.png',
+    rating: 5,
+  },
+  {
+    quote: '媒体侧尤其关心信源与权威性。你们的信源增强与 Schema 方案，让我们报道更愿意引用官方表述。',
+    author: 'Cora · 资深记者',
+    org: 'Aurora Media',
+    avatar: '/assets/avatars/a3.png',
+    rating: 5,
+  },
+];
+
+// ② 仅保留一份 JSON-LD，避免“可见层 microdata + JSON-LD”双写导致的重复/不一致
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "奇点GEO",
+  "url": "https://oldriver.work",
+  "logo": "https://oldriver.work/assets/logo.png",
+  "review": testimonials.map(t => ({
+    "@type": "Review",
+    "reviewBody": t.quote,
+    "author": { "@type": "Person", "name": t.author.split('·')[0].trim() },
+    "itemReviewed": { "@type": "Organization", "name": "奇点GEO" },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": String(t.rating ?? 5),
+      "bestRating": "5"
+    }
+  })),
+  // 可选：若后续有足够样本再打开聚合评分
+  // "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "bestRating": "5", "ratingCount": "128" }
+};
+---
+
+<section class="max-w-[85rem] px-4 py-12 sm:px-6 lg:px-8 lg:py-16 mx-auto" aria-labelledby="trust-title">
+  <!-- Title -->
+  <div class="mx-auto max-w-2xl text-center mb-10">
+    <h2 id="trust-title" class="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-gray-100">
+      获得客户与媒体的长期信任
+    </h2>
+    <p class="mt-3 text-gray-600 dark:text-gray-300">
+      来自品牌方与媒体的真实反馈，持续验证 奇点GEO 的可见度与复述性优势。
+    </p>
+  </div>
+  <!-- End Title -->
+
+  <!-- Logo Wall（等高自适应、对齐更稳） -->
+  <div class="relative rounded-2xl border bg-white/60 backdrop-blur p-6 sm:p-8 dark:bg-slate-900/60 dark:border-gray-700">
+    <ul role="list" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 items-center">
+      {logos.map((l) => (
+        <li class="flex items-center justify-center">
+          <a href={l.href} aria-label={l.name} class="group block" rel="nofollow noopener">
+            <div class="h-12 sm:h-14 lg:h-16 w-full max-w-[160px] mx-auto flex items-center justify-center">
+              <img
+                src={l.src}
+                alt={l.alt}
+                class="max-h-full w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+                loading="lazy"
+                decoding="async"
+                sizes="(min-width:1024px) 160px, 33vw"
+              />
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <!-- End Logo Wall -->
+
+  <!-- Testimonials -->
+  <div class="grid gap-6 sm:gap-8 md:grid-cols-3 mt-10">
+    {testimonials.map((t) => (
+      <figure class="h-full rounded-2xl border bg-white p-6 md:p-7 shadow-sm dark:bg-slate-900 dark:border-gray-700">
+        <div class="flex items-center gap-3">
+          <img
+            src={t.avatar}
+            alt={`${t.author} avatar`}
+            class="w-10 h-10 rounded-full object-cover bg-gray-200 dark:bg-gray-700"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>
+            <div class="text-sm font-semibold text-gray-900 dark:text-gray-100">{t.author}</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">{t.org}</div>
+          </figcaption>
+        </div>
+        <blockquote class="mt-4">
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed">“{t.quote}”</p>
+        </blockquote>
+      </figure>
+    ))}
+  </div>
+  <!-- End Testimonials -->
+
+  <!-- 单一 JSON-LD（由数组自动生成，避免重复维护） -->
+  <script type="application/ld+json">
+    {JSON.stringify(orgJsonLd)}
+  </script>
+</section>

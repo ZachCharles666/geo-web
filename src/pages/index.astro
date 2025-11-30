@@ -1,59 +1,36 @@
 ---
-import Layout from '../layouts/Layout.astro';
-
-import A_main from '../components/A_main.astro';
-import B_main from '../components/B_main.astro';
-import C_main from '../components/C_main.astro';
-import Cc_main from '../components/Cc_main.astro';
-import D_main from '../components/D_main.astro';
-import E_main from '../components/E_main.astro';
-import F_main from '../components/F_main.astro';
-import G_main from '../components/G_main.astro';
-import H_main from '../components/H_main.astro';
+export const prerender = true;
 ---
 
-<Layout title="Preline - Astro">
-	<main>
-		<div class="mb-8">
-			<A_main />
-		</div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <!-- 无 JS 兜底：默认去 EN -->
+    <meta http-equiv="refresh" content="0; url=/en" />
+    <link rel="canonical" href="https://geo-max.tech/en" />
+    <title>Redirecting… | GEO-Max</title>
+  </head>
+  <body>
+    <script>
+      (function () {
+        try {
+          var lang = (navigator.language || navigator.languages?.[0] || '').toLowerCase();
+          var isZh = lang.startsWith('zh');
+          window.location.replace(isZh ? "/zh" : "/en");
+        } catch (e) {
+          window.location.replace("/en");
+        }
+      })();
+    </script>
 
-		<div class="mb-8">
-			<B_main />
-		</div>
-
-		<div class="mb-8">
-			<C_main />
-		</div>
-
-		<div class="mb-8">
-			<Cc_main />
-		</div>
-
-		<div class="mb-8">
-			<D_main />
-		</div>
-
-		<div class="mb-8">
-			<E_main />
-		</div>
-
-		<div class="mb-8">
-			<F_main />
-		</div>
-
-		<div class="mb-8">
-			<G_main />
-		</div>
-
-		<div class="mb-8">
-			<H_main />
-		</div>
-	</main>
-</Layout>
-
-<style>
-	main {
-		padding: 1rem;
-	}
-</style>
+    <noscript>
+      <p>
+        Redirecting… If it doesn’t happen, choose your language:
+        <a href="/zh">中文</a> |
+        <a href="/en">English</a>
+      </p>
+    </noscript>
+  </body>
+</html>

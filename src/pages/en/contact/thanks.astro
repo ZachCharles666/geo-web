@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../../layouts/Layout.astro';
+
+// 允许从链接带参 ?qr=/assets/qr/xxx.png&name=Alice
+const sp = Astro.url.searchParams;
+const qrFromQuery = sp.get('qr');
+const nameFromQuery = sp.get('name');
+
+// 你的「唯一」顾问信息（默认值）
+const DEFAULT_QR = '/assets/qr/qr1.png';   // ← 放你的唯一二维码路径
+const DEFAULT_NAME = 'GEO顾问';                      // ← 想显示姓名就填，如 'Alice'
+
+// 最终使用
+const qr = qrFromQuery || DEFAULT_QR;
+const ownerName = nameFromQuery || DEFAULT_NAME;
+---
+
+<BaseLayout title="提交成功 - GEO-Max">
+  <section class="max-w-xl mx-auto py-12 px-4 text-center">
+    <h1 class="text-2xl font-semibold mb-4">感谢您的登记！</h1>
+    <p class="text-gray-600 mb-8">
+      我们的顾问将在 1 小时内与您联系。<br />
+      您也可以立即添加
+      <span class="font-medium">{ownerName}</span>
+      的微信：
+    </p>
+
+    <img src={qr} alt="微信二维码" class="mx-auto w-48 h-48 rounded-md border" />
+
+    <p class="text-gray-500 mt-4 text-sm">添加时请备注您的公司名称。</p>
+  </section>
+</BaseLayout>

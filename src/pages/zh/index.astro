@@ -1,0 +1,162 @@
+---
+import Layout from '../../layouts/Layout.astro'
+
+import A_main from '../../components/zh/A_main.astro'
+import B_main from '../../components/zh/B_main.astro'
+import C_main from '../../components/zh/C_main.astro'
+import Cc_main from '../../components/zh/Cc_main.astro'
+import D_main from '../../components/zh/D_main.astro'
+import E_main from '../../components/zh/E_main.astro'
+import E2_main from "../../components/zh/E2_main.astro"
+import F_main from '../../components/zh/F_main.astro'
+import G_main from '../../components/zh/G_main.astro'
+import H_main from '../../components/zh/H_main.astro'
+
+const pageTitle = "奇点GEO｜让品牌在 AI 搜索中被看见"
+const pageDesc  = "奇点GEO：融合内容优化、信源构建与多模型分发的生成式引擎优化平台，系统提升品牌在 AI 搜索/问答中的可见度与可信度。"
+const canonical = "https://oldriver.work"
+const hreflangs = [
+//   { href: "https://yourdomain.com/zh/", hreflang: "zh-CN" },
+  { href: "https://oldriver.work/",    hreflang: "zh-CN" }
+]
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="zh-CN"
+  hreflangs={hreflangs}
+  ogImage="/og/geo-home.png"
+>
+  <main class="space-y-8 p-4">
+
+    <!-- ✅ 结构化数据：Organization + WebSite(SearchAction) -->
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "奇点GEO",
+        "url": "https://oldriver.work/",
+        "logo": "https://yourdomain.com/logo.png",
+        "sameAs": [
+          "https://x.com/geo_max",
+          "https://www.linkedin.com/company/geomax"
+        ],
+        "description": "奇点GEO 生成式引擎优化（GEO）平台：内容优化、信源构建、多模型分发"
+      })}
+    </script>
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "url": "https://oldriver.work/",
+        "name": "奇点GEO",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://oldriver.work/search?q={query}",
+          "query-input": "required name=query"
+        }
+      })}
+    </script>
+
+    <!-- ✅ FAQPage：把 GEO 常见问题显式给到 GE/SGE（提升可见度） -->
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "什么是 GEO？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "GEO 是 Generative Engine Optimization 的缩写，指面向生成式搜索和 AI 引擎的新一代内容呈现与信源构建体系。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "GEO 的核心作用是什么？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "GEO 的核心作用是帮助品牌和机构在 AI 搜索与智能问答场景中被识别、被引用，从而提升内容的可信度与可见度。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "GEO 与传统 SEO 有什么区别？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "SEO 主要面向网页排名与关键词搜索，而 GEO 面向生成式 AI，强调内容的结构化表达、可验证事实与品牌信源建设。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "为什么 GEO 在生成式搜索时代变得重要？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "随着 AI 搜索成为主流入口，GEO 让品牌内容更容易被模型识别并纳入生成回答，从而成为新型的内容曝光方式。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "奇点GEO 是什么？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "奇点GEO 是一个融合内容分析、信源构建、内容改写与多模型分发的生成式引擎优化平台，致力于让优质内容在 AI 世界中被看见。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "奇点GEO 的核心优势是什么？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "奇点GEO 拥有自主的 GEO-Max 引擎与 GEO-Score 评价体系，能够系统衡量内容在生成式搜索中的表现与可信度。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "奇点GEO 与其他同类平台相比有什么特色？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "奇点GEO 以多模型协同为核心，结合独有的逻辑链与证据链技术，使内容不仅被理解，还能被引用与呈现。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "谁适合使用奇点GEO？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "奇点GEO 适合希望在 AI 搜索时代提升品牌曝光与权威形象的企业、机构与内容创作者，适合快速拓展年轻用户群体的新兴产业。"
+            }
+          }
+        ]
+
+      })}
+    </script>
+
+    <!-- ✅ 模块化内容区（与你现有完全一致） -->
+    <div class="mb-8"><A_main /></div>
+    <div class="mb-8"><B_main /></div>
+    <div class="mb-8"><C_main /></div>
+    <div class="mb-8"><Cc_main /></div>
+    <div class="mb-8"><D_main /></div>
+    <div class="mb-8"><E_main /></div>
+    <div class="mb-8"><E2_main /></div>
+    <div class="mb-8"><F_main /></div>
+    <div class="mb-8"><G_main /></div>
+    <div class="mb-8"><H_main /></div>
+
+    <!-- ✅ CTA -->
+    <section id="cta" class="py-16 text-center bg-indigo-600 text-white rounded-xl shadow-md">
+      <h2 class="text-2xl font-semibold mb-4">立即开启 GEO 旅程</h2>
+      <p class="max-w-xl mx-auto mb-6">提交你的品牌或内容，我们将帮助你出现在更多 AI 搜索结果与生成回答中。</p>
+      <a href="/zh/contact" class="inline-block bg-white text-indigo-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-100">联系我们</a>
+    </section>
+
+  </main>
+</Layout>
+
+<style>
+  main { padding: 1rem; }
+</style>

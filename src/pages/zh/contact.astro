@@ -1,0 +1,52 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import ContactHero from "../../components/contact/zh/ContactHero.astro"
+import ContactForm from "../../components/contact/zh/ContactForm.astro"
+import ContactCooperate from "../../components/contact/zh/ContactCooperate.astro"
+
+const pageTitle = "联系我们｜奇点GEO"
+const pageDesc  = "与奇点GEO取得联系：GEO 诊断、评分引擎、报告生成、多模型分发等合作与咨询。"
+const canonical = "https://oldriver.work/zh/contact"
+const hreflangs = [
+  { href: "https://oldriver.work/zh/contact", hreflang: "zh-CN" },
+  // { href: "https://yourdomain.com/contact",    hreflang: "en" }
+]
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="zh-CN"
+  hreflangs={hreflangs}
+  ogImage="/og/geo-contact.png"
+>
+  <ContactHero />
+  <ContactCooperate />
+  <ContactForm />
+
+  <!-- ✅ ContactPage + Organization + ContactPoint（更完整） -->
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "@id": `${canonical}#contact-page`,
+      "url": canonical,
+      "name": "联系奇点GEO",
+      "description": pageDesc,
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@id": "https://oldriver.work/#organization"
+      },
+      "about": {
+        "@id": "https://oldriver.work/#organization"
+      },
+      "potentialAction": {
+        "@type": "ContactAction",
+        "name": "提交业务咨询",
+        "target": "https://oldriver.work/api/lead-collect"
+      }
+    })}
+  </script>
+
+</Layout>
