@@ -1,290 +1,56 @@
----
-import Layout from "../layouts/Layout.astro";
----
-
-<Layout title="Alpha COT · GEO-Max 实验台">
-  <main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
-    <header class="space-y-2">
-      <h1 class="text-2xl font-bold text-gray-900">
-        Alpha COT · GEO-Max 逻辑链实验台
-      </h1>
-      <p class="text-gray-600 text-sm">
-        左侧输入品牌信息和目标问题，右侧查看 Stage1 生成的 Markdown 草稿与解析后的 JSON 逻辑链。
-      </p>
-      <p id="alpha-cot-status" class="text-xs text-gray-400">
-        就绪
-      </p>
-
-      <!-- 新增：运行信息（run_id + 上次成功时间） -->
-      <div class="flex flex-wrap items-center gap-3 text-[11px] text-gray-500">
-        <span>
-          当前 run_id：
-          <span id="alpha-cot-run-id" class="font-mono text-gray-700">尚未生成</span>
-        </span>
-        <span>
-          上次成功生成：
-          <span id="alpha-cot-last-success" class="font-mono text-gray-700">-</span>
-        </span>
-      </div>
-    </header>
-
-
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <!-- 左侧：输入表单 -->
-      <div class="space-y-6">
-        <form id="alpha-cot-form" class="space-y-4">
-          <!-- 目标问题 -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">
-              目标问题（user_question）
-            </label>
-            <textarea
-              name="user_question"
-              rows="2"
-              class="w-full border rounded-md px-3 py-2 text-sm"
-              placeholder="例如：请帮我为一家制造业CRM软件写一个 GEO 友好的产品介绍大纲"
-            ></textarea>
-          </div>
-
-          <!-- 品牌基本信息 -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
-                品牌名称（brand_name）
-              </label>
-              <input
-                type="text"
-                name="brand_name"
-                class="w-full border rounded-md px-3 py-2 text-sm"
-                placeholder="例如：超兔 CRM"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
-                品类（category）
-              </label>
-              <input
-                type="text"
-                name="category"
-                class="w-full border rounded-md px-3 py-2 text-sm"
-                placeholder="例如：制造业 CRM 软件"
-              />
-            </div>
-          </div>
-
-          <!-- 目标人群 -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">
-              目标人群（target_audience）
-            </label>
-            <input
-              type="text"
-              name="target_audience"
-              class="w-full border rounded-md px-3 py-2 text-sm"
-              placeholder="例如：工厂老板、销售总监"
-            />
-          </div>
-
-          <!-- 核心价值 -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">
-              核心价值（core_value）
-            </label>
-            <textarea
-              name="core_value"
-              rows="2"
-              class="w-full border rounded-md px-3 py-2 text-sm"
-              placeholder="例如：帮助制造企业打通线索、订单与售后数据，让老板随时看到销售漏斗和订单利润情况"
-            ></textarea>
-          </div>
-
-          <!-- 关键特性 / 差异化 / 场景 -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
-                关键特性（key_features）
-              </label>
-              <textarea
-                name="key_features"
-                rows="4"
-                class="w-full border rounded-md px-3 py-2 text-xs"
-                placeholder="一行一个特性"
-              ></textarea>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
-                差异化卖点（differentiators）
-              </label>
-              <textarea
-                name="differentiators"
-                rows="4"
-                class="w-full border rounded-md px-3 py-2 text-xs"
-                placeholder="一行一个差异点"
-              ></textarea>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
-                典型使用场景（use_cases）
-              </label>
-              <textarea
-                name="use_cases"
-                rows="4"
-                class="w-full border rounded-md px-3 py-2 text-xs"
-                placeholder="一行一个场景"
-              ></textarea>
-            </div>
-          </div>
-
-          <!-- 露出控制 -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
-                必须露出的内容（must_expose）
-              </label>
-              <textarea
-                name="must_expose"
-                rows="2"
-                class="w-full border rounded-md px-3 py-2 text-xs"
-                placeholder="例如：品牌名 + 公众号引导文案"
-              ></textarea>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
-                露出提示（expo_hint）
-              </label>
-              <textarea
-                name="expo_hint"
-                rows="2"
-                class="w-full border rounded-md px-3 py-2 text-xs"
-                placeholder="例如：请自然嵌入品牌，而不是硬广"
-              ></textarea>
-            </div>
-          </div>
-
-          <!-- 模型选择 -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">
-                使用模型（model_ui）
-              </label>
-              <select
-                name="model_ui"
-                class="w-full border rounded-md px-3 py-2 text-sm"
-              >
-                <option value="groq">Groq / DeepSeek（演示）</option>
-                <option value="openai">OpenAI</option>
-                <option value="qwen">通义千问</option>
-                <option value="deepseek">DeepSeek</option>
-              </select>
-            </div>
-
-            <div class="flex gap-3 md:col-span-2">
-              <button
-                id="alpha-cot-validate"
-                type="button"
-                class="inline-flex items-center px-3 py-2 rounded-md border text-xs font-medium bg-white text-gray-700 hover:bg-gray-50"
-              >
-                仅校验品牌简介
-              </button>
-              <button
-                id="alpha-cot-stage1"
-                type="button"
-                class="inline-flex items-center px-4 py-2 rounded-md border border-indigo-600 text-xs font-medium bg-indigo-600 text-white hover:bg-indigo-700"
-              >
-                生成 Stage1 逻辑链草稿
-              </button>
-            </div>
-          </div>
-        </form>
-
-        <!-- 校验结果 / 原始 JSON -->
-        <div>
-          <label class="block text-xs font-medium text-gray-700 mb-1">
-            /api/brand-brief/validate 返回结果（debug）
-          </label>
-          <textarea
-            id="alpha-cot-result-json"
-            rows="10"
-            class="w-full border rounded-md px-3 py-2 text-[11px] font-mono"
-            placeholder="点击「仅校验品牌简介」或「生成 Stage1 逻辑链草稿」后，会在这里显示校验结果 JSON。"
-          ></textarea>
-        </div>
-      </div>
-
-      <!-- 右侧：Stage1 Markdown + 解析 JSON -->
-      <div class="space-y-6">
-        <div class="space-y-2">
-          <div class="flex items-center justify-between">
-            <label class="block text-xs font-medium text-gray-700">
-              Stage1 Markdown 草稿（stage1_md）
-            </label>
-            <button
-              id="alpha-cot-copy-md"
-              type="button"
-              class="px-2 py-1 text-[11px] border rounded-md bg-white hover:bg-gray-50"
-            >
-              复制 Markdown
-            </button>
-          </div>
-
-          <!-- 新增：Markdown 渲染预览区 -->
-          <div
-            id="alpha-cot-stage1-md-preview"
-            class="prose prose-sm max-w-none border rounded-md bg-slate-50 px-3 py-2 overflow-auto"
-          >
-            <p class="text-[11px] text-gray-400">
-              点击「生成 Stage1 逻辑链草稿」后，这里会以 Markdown 格式预览结果。
-            </p>
-          </div>
-
-          <!-- 保留原始 textarea，不隐藏，兼容你之前的 debug 使用方式 -->
-          <textarea
-            id="alpha-cot-stage1-md"
-            rows="14"
-            class="w-full border rounded-md px-3 py-2 text-[11px] font-mono"
-            placeholder="点击「生成 Stage1 逻辑链草稿」后，这里显示模型返回的 Stage1 Markdown。"
-          ></textarea>
-        </div>
-
-
-        <div class="space-y-2">
-          <div class="flex items-center justify-between">
-            <label class="block text-xs font-medium text-gray-700">
-              Stage1 解析后的逻辑链 JSON（含 UUID）
-            </label>
-            <button
-              id="alpha-cot-copy-json"
-              type="button"
-              class="px-2 py-1 text-[11px] border rounded-md bg-white hover:bg-gray-50"
-            >
-              复制 JSON
-            </button>
-          </div>
-
-          <!-- 新增：JSON 预览区 -->
-          <pre
-            class="w-full border rounded-md bg-black text-green-100 text-[11px] font-mono max-h-80 overflow-auto px-3 py-2"
-          >
-        <code id="alpha-cot-logic-json-view">
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.3"><title>Alpha COT · GEO-Max 实验台</title><meta name="description" content="Alpha COT · GEO-Max 实验台"><link rel="canonical" href="http://localhost:3000"><meta property="og:type" content="website"><meta property="og:site_name" content="GEO-Max"><meta property="og:title" content="Alpha COT · GEO-Max 实验台"><meta property="og:description" content="Alpha COT · GEO-Max 实验台"><meta property="og:image" content="/og/geo-default.png"><meta property="og:url" content="http://localhost:3000"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Alpha COT · GEO-Max 实验台"><meta name="twitter:description" content="Alpha COT · GEO-Max 实验台"><meta name="twitter:image" content="/og/geo-default.png"><meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"><link rel="stylesheet" href="/_astro/alpha-access.Dgfc0NKp.css">
+<link rel="stylesheet" href="/_astro/alpha-access.C2hhvBIr.css"></head> <body class="min-h-screen bg-white text-gray-900">     <main class="max-w-6xl mx-auto px-4 py-8 space-y-8"> <header class="space-y-2"> <h1 class="text-2xl font-bold text-gray-900">
+Alpha COT · GEO-Max 逻辑链实验台
+</h1> <p class="text-gray-600 text-sm">
+左侧输入品牌信息和目标问题，右侧查看 Stage1 生成的 Markdown 草稿与解析后的 JSON 逻辑链。
+</p> <p id="alpha-cot-status" class="text-xs text-gray-400">
+就绪
+</p> <!-- 新增：运行信息（run_id + 上次成功时间） --> <div class="flex flex-wrap items-center gap-3 text-[11px] text-gray-500"> <span>
+当前 run_id：
+<span id="alpha-cot-run-id" class="font-mono text-gray-700">尚未生成</span> </span> <span>
+上次成功生成：
+<span id="alpha-cot-last-success" class="font-mono text-gray-700">-</span> </span> </div> </header> <section class="grid grid-cols-1 lg:grid-cols-2 gap-8"> <!-- 左侧：输入表单 --> <div class="space-y-6"> <form id="alpha-cot-form" class="space-y-4"> <!-- 目标问题 --> <div> <label class="block text-sm font-medium text-gray-700 mb-1">
+目标问题（user_question）
+</label> <textarea name="user_question" rows="2" class="w-full border rounded-md px-3 py-2 text-sm" placeholder="例如：请帮我为一家制造业CRM软件写一个 GEO 友好的产品介绍大纲"></textarea> </div> <!-- 品牌基本信息 --> <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> <div> <label class="block text-sm font-medium text-gray-700 mb-1">
+品牌名称（brand_name）
+</label> <input type="text" name="brand_name" class="w-full border rounded-md px-3 py-2 text-sm" placeholder="例如：超兔 CRM"> </div> <div> <label class="block text-sm font-medium text-gray-700 mb-1">
+品类（category）
+</label> <input type="text" name="category" class="w-full border rounded-md px-3 py-2 text-sm" placeholder="例如：制造业 CRM 软件"> </div> </div> <!-- 目标人群 --> <div> <label class="block text-sm font-medium text-gray-700 mb-1">
+目标人群（target_audience）
+</label> <input type="text" name="target_audience" class="w-full border rounded-md px-3 py-2 text-sm" placeholder="例如：工厂老板、销售总监"> </div> <!-- 核心价值 --> <div> <label class="block text-sm font-medium text-gray-700 mb-1">
+核心价值（core_value）
+</label> <textarea name="core_value" rows="2" class="w-full border rounded-md px-3 py-2 text-sm" placeholder="例如：帮助制造企业打通线索、订单与售后数据，让老板随时看到销售漏斗和订单利润情况"></textarea> </div> <!-- 关键特性 / 差异化 / 场景 --> <div class="grid grid-cols-1 md:grid-cols-3 gap-4"> <div> <label class="block text-sm font-medium text-gray-700 mb-1">
+关键特性（key_features）
+</label> <textarea name="key_features" rows="4" class="w-full border rounded-md px-3 py-2 text-xs" placeholder="一行一个特性"></textarea> </div> <div> <label class="block text-sm font-medium text-gray-700 mb-1">
+差异化卖点（differentiators）
+</label> <textarea name="differentiators" rows="4" class="w-full border rounded-md px-3 py-2 text-xs" placeholder="一行一个差异点"></textarea> </div> <div> <label class="block text-sm font-medium text-gray-700 mb-1">
+典型使用场景（use_cases）
+</label> <textarea name="use_cases" rows="4" class="w-full border rounded-md px-3 py-2 text-xs" placeholder="一行一个场景"></textarea> </div> </div> <!-- 露出控制 --> <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> <div> <label class="block text-sm font-medium text-gray-700 mb-1">
+必须露出的内容（must_expose）
+</label> <textarea name="must_expose" rows="2" class="w-full border rounded-md px-3 py-2 text-xs" placeholder="例如：品牌名 + 公众号引导文案"></textarea> </div> <div> <label class="block text-sm font-medium text-gray-700 mb-1">
+露出提示（expo_hint）
+</label> <textarea name="expo_hint" rows="2" class="w-full border rounded-md px-3 py-2 text-xs" placeholder="例如：请自然嵌入品牌，而不是硬广"></textarea> </div> </div> <!-- 模型选择 --> <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end"> <div> <label class="block text-sm font-medium text-gray-700 mb-1">
+使用模型（model_ui）
+</label> <select name="model_ui" class="w-full border rounded-md px-3 py-2 text-sm"> <option value="groq">Groq / DeepSeek（演示）</option> <option value="openai">OpenAI</option> <option value="qwen">通义千问</option> <option value="deepseek">DeepSeek</option> </select> </div> <div class="flex gap-3 md:col-span-2"> <button id="alpha-cot-validate" type="button" class="inline-flex items-center px-3 py-2 rounded-md border text-xs font-medium bg-white text-gray-700 hover:bg-gray-50">
+仅校验品牌简介
+</button> <button id="alpha-cot-stage1" type="button" class="inline-flex items-center px-4 py-2 rounded-md border border-indigo-600 text-xs font-medium bg-indigo-600 text-white hover:bg-indigo-700">
+生成 Stage1 逻辑链草稿
+</button> </div> </div> </form> <!-- 校验结果 / 原始 JSON --> <div> <label class="block text-xs font-medium text-gray-700 mb-1">
+/api/brand-brief/validate 返回结果（debug）
+</label> <textarea id="alpha-cot-result-json" rows="10" class="w-full border rounded-md px-3 py-2 text-[11px] font-mono" placeholder="点击「仅校验品牌简介」或「生成 Stage1 逻辑链草稿」后，会在这里显示校验结果 JSON。"></textarea> </div> </div> <!-- 右侧：Stage1 Markdown + 解析 JSON --> <div class="space-y-6"> <div class="space-y-2"> <div class="flex items-center justify-between"> <label class="block text-xs font-medium text-gray-700">
+Stage1 Markdown 草稿（stage1_md）
+</label> <button id="alpha-cot-copy-md" type="button" class="px-2 py-1 text-[11px] border rounded-md bg-white hover:bg-gray-50">
+复制 Markdown
+</button> </div> <!-- 新增：Markdown 渲染预览区 --> <div id="alpha-cot-stage1-md-preview" class="prose prose-sm max-w-none border rounded-md bg-slate-50 px-3 py-2 overflow-auto"> <p class="text-[11px] text-gray-400">
+点击「生成 Stage1 逻辑链草稿」后，这里会以 Markdown 格式预览结果。
+</p> </div> <!-- 保留原始 textarea，不隐藏，兼容你之前的 debug 使用方式 --> <textarea id="alpha-cot-stage1-md" rows="14" class="w-full border rounded-md px-3 py-2 text-[11px] font-mono" placeholder="点击「生成 Stage1 逻辑链草稿」后，这里显示模型返回的 Stage1 Markdown。"></textarea> </div> <div class="space-y-2"> <div class="flex items-center justify-between"> <label class="block text-xs font-medium text-gray-700">
+Stage1 解析后的逻辑链 JSON（含 UUID）
+</label> <button id="alpha-cot-copy-json" type="button" class="px-2 py-1 text-[11px] border rounded-md bg-white hover:bg-gray-50">
+复制 JSON
+</button> </div> <!-- 新增：JSON 预览区 --> <pre class="w-full border rounded-md bg-black text-green-100 text-[11px] font-mono max-h-80 overflow-auto px-3 py-2">        <code id="alpha-cot-logic-json-view">
         // 点击「生成 Stage1 逻辑链草稿」后，这里会显示 /cot/stage1/parse 的 data 部分。
         </code>
-          </pre>
-
-          <!-- 原始 textarea 保留 -->
-          <textarea
-            id="alpha-cot-logic-json"
-            rows="14"
-            class="w-full border rounded-md px-3 py-2 text-[11px] font-mono"
-            placeholder="点击「生成 Stage1 逻辑链草稿」后，这里显示 /cot/stage1/parse 解析结果。"
-          ></textarea>
-        </div>
-
-
-      </div>
-    </section>
-  </main>
-
-    <script type="module">
+          </pre> <!-- 原始 textarea 保留 --> <textarea id="alpha-cot-logic-json" rows="14" class="w-full border rounded-md px-3 py-2 text-[11px] font-mono" placeholder="点击「生成 Stage1 逻辑链草稿」后，这里显示 /cot/stage1/parse 解析结果。"></textarea> </div> </div> </section> </main> <script type="module">
     // @ts-nocheck
 
     // 本地 FastAPI Alpha API 地址；如需改为线上，可替换为你的域名
@@ -647,7 +413,17 @@ import Layout from "../layouts/Layout.astro";
     } else {
       initAlphaCot();
     }
-  </script>
-
-
-</Layout>
+  </script>   <footer class="mt-16 border-t py-6 text-center text-sm text-gray-500"> <div class="space-x-6"> <a href="/alpha" class="text-gray-700 hover:text-black font-medium">
+GEO-Max Alpha
+</a> <a href="/rewrite" class="text-gray-600 hover:text-black">
+Rewrite Engine
+</a> <a href="/score" class="text-gray-600 hover:text-black">
+GEO-Score
+</a> <a href="/en/contact" class="text-gray-600 hover:text-black">
+Talk to Us
+</a> </div> <p class="mt-4 text-xs text-gray-400 leading-relaxed max-w-xl mx-auto">
+GEO-Max™ helps brands become the preferred answer for AI systems.
+<br>Not SEO. Not ads. A new engine of generative visibility.
+</p> <p class="mt-2 text-xs text-gray-400">
+© 2025 GEO-Max™ • Generative Engine Optimization
+</p> </footer>  <script type="module" src="/src/scripts/preline.ts"></script>   </body> </html>

@@ -1,22 +1,22 @@
 ---
 export interface Hreflang {
-  href: string
-  hreflang: string
+  href: string;
+  hreflang: string;
 }
 
 export interface Props {
-  title: string
-  description?: string
-  lang?: string               // 页面语言，如 "en" / "zh-CN"
-  canonical?: string          // 建议传相对路径，如 "/en/"、"/zh/"
-  ogImage?: string            // OG 封面
-  hreflangs?: Hreflang[]      // 多语言互链，可以传相对路径
-  noindex?: boolean           // 是否禁止索引（可用于 staging）
+  title: string;
+  description?: string;
+  lang?: string;              // 页面语言，如 "en" / "zh-CN"
+  canonical?: string;         // 建议传相对路径，如 "/en/"、"/zh/"
+  ogImage?: string;           // OG 封面
+  hreflangs?: Hreflang[];     // 多语言互链，可以传相对路径
+  noindex?: boolean;          // 是否禁止索引（可用于 staging）
+  showAuthBar?: boolean;      // ✅ 是否显示顶部 AuthBar（按页面控制）
 }
 
-// ✅ 从环境变量里读默认语言 & 站点 URL
-const defaultLang = import.meta.env.DEFAULT_LANG || "en"
-const envSiteUrl  = import.meta.env.SITE_URL
+const defaultLang = import.meta.env.DEFAULT_LANG || "en";
+const envSiteUrl  = import.meta.env.SITE_URL;
 
 const {
   title,
@@ -26,38 +26,33 @@ const {
   ogImage = "/og/geo-default.png",
   hreflangs = [],
   noindex = false,
-} = Astro.props
+  showAuthBar = false, // ✅ 默认不显示，避免影响 /en 等页面视觉
+} = Astro.props;
+
+const siteName = "GEO-Max";
 
 // ✅ 如果环境变量没配置，就给一个合理的默认值（避免本地报错）
-const siteName = "GEO-Max"
-const siteUrl  = (envSiteUrl && envSiteUrl.trim().length > 0)
-  ? envSiteUrl.trim()
-  : "https://geo-max.tech"
+const siteUrl = (envSiteUrl && String(envSiteUrl).trim().length > 0)
+  ? String(envSiteUrl).trim()
+  : "https://geo-max.tech";
 
 // ✅ 根据 canonical 路径拼出完整 URL
-//    - 若 canonical 为空，则退回站点根地址
 const canonicalUrl = canonical
   ? new URL(canonical, siteUrl).toString()
-  : siteUrl
+  : siteUrl;
 
-// ✅ 规范化 hreflang：支持传相对路径，如 "/en/"、"/zh/"
-//    - 若 href 以 "http" 开头，则认为是完整 URL，直接使用
-//    - 否则使用 siteUrl 进行拼接
+// ✅ 规范化 hreflang
 const normalizedHreflangs = hreflangs.map((h) => {
   const href = h.href.startsWith("http")
     ? h.href
-    : new URL(h.href, siteUrl).toString()
-
-  return {
-    ...h,
-    href,
-  }
-})
+    : new URL(h.href, siteUrl).toString();
+  return { ...h, href };
+});
 
 // ✅ robots：支持 noindex 开关
 const robotsContent = noindex
   ? "noindex,nofollow"
-  : "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"
+  : "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1";
 ---
 
 <!DOCTYPE html>
@@ -71,20 +66,15 @@ const robotsContent = noindex
     <title>{title}</title>
     <meta name="description" content={description || title} />
 
-    {/* ✅ 使用经过 SITE_URL 计算后的 canonicalUrl */}
+    {/* ✅ canonical */}
     <link rel="canonical" href={canonicalUrl} />
 
-    {/* ✅ 多语言互链（hreflang） */}
+    {/* ✅ hreflang */}
     {normalizedHreflangs.map((h) => (
       <link rel="alternate" hreflang={h.hreflang} href={h.href} />
     ))}
-    {/* x-default 兜底 */}
     {normalizedHreflangs.length > 0 && (
-      <link
-        rel="alternate"
-        hreflang="x-default"
-        href={normalizedHreflangs[0].href}
-      />
+      <link rel="alternate" hreflang="x-default" href={normalizedHreflangs[0].href} />
     )}
 
     {/* ✅ OG / Twitter */}
@@ -99,18 +89,74 @@ const robotsContent = noindex
     <meta name="twitter:description" content={description || title} />
     <meta name="twitter:image" content={ogImage} />
 
-    {/* ✅ 机器人指令（支持 noindex） */}
+    {/* ✅ robots */}
     <meta name="robots" content={robotsContent} />
 
-    {/* ✅ 全局样式 */}
+    {/* ✅ 全局样式（路径必须从 layouts 回到 styles） */}
     <style is:global>
       @import "../styles/tailwind.css";
     </style>
   </head>
-  <body>
+
+  <body class="min-h-screen bg-white text-gray-900">
+    {/* ✅ 可选：顶部 AuthBar（按页面开关） */}
+    {showAuthBar && (
+      <header class="sticky top-0 z-40 border-b border-gray-100 bg-white/80 backdrop-blur">
+        <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-12 h-14 flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <a href="/" class="font-semibold tracking-tight text-gray-900 hover:text-black">
+              GEO-Max
+            </a>
+
+            <nav class="hidden sm:flex items-center gap-3 text-sm text-gray-600">
+              <a href="/alpha" class="hover:text-black">Alpha</a>
+              <a href="/rewrite" class="hover:text-black">Rewrite</a>
+              <a href="/score" class="hover:text-black">Score</a>
+            </nav>
+          </div>
+
+          {/* Auth UI：由 auth-bar.ts 客户端脚本渲染 */}
+          <div id="auth-bar" class="flex items-center gap-2">
+            <span class="text-xs text-gray-500">Loading…</span>
+          </div>
+        </div>
+      </header>
+    )}
+
+    {/* 页面主体 */}
     <slot />
-    <script is:inline type="module">
-      import "preline/dist/preline.js";
-    </script>
+
+    {/* Footer：保持在 body 内 */}
+    <footer class="mt-16 border-t py-6 text-center text-sm text-gray-500">
+      <div class="space-x-6">
+        <a href="/alpha" class="text-gray-700 hover:text-black font-medium">
+          GEO-Max Alpha
+        </a>
+        <a href="/rewrite" class="text-gray-600 hover:text-black">
+          Rewrite Engine
+        </a>
+        <a href="/score" class="text-gray-600 hover:text-black">
+          GEO-Score
+        </a>
+        <a href="/en/contact" class="text-gray-600 hover:text-black">
+          Talk to Us
+        </a>
+      </div>
+
+      <p class="mt-4 text-xs text-gray-400 leading-relaxed max-w-xl mx-auto">
+        GEO-Max™ helps brands become the preferred answer for AI systems.
+        <br />Not SEO. Not ads. A new engine of generative visibility.
+      </p>
+
+      <p class="mt-2 text-xs text-gray-400">
+        © {new Date().getFullYear()} GEO-Max™ • Generative Engine Optimization
+      </p>
+    </footer>
+
+    {/* ✅ Preline：走 Vite 模块脚本，避免裸模块 import */}
+    <script type="module" src="/src/scripts/preline.ts"></script>
+
+    {/* ✅ AuthBar 仅在 showAuthBar=true 时加载 */}
+    {showAuthBar && <script type="module" src="/src/scripts/auth-bar.ts"></script>}
   </body>
 </html>

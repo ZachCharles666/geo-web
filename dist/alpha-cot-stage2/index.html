@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.3"><title>GEO Alpha · Stage2 Blueprint Playground</title><meta name="description" content="GEO Alpha · Stage2 Blueprint Playground"><link rel="canonical" href="http://localhost:3000"><meta property="og:type" content="website"><meta property="og:site_name" content="GEO-Max"><meta property="og:title" content="GEO Alpha · Stage2 Blueprint Playground"><meta property="og:description" content="GEO Alpha · Stage2 Blueprint Playground"><meta property="og:image" content="/og/geo-default.png"><meta property="og:url" content="http://localhost:3000"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="GEO Alpha · Stage2 Blueprint Playground"><meta name="twitter:description" content="GEO Alpha · Stage2 Blueprint Playground"><meta name="twitter:image" content="/og/geo-default.png"><meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"><link rel="stylesheet" href="/_astro/alpha-access.Dgfc0NKp.css">
+<link rel="stylesheet" href="/_astro/alpha-access.C2hhvBIr.css"></head> <body class="min-h-screen bg-white text-gray-900">     <main class="max-w-6xl mx-auto px-4 py-8 space-y-6"> <header class="space-y-2"> <h1 class="text-xl font-semibold">
+GEO Alpha · Stage2 内容链 & Blueprint Playground
+</h1> <p class="text-xs text-gray-500">
+这里专门用于调试 <span class="font-mono">/api/cot/stage2/run</span> 的输出，
+        输入 Stage1 的 Markdown + 解析 JSON，生成内容链（Content Chains）和标题矩阵（Title Matrix）等 Blueprint。
+</p> </header> <!-- 顶部：状态提示栏 --> <section id="stage2-status" class="text-xs rounded-md border px-3 py-2 bg-slate-50 text-gray-600">
+Stage2 就绪：请先从 Stage1 页面复制 Markdown / JSON，然后在左侧粘贴后点击「运行 Stage2」。
+</section> <!-- 主体：左右两栏 --> <section class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start"> <!-- 左侧：输入区 --> <div class="space-y-4"> <div class="space-y-1"> <label class="block text-xs font-medium text-gray-700">
+Stage1 Markdown（从 alpha-cot.astro 页面复制）
+</label> <textarea id="stage2-input-md" rows="12" class="w-full border rounded-md px-3 py-2 text-[11px] font-mono" placeholder="请将 Stage1 页面生成的 Markdown（stage1_md）粘贴到这里……"></textarea> </div> <div class="space-y-1"> <label class="block text-xs font-medium text-gray-700">
+Stage1 解析后的 JSON（logic_index / mlc_nodes / llc_nodes）
+</label> <textarea id="stage2-input-json" rows="10" class="w-full border rounded-md px-3 py-2 text-[11px] font-mono" placeholder="请将 Stage1 页面解析得到的 JSON（/cot/stage1/parse 的 data 字段）粘贴到这里……"></textarea> </div> <!-- 可选：基础信息补充，方便传给后端 --> <div class="grid grid-cols-1 md:grid-cols-2 gap-3"> <div class="space-y-1"> <label class="block text-xs font-medium text-gray-700">
+目标问题（可选）
+</label> <input id="stage2-user-question" type="text" class="w-full border rounded-md px-2 py-1 text-[11px]" placeholder="可选：与 Stage1 同一个 user_question"> </div> <div class="space-y-1"> <label class="block text-xs font-medium text-gray-700">
+Model UI（可选）
+</label> <select id="stage2-model-ui" class="w-full border rounded-md px-2 py-1 text-[11px]"> <option value="groq" selected>groq</option> <option value="openai">openai</option> <option value="deepseek">deepseek</option> <option value="qwen">qwen</option> </select> </div> </div> <div class="flex flex-wrap items-center gap-3"> <button id="stage2-run-btn" type="button" class="inline-flex items-center px-4 py-2 rounded-md border border-indigo-600 text-xs font-medium bg-indigo-600 text-white hover:bg-indigo-700">
+运行 Stage2（生成 Blueprint）
+</button> <button id="stage2-clear-btn" type="button" class="inline-flex items-center px-3 py-2 rounded-md border text-xs font-medium bg-white text-gray-700 hover:bg-gray-50">
+清空输入 & 输出
+</button> </div> </div> <!-- 右侧：结果区 --> <div class="space-y-4"> <div class="space-y-1"> <div class="flex items-center justify-between"> <label class="block text-xs font-medium text-gray-700">
+Stage2 Blueprint JSON（chains / titles / abstracts / routes）
+</label> <button id="stage2-copy-blueprint" type="button" class="px-2 py-1 text-[11px] border rounded-md bg-white hover:bg-gray-50">
+复制 Blueprint JSON
+</button> </div> <textarea id="stage2-blueprint-json" rows="14" class="w-full border rounded-md px-3 py-2 text-[11px] font-mono" placeholder="点击「运行 Stage2」后，这里会显示 Blueprint 的完整 JSON 结构。"></textarea> </div> <!-- 可选：CC 对齐诊断结果 --> <div class="space-y-1"> <label class="block text-xs font-medium text-gray-700">
+CC 对齐诊断（可选：若后端返回 alignment 结果）
+</label> <textarea id="stage2-cc-diagnose" rows="6" class="w-full border rounded-md px-3 py-2 text-[11px] font-mono" placeholder="如果后端在 Stage2 输出中附带 CC 对齐诊断，这里可以显示 compact 版诊断结果。"></textarea> </div> <!-- 预留：未来 GEO 指数 / 封印视图的位置 --> <div class="space-y-1 border rounded-md px-3 py-2 bg-slate-50"> <div class="flex items-center justify-between"> <span class="text-xs font-medium text-gray-700">
+预留：GEO 指数封印视图（Free / Alpha / Pro）
+</span> <span class="text-[10px] text-gray-400">
+暂时仅 UI 占位，后续再接 /api/geo/score
+</span> </div> <p class="text-[11px] text-gray-500">
+后续可以在这里展示：overall_score、已解封的 GEO-LANG / GEO-TRUST 等指标，
+            从而把「内容链 → 评分 → 封印展示」串成一个完整工作流。
+</p> </div> </div> </section> </main>  <script type="module">const y="http://127.0.0.1:8001";function t(n,r="info"){const e=document.getElementById("stage2-status");e&&(e.textContent=n,e.classList.remove("border-slate-200","border-red-300","border-emerald-300","bg-slate-50","bg-red-50","bg-emerald-50"),r==="error"?e.classList.add("border-red-300","bg-red-50"):r==="ok"?e.classList.add("border-emerald-300","bg-emerald-50"):e.classList.add("border-slate-200","bg-slate-50"))}async function S(){const n=document.getElementById("stage2-run-btn"),r=document.getElementById("stage2-input-md"),e=document.getElementById("stage2-input-json"),o=document.getElementById("stage2-blueprint-json"),c=document.getElementById("stage2-cc-diagnose"),d=document.getElementById("stage2-user-question"),i=document.getElementById("stage2-model-ui");if(!r||!e||!o)return;const u=r.value.trim(),g=e.value.trim();if(!u){t("Stage1 Markdown 为空，请先从 Stage1 页面复制结果。","error");return}if(!g){t("Stage1 解析 JSON 为空，请先从 Stage1 页面复制 /cot/stage1/parse 的 data 部分。","error");return}let a=null;try{a=JSON.parse(g)}catch(s){console.error("[stage2] JSON parse error",s),t("Stage1 JSON 解析失败，请确认格式是否为合法 JSON。","error");return}const f={user_question:d&&d.value||"",stage1_markdown:u,brand_brief:a&&(a.brand_brief||a.brand_brief_summary||a.brand&&(a.brand.brief||a.brand.summary))||"",must_expose:a&&a.must_expose||"",expo_hint:"",model_ui:i&&i.value||"Groq"};try{n&&(n.disabled=!0),t("正在调用 /api/cot/stage2/run …","info");const s=await fetch(`${y}/api/cot/stage2/run`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(f)}),l=await s.json().catch(()=>null);if(!s.ok||!l){console.error("[stage2] HTTP error",s.status),t(`Stage2 调用失败（HTTP ${s.status}）`,"error");return}if(!l.ok)console.error("[stage2] biz error",l),t("Stage2 业务失败，请查看控制台返回。","error");else{const p=l.blueprint||l.data||l;if(o.value=JSON.stringify(p,null,2),c){const m=l.cc_alignment||l.cc_diagnose||null;c.value=m?JSON.stringify(m,null,2):""}t("Stage2 运行完成 ✅ 已生成 Blueprint。","ok")}}catch(s){console.error("[stage2] exception",s),t("Stage2 调用异常，请查看控制台。","error")}finally{n&&(n.disabled=!1)}}function E(){["stage2-input-md","stage2-input-json","stage2-blueprint-json","stage2-cc-diagnose"].forEach(r=>{const e=document.getElementById(r);e&&(e.value="")}),t("已清空输入与输出。","info")}function b(){const n=document.getElementById("stage2-run-btn"),r=document.getElementById("stage2-clear-btn"),e=document.getElementById("stage2-copy-blueprint");n&&n.addEventListener("click",o=>{o.preventDefault(),S()}),r&&r.addEventListener("click",o=>{o.preventDefault(),E()}),e&&e.addEventListener("click",o=>{o.preventDefault();const c=document.getElementById("stage2-blueprint-json");c&&c.value&&navigator.clipboard.writeText(c.value).then(()=>t("Blueprint JSON 已复制到剪贴板。","ok")).catch(()=>t("复制失败，请手动选择文本复制。","error"))}),console.log("[alpha-cot-stage2] init 完成")}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",b):b();</script>   <footer class="mt-16 border-t py-6 text-center text-sm text-gray-500"> <div class="space-x-6"> <a href="/alpha" class="text-gray-700 hover:text-black font-medium">
+GEO-Max Alpha
+</a> <a href="/rewrite" class="text-gray-600 hover:text-black">
+Rewrite Engine
+</a> <a href="/score" class="text-gray-600 hover:text-black">
+GEO-Score
+</a> <a href="/en/contact" class="text-gray-600 hover:text-black">
+Talk to Us
+</a> </div> <p class="mt-4 text-xs text-gray-400 leading-relaxed max-w-xl mx-auto">
+GEO-Max™ helps brands become the preferred answer for AI systems.
+<br>Not SEO. Not ads. A new engine of generative visibility.
+</p> <p class="mt-2 text-xs text-gray-400">
+© 2025 GEO-Max™ • Generative Engine Optimization
+</p> </footer>  <script type="module" src="/src/scripts/preline.ts"></script>   </body> </html>

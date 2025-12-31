@@ -1,0 +1,755 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="GEO-Rewrite™ · Alpha"
+  description="Rewrite your content so AI agents love to quote it. GEO-Rewrite™ helps you speak in a way that LLMs can trust and reuse."
+  showAuthBar={true}
+>
+  <main class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-12 py-14 sm:py-18 space-y-16">
+    <!-- 顶部标题区 -->
+    <section class="space-y-3">
+      <p class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-indigo-600">
+        <span class="inline-flex h-5 w-5 items-center justify-center rounded-full border border-indigo-200 text-[10px]">
+          α
+        </span>
+        GEO-Rewrite™ · Alpha module
+      </p>
+      <h1 class="text-3xl sm:text-4xl font-semibold text-gray-900">
+        Rewrite your content for the <span class="text-indigo-600">AI era.</span>
+      </h1>
+      <p class="max-w-2xl text-sm sm:text-base text-gray-600">
+        Paste any marketing copy or article draft. We’ll reshape it with GEO logic:
+        clearer reasoning, better quote-ability, and higher chance to be used by AI agents.
+      </p>
+    </section>
+
+    <!-- 主功能卡片：左右两列 -->
+    <section class="grid gap-8 lg:grid-cols-2 bg-white/80 backdrop-blur border border-gray-200 rounded-3xl shadow-sm p-6 sm:p-8">
+      <!-- 左侧：输入区 -->
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <p class="text-xs font-semibold text-gray-700 uppercase tracking-wide">
+              1. Provide anchors + paste your original content
+            </p>
+            <p class="text-[11px] text-gray-500">
+              Article title is required. User question is optional.
+            </p>
+          </div>
+          <span class="inline-flex items-center rounded-full border border-indigo-100 bg-indigo-50 px-2.5 py-0.5 text-[11px] font-medium text-indigo-600">
+            GEO-Rewrite · Free beta
+          </span>
+        </div>
+
+        <!-- NEW: Article Title (required) -->
+        <div class="space-y-1">
+          <label for="article-title" class="text-xs font-semibold text-gray-700 uppercase tracking-wide">
+            Article Title <span class="text-red-500">*</span>
+          </label>
+          <input
+            id="article-title"
+            type="text"
+            class="w-full rounded-2xl border border-gray-200 bg-gray-50/80 px-3.5 py-2.5 text-sm text-gray-800 outline-none ring-indigo-500/0 transition focus:bg-white focus:ring-2"
+            placeholder="Required. The declared topic anchor of this article..."
+          />
+          <p id="title-warning" class="text-[11px] font-medium text-red-600 hidden">
+            Article Title is required.
+          </p>
+        </div>
+
+        <!-- NEW: User Question (optional) -->
+        <div class="space-y-1">
+          <label for="user-question" class="text-xs font-semibold text-gray-700 uppercase tracking-wide">
+            User Question (optional)
+          </label>
+          <input
+            id="user-question"
+            type="text"
+            class="w-full rounded-2xl border border-gray-200 bg-gray-50/80 px-3.5 py-2.5 text-sm text-gray-800 outline-none ring-indigo-500/0 transition focus:bg-white focus:ring-2"
+            placeholder="Optional. The intent anchor for rewriting, e.g. 'What changed and why?'"
+          />
+        </div>
+
+        <div class="relative">
+          <textarea
+            id="input"
+            class="w-full min-h-[220px] rounded-2xl border border-gray-200 bg-gray-50/80 px-3.5 py-3 text-sm text-gray-800 outline-none ring-indigo-500/0 transition focus:bg-white focus:ring-2"
+            placeholder="Paste EN / ZH content here… 200–800 words works best."
+          ></textarea>
+          <div id="token-hint" class="mt-2 text-xs text-gray-500"></div>
+        </div>
+
+        <!-- Free 用户 token 上限明显提示（默认隐藏，超限时高亮） -->
+        <p id="token-warning" class="mt-1 text-[11px] font-medium text-red-600 hidden">
+          The Free plan has a limit of 1,000 tokens per request. Your current text exceeds this limit.
+          Please reduce the content and try again, or upgrade to Alpha/Pro for a higher quota.
+        </p>
+
+        <div class="flex flex-col gap-1 text-[11px] text-gray-500">
+          <span>Recommended: 200–800 words · EN / ZH both supported</span>
+          <span>
+            Free plan: around 10 trial rewrites, ~2 runs per day, about 1000 tokens per run.
+            Alpha &amp; Pro remove these caps.
+          </span>
+          <span>We don’t store your drafts.</span>
+        </div>
+      </div>
+
+      <!-- 右侧：输出区 -->
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between gap-3">
+          <div>
+            <p class="text-xs font-semibold text-gray-700 uppercase tracking-wide">
+              2. GEO-optimized version
+            </p>
+            <p class="text-[11px] text-gray-500">
+              Optimized for AI agents · No prompt jargon · Ready to quote.
+            </p>
+          </div>
+
+          <div class="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-indigo-100 bg-indigo-50 px-2.5 py-0.5">
+            <span class="text-[10px] font-medium text-indigo-700">
+              Want GEO-Score™ &amp; Blueprint?
+            </span>
+            <a href="/alpha" class="text-[10px] font-semibold text-indigo-700 underline underline-offset-2">
+              Join Alpha access
+            </a>
+          </div>
+        </div>
+
+        <div class="relative">
+          <textarea
+            id="output"
+            class="w-full min-h-[260px] rounded-2xl border border-gray-200 bg-white px-3.5 py-3 text-sm text-gray-800 outline-none ring-indigo-500/0 transition disabled:bg-gray-50"
+            placeholder="Your GEO-optimized draft will appear here…"
+            readonly
+          ></textarea>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 text-[11px] text-gray-600">
+          <div class="flex items-center gap-1">
+            <label for="rewrite-language" class="font-medium">Output language:</label>
+            <select
+              id="rewrite-language"
+              class="rounded-full border border-gray-200 bg-white px-2 py-1 text-[11px] outline-none"
+            >
+              <option value="Auto">Auto</option>
+              <option value="EN">EN</option>
+              <option value="ZH">ZH</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <button
+              id="run-btn"
+              type="button"
+              class="inline-flex items-center justify-center rounded-full bg-indigo-600 px-4 py-2 text-xs sm:text-sm font-medium text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-white"
+            >
+              Run GEO-Rewrite
+            </button>
+            <button
+              id="copy-btn"
+              type="button"
+              class="inline-flex items-center justify-center rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-medium text-gray-700 hover:bg-gray-50"
+            >
+              Copy result
+            </button>
+          </div>
+          <p id="status-text" class="text-[11px] text-gray-500">
+            Waiting for your first draft…
+          </p>
+        </div>
+
+        <p class="mt-1 text-[11px] text-gray-500">
+          This page runs <span class="font-medium text-gray-700">GEO-Rewrite™</span> only.
+          For <span class="font-medium">GEO-Score™</span> and full Content Blueprint,
+          request <a href="/alpha" class="text-indigo-600 underline">Alpha access</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- 底部 Alpha Access 卡片 -->
+    <section class="rounded-3xl border border-indigo-100 bg-indigo-50/70 px-5 py-5 sm:px-8 sm:py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div class="space-y-1">
+        <p class="text-xs font-semibold uppercase tracking-wide text-indigo-700">
+          GEO-Alpha Access
+        </p>
+        <p class="text-sm sm:text-base font-medium text-gray-900">
+          Unlock GEO-Score™ and full Content Blueprint in the Alpha program.
+        </p>
+        <p class="text-[11px] sm:text-xs text-indigo-900/80 max-w-xl">
+          In Alpha, GEO-Rewrite™ stays free with usage limits. GEO-Score™ and decision
+          chains will be available to a small group of early partners with a one-time
+          access fee.
+        </p>
+      </div>
+
+      <div class="flex flex-col items-start md:items-end gap-1.5 text-[11px] sm:text-xs">
+        <a
+          href="/alpha"
+          class="inline-flex items-center justify-center rounded-full bg-indigo-600 px-4 py-2 text-xs font-medium text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-indigo-50"
+        >
+          Request Alpha access
+        </a>
+        <p class="text-indigo-900/70">
+          Limited seats · Invitation + one-time access fee
+        </p>
+      </div>
+    </section>
+
+    <!-- Login Required Modal (shared) -->
+    <div
+      id="login-required-modal"
+      class="fixed inset-0 z-50 hidden"
+      aria-hidden="true"
+    >
+      <div class="absolute inset-0 bg-black/50"></div>
+
+      <div class="relative mx-auto mt-24 w-[92%] max-w-md">
+        <div class="rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
+          <div class="px-5 py-4 border-b">
+            <h3 class="text-base font-semibold text-slate-900">Sign in required</h3>
+            <p class="mt-1 text-sm text-slate-600">
+              You need to sign in to use this feature in GEO-Max Alpha.
+            </p>
+          </div>
+
+          <div class="px-5 py-4 text-sm text-slate-700">
+            After signing in, your tier will be validated by the server via Supabase token and profiles.tier.
+          </div>
+
+          <div class="px-5 py-4 border-t flex items-center justify-end gap-2">
+            <button
+              type="button"
+              id="login-required-cancel"
+              class="inline-flex items-center rounded-lg border px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            >
+              Not now
+            </button>
+
+            <a
+              id="login-required-cta"
+              href="/alpha-access"
+              class="inline-flex items-center rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-slate-800"
+            >
+              Go to sign in
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script type="module">
+    // @ts-nocheck
+    // ✅ rewrite 页面允许匿名访问：不要加载 auth-guard.ts（否则会被强制跳转到 /alpha-access）
+    // ✅ 点击 Run 时：如果后端要求登录，则没有 token 直接弹 Modal，不发请求
+    // ✅ fetch 时若存在 supabase access_token，则附带 Authorization: Bearer <token>
+    // ✅ 不再发送 user_tier / X-User-Tier（后端依据 token -> profiles.tier 决定）
+    // ✅ 新增：实时估算 tokens（title+question+text）+ 提交前提示预计消耗 + 额度不足硬拦截
+
+    const FETCH_URL = "http://127.0.0.1:8001/api/rewrite";
+
+    // -----------------------------
+    // Supabase client import cache（避免每次点击都 import）
+    // -----------------------------
+    let __supabasePromise = null;
+    async function getSupabaseClient() {
+      if (!__supabasePromise) {
+        __supabasePromise = import("/src/lib/supabaseClient.ts").then((m) => m.supabase);
+      }
+      return __supabasePromise;
+    }
+
+    async function buildAuthHeaders() {
+      const headers = {};
+      try {
+        const supabase = await getSupabaseClient();
+
+        // 1) 先拿一次 session
+        let { data, error } = await supabase.auth.getSession();
+        if (error) console.warn("[rewrite] getSession error:", error);
+
+        let token = data?.session?.access_token;
+
+        // 2) 如果没有 token，尝试 refresh 一次（处理“刚过期/刷新中”的短暂空窗）
+        if (!token) {
+          const refreshRes = await supabase.auth.refreshSession().catch((e) => {
+            console.warn("[rewrite] refreshSession failed:", e);
+            return null;
+          });
+
+          token = refreshRes?.data?.session?.access_token || token;
+
+          // refresh 仍然没拿到，再 getSession 兜底一次
+          if (!token) {
+            const res2 = await supabase.auth.getSession();
+            token = res2?.data?.session?.access_token || "";
+          }
+        }
+
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+      } catch (e) {
+        console.warn("[rewrite] buildAuthHeaders ignored:", e);
+      }
+      return headers;
+    }
+
+    function openLoginRequiredModal(nextPath) {
+      const modal = document.getElementById("login-required-modal");
+      const cta = document.getElementById("login-required-cta");
+      const cancel = document.getElementById("login-required-cancel");
+
+      if (!modal || !cta || !cancel) {
+        alert("Please sign in to use this feature.");
+        window.location.href = "/alpha-access";
+        return;
+      }
+
+      const next = encodeURIComponent(nextPath || window.location.pathname);
+      cta.setAttribute("href", `/alpha-access?next=${next}`);
+
+      modal.classList.remove("hidden");
+      modal.setAttribute("aria-hidden", "false");
+
+      const close = () => {
+        modal.classList.add("hidden");
+        modal.setAttribute("aria-hidden", "true");
+        cancel.removeEventListener("click", close);
+        modal.removeEventListener("click", onBackdrop);
+        document.removeEventListener("keydown", onEsc);
+      };
+
+      const onBackdrop = (e) => {
+        if (e.target === modal || e.target === modal.firstElementChild) close();
+      };
+
+      const onEsc = (e) => {
+        if (e.key === "Escape") close();
+      };
+
+      cancel.addEventListener("click", close);
+      modal.addEventListener("click", onBackdrop);
+      document.addEventListener("keydown", onEsc);
+    }
+
+    // -----------------------------
+    // Free plan limits (front-end only)
+    // -----------------------------
+    const FREE_TOKEN_LIMIT = 1000;
+    const FREE_DAILY_LIMIT = 2;
+    const FREE_TOTAL_LIMIT = 10;
+
+    const STORAGE_KEY_TOTAL = "geo_rewrite_total_runs";
+    const STORAGE_KEY_TODAY = "geo_rewrite_today_runs";
+    const STORAGE_KEY_DATE = "geo_rewrite_today_date";
+
+    const todayStr = new Date().toISOString().slice(0, 10);
+
+    function getUserTier() {
+      if (typeof window !== "undefined" && window.__GEO_USER_TIER__) {
+        return String(window.__GEO_USER_TIER__).toLowerCase();
+      }
+      return "free";
+    }
+
+    function getUsage() {
+      if (typeof window === "undefined") return { total: 0, today: 0 };
+      try {
+        const storedDate = window.localStorage.getItem(STORAGE_KEY_DATE);
+        let total = parseInt(window.localStorage.getItem(STORAGE_KEY_TOTAL) || "0", 10);
+        let today = parseInt(window.localStorage.getItem(STORAGE_KEY_TODAY) || "0", 10);
+
+        if (!storedDate || storedDate !== todayStr) {
+          today = 0;
+          window.localStorage.setItem(STORAGE_KEY_DATE, todayStr);
+          window.localStorage.setItem(STORAGE_KEY_TODAY, "0");
+        }
+
+        if (Number.isNaN(total)) total = 0;
+        if (Number.isNaN(today)) today = 0;
+
+        return { total, today };
+      } catch {
+        return { total: 0, today: 0 };
+      }
+    }
+
+    function incrementUsage() {
+      if (typeof window === "undefined") return;
+      try {
+        const { total, today } = getUsage();
+        window.localStorage.setItem(STORAGE_KEY_TOTAL, String(total + 1));
+        window.localStorage.setItem(STORAGE_KEY_TODAY, String(today + 1));
+        window.localStorage.setItem(STORAGE_KEY_DATE, todayStr);
+      } catch {
+        // ignore
+      }
+    }
+
+    // 估算 tokens：英文按词，中文按字符（粗略但足够做限额提醒）
+    function estimateTokens(text) {
+      if (!text) return 0;
+      const asciiOnly = text.replace(/[^\x00-\x7F]/g, " ");
+      const asciiWords = (asciiOnly.trim().match(/\S+/g) || []).length;
+      const nonAscii = (text.match(/[^\x00-\x7F]/g) || []).length;
+      return asciiWords + nonAscii;
+    }
+
+    function formatInt(n) {
+      if (typeof n !== "number" || !Number.isFinite(n)) return "—";
+      return String(Math.max(0, Math.floor(n)));
+    }
+
+    function getQuotaRemaining() {
+      const q = window.__GEO_QUOTA__;
+      if (!q) return null;
+      const r = q.tokens_remaining;
+      return typeof r === "number" ? r : null;
+    }
+
+    function getQuotaLimit() {
+      const q = window.__GEO_QUOTA__;
+      if (!q) return null;
+      const l = q.tokens_limit;
+      return typeof l === "number" ? l : null;
+    }
+
+    // ✅ rewrite 的预计扣费 = title + question + text（与 score 对齐）
+    function estimateChargeTokens({ title, question, text }) {
+      const t = estimateTokens(title);
+      const q = estimateTokens(question);
+      const x = estimateTokens(text);
+      return {
+        est_total: t + q + x,
+        est_breakdown: { title: t, question: q, text: x },
+      };
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.querySelector("#run-btn");
+      const input = document.querySelector("#input");
+      const output = document.querySelector("#output");
+      const status = document.querySelector("#status-text");
+      const copyBtn = document.querySelector("#copy-btn");
+      const langSelect = document.querySelector("#rewrite-language");
+      const tokenWarning = document.querySelector("#token-warning");
+
+      const titleEl = document.querySelector("#article-title");
+      const questionEl = document.querySelector("#user-question");
+      const titleWarning = document.querySelector("#title-warning");
+
+      if (!btn || !input || !output || !status || !copyBtn || !titleEl) {
+        console.warn("[GEO-Rewrite] DOM not ready or selector mismatch");
+        return;
+      }
+
+      // ✅ 新增：在输入框附近动态插入“预计扣费/剩余额度”提示区域（不改 HTML）
+      let tokenHint = document.querySelector("#rewrite-token-hint");
+      if (!tokenHint) {
+        tokenHint = document.createElement("div");
+        tokenHint.id = "rewrite-token-hint";
+        tokenHint.className = "mt-2 text-xs text-gray-500";
+        // 插在 input textarea 后面最直观
+        input.insertAdjacentElement("afterend", tokenHint);
+      }
+
+      const showTitleWarning = () => {
+        if (!titleWarning) return;
+        titleWarning.classList.remove("hidden");
+      };
+
+      const hideTitleWarning = () => {
+        if (!titleWarning) return;
+        titleWarning.classList.add("hidden");
+      };
+
+      const showTokenWarning = (approxTokens) => {
+        if (!tokenWarning) return;
+        tokenWarning.classList.remove("hidden");
+        tokenWarning.textContent =
+          `The Free plan has a limit of approx ${FREE_TOKEN_LIMIT} tokens，Your text is approx ${approxTokens} tokens，which exceeds this limit.` +
+          " Please reduce the content and try again, or upgrade to Alpha/Pro for a higher limit.";
+      };
+
+      const hideTokenWarning = () => {
+        if (!tokenWarning) return;
+        tokenWarning.classList.add("hidden");
+      };
+
+      const setLoading = (loading, estTotal = null) => {
+        btn.disabled = loading;
+        if (loading) {
+          btn.textContent = estTotal ? `Rewriting… (~${formatInt(estTotal)} tokens)` : "Rewriting…";
+        } else {
+          // 恢复时由 updateTokenHint 统一刷新按钮文案
+          btn.textContent = "Run GEO-Rewrite";
+        }
+      };
+
+      // ✅ 实时提示：预计扣费 + 剩余 + 预计剩余（并同步按钮文案）
+      function updateTokenHint() {
+        const articleTitle = (titleEl.value || "").trim();
+        const userQuestion = (questionEl && questionEl.value ? questionEl.value : "").trim();
+        const bodyText = (input.value || "").trim();
+
+        const { est_total, est_breakdown } = estimateChargeTokens({
+          title: articleTitle,
+          question: userQuestion,
+          text: bodyText,
+        });
+
+        // 按钮文案带估算
+        btn.textContent = est_total > 0 ? `Run GEO-Rewrite (~${formatInt(est_total)} tokens)` : "Run GEO-Rewrite";
+
+        const remaining = getQuotaRemaining();
+        const limit = getQuotaLimit();
+
+        if (remaining === null || limit === null) {
+          tokenHint.className = "mt-2 text-xs text-gray-500";
+          tokenHint.textContent =
+            `Estimated tokens (charge): ${formatInt(est_total)} ` +
+            `(title ${formatInt(est_breakdown.title)} + question ${formatInt(est_breakdown.question)} + text ${formatInt(est_breakdown.text)})`;
+          return;
+        }
+
+        const after = remaining - est_total;
+
+        if (est_total > remaining) {
+          tokenHint.className = "mt-2 text-xs font-medium text-red-600";
+          tokenHint.innerHTML =
+            `Estimated charge: <b>${formatInt(est_total)}</b> tokens · ` +
+            `Remaining: <b>${formatInt(remaining)}</b> / ${formatInt(limit)} · ` +
+            `<span class="underline underline-offset-2">Over limit</span>.`;
+          return;
+        }
+
+        tokenHint.className = "mt-2 text-xs text-gray-600";
+        tokenHint.innerHTML =
+          `Estimated charge: <b>${formatInt(est_total)}</b> tokens · ` +
+          `Remaining: <b>${formatInt(remaining)}</b> / ${formatInt(limit)} · ` +
+          `After run: <b>${formatInt(after)}</b>`;
+      }
+
+      // 初始刷新两次（等 auth-bar 先把 __GEO_QUOTA__ 填好）
+      window.setTimeout(updateTokenHint, 300);
+      window.setTimeout(updateTokenHint, 1200);
+
+      // 输入变化时实时刷新（title/question/text）
+      const bindRealtime = (el) => {
+        if (!el) return;
+        el.addEventListener("input", updateTokenHint);
+        el.addEventListener("change", updateTokenHint);
+        el.addEventListener("blur", updateTokenHint);
+      };
+      bindRealtime(titleEl);
+      bindRealtime(questionEl);
+      bindRealtime(input);
+
+      // Free 用户：输入时即时提示 token 超限（仅提示，不强制）
+      const tierOnLoad = getUserTier();
+      if (tierOnLoad === "free") {
+        input.addEventListener("input", () => {
+          const bodyText = (input.value || "").trim();
+          if (!bodyText) {
+            hideTokenWarning();
+            return;
+          }
+          const approxTokens = estimateTokens(bodyText);
+          if (approxTokens > FREE_TOKEN_LIMIT) showTokenWarning(approxTokens);
+          else hideTokenWarning();
+        });
+      }
+
+      btn.addEventListener("click", async () => {
+        const articleTitle = (titleEl.value || "").trim();
+        const userQuestion = (questionEl && questionEl.value ? questionEl.value : "").trim();
+        const bodyText = (input.value || "").trim();
+        const outLang = (langSelect && langSelect.value) ? String(langSelect.value) : "Auto";
+
+        if (!articleTitle) {
+          showTitleWarning();
+          status.textContent = "Please enter the Article Title (Required).";
+          updateTokenHint();
+          return;
+        } else {
+          hideTitleWarning();
+        }
+
+        if (!bodyText) {
+          status.textContent = "Please paste or enter the content you wish to rewrite.";
+          updateTokenHint();
+          return;
+        }
+
+        // ✅ 提交前：明确告诉用户预计扣费 + 如果已加载 quota，则做硬拦截
+        const { est_total } = estimateChargeTokens({
+          title: articleTitle,
+          question: userQuestion,
+          text: bodyText,
+        });
+
+        const remaining = getQuotaRemaining();
+        const limit = getQuotaLimit();
+
+        if (typeof remaining === "number" && typeof limit === "number") {
+          if (est_total > remaining) {
+            status.textContent =
+              `Quota exceeded. Estimated charge is ${formatInt(est_total)} tokens, ` +
+              `but you only have ${formatInt(remaining)} remaining this month.`;
+            // 输入区附近已经红字；这里再给一个强引导
+            tokenHint.className = "mt-2 text-xs font-medium text-red-600";
+            tokenHint.innerHTML =
+              `<div class="flex items-center justify-between gap-2">` +
+                `<span>Not enough monthly quota.</span>` +
+                `<a href="/alpha" ` +
+                  `class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-3 py-1.5 ` +
+                        `text-xs font-semibold text-white shadow-sm hover:bg-indigo-700 ` +
+                        `focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">` +
+                  `Upgrade` +
+                `</a>` +
+              `</div>`;
+            return;
+
+          }
+        }
+
+        // -----------------------------
+        // 1) 登录门禁（与你后端 require_authed_user 对齐）
+        //    - 没 token：弹 modal 并 return（不发请求）
+        // -----------------------------
+        const authHeaders = await buildAuthHeaders();
+        const hasAuth = !!authHeaders.Authorization;
+
+        if (!hasAuth) {
+          status.textContent = "Please log in before using GEO-Rewrite™。";
+          openLoginRequiredModal("/rewrite");
+          return;
+        }
+
+        // -----------------------------
+        // 2) Free plan 限额（前端体验层）
+        // -----------------------------
+        const currentTier = getUserTier();
+        if (currentTier === "free") {
+          const { total, today } = getUsage();
+
+          if (total >= FREE_TOTAL_LIMIT) {
+            status.textContent = "You have used all 10 Free trials. Upgrade to Alpha/Pro for more credits.";
+            return;
+          }
+
+          if (today >= FREE_DAILY_LIMIT) {
+            status.textContent = "You have reached your daily limit of 2 Free rewrites. Please try again tomorrow or upgrade to Alpha/Pro.";
+            return;
+          }
+
+          const approxTokensBody = estimateTokens(bodyText);
+          console.log("[GEO-Rewrite] approxTokens", { approxTokens: approxTokensBody, FREE_TOKEN_LIMIT });
+
+          if (approxTokensBody > FREE_TOKEN_LIMIT) {
+            showTokenWarning(approxTokensBody);
+            status.textContent = `The Free plan allows approx ${FREE_TOKEN_LIMIT} tokens，This request is approx ${approxTokensBody} tokens，exceeding the limit. Please shorten and retry.`;
+            return;
+          } else {
+            hideTokenWarning();
+          }
+        }
+
+        // -----------------------------
+        // 3) 发请求（不传 X-User-Tier / user_tier）
+        // -----------------------------
+        try {
+          setLoading(true, est_total);
+          status.textContent =
+            `Calling GEO Engine, please wait... Estimated charge: ${formatInt(est_total)} tokens.`;
+          output.value = "";
+
+          const payload = {
+            text: bodyText,
+            article_title: articleTitle,
+            user_question: userQuestion,
+            out_lang: outLang,
+          };
+
+          async function doFetchOnce() {
+            return await fetch(FETCH_URL, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                ...authHeaders,
+              },
+              cache: "no-store",
+              credentials: "omit",
+              body: JSON.stringify(payload),
+            });
+          }
+
+          let res = await doFetchOnce();
+
+          if (res.status === 401) {
+            // 401：尝试 refresh 并重试一次
+            const supabase = await getSupabaseClient();
+            await supabase.auth.refreshSession().catch(() => null);
+
+            const authHeaders2 = await buildAuthHeaders();
+            if (authHeaders2.Authorization) {
+              authHeaders.Authorization = authHeaders2.Authorization;
+              res = await doFetchOnce();
+            }
+          }
+
+          if (!res.ok) {
+            const errText = await res.text().catch(() => "");
+            if (res.status === 401) {
+              openLoginRequiredModal("/rewrite");
+              return;
+            }
+            throw new Error("HTTP " + res.status + (errText ? " | " + errText : ""));
+          }
+
+          const data = await res.json();
+          if (data && data.ok === false) {
+            status.textContent = data.error || "Server-side rewriting failed. Please try again later.";
+            return;
+          }
+
+          const rewritten = (data.rewritten || data.rewrite || "").toString().trim();
+          if (rewritten) {
+            output.value = rewritten;
+            status.textContent = "Rewriting complete. You can now copy or further refine the content.";
+            if (currentTier === "free") incrementUsage();
+          } else {
+            status.textContent = "No valid results received. Please try again later.";
+          }
+
+          // ✅ 结束后刷新一次提示（剩余额度可能已在 auth-bar 侧更新）
+          updateTokenHint();
+        } catch (err) {
+          console.error("[GEO-Rewrite] request failed", err);
+          status.textContent = "Network or service error. Please try again later. (" + (err?.message || "unknown") + ")";
+        } finally {
+          setLoading(false);
+          updateTokenHint();
+        }
+      });
+
+      copyBtn.addEventListener("click", async () => {
+        const txt = (output.value || "").trim();
+        if (!txt) return;
+        try {
+          await navigator.clipboard.writeText(txt);
+          status.textContent = "Copied to clipboard.";
+        } catch {
+          status.textContent = "Copy failed. Please select and copy the text manually.";
+        }
+      });
+    });
+  </script>
+
+</Layout>

@@ -1,0 +1,515 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.15.3"><title>GEO-Score™ | GEO-Max Alpha</title><meta name="description" content="Evaluate how quotable and GEO-friendly your content is. Free users see a sealed index. Alpha users unlock deeper explanations."><link rel="canonical" href="http://localhost:3000"><meta property="og:type" content="website"><meta property="og:site_name" content="GEO-Max"><meta property="og:title" content="GEO-Score™ | GEO-Max Alpha"><meta property="og:description" content="Evaluate how quotable and GEO-friendly your content is. Free users see a sealed index. Alpha users unlock deeper explanations."><meta property="og:image" content="/og/geo-default.png"><meta property="og:url" content="http://localhost:3000"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="GEO-Score™ | GEO-Max Alpha"><meta name="twitter:description" content="Evaluate how quotable and GEO-friendly your content is. Free users see a sealed index. Alpha users unlock deeper explanations."><meta name="twitter:image" content="/og/geo-default.png"><meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"><link rel="stylesheet" href="/_astro/alpha-access.Dgfc0NKp.css">
+<link rel="stylesheet" href="/_astro/alpha-access.C2hhvBIr.css"></head> <body class="min-h-screen bg-white text-gray-900">  <header class="sticky top-0 z-40 border-b border-gray-100 bg-white/80 backdrop-blur"> <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-12 h-14 flex items-center justify-between gap-4"> <div class="flex items-center gap-3"> <a href="/" class="font-semibold tracking-tight text-gray-900 hover:text-black">
+GEO-Max
+</a> <nav class="hidden sm:flex items-center gap-3 text-sm text-gray-600"> <a href="/alpha" class="hover:text-black">Alpha</a> <a href="/rewrite" class="hover:text-black">Rewrite</a> <a href="/score" class="hover:text-black">Score</a> </nav> </div>  <div id="auth-bar" class="flex items-center gap-2"> <span class="text-xs text-gray-500">Loading…</span> </div> </div> </header>   <main class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-12 py-14 sm:py-18 space-y-16"> <!-- 标题区 --> <section class="space-y-3"> <p class="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-indigo-600"> <span class="inline-flex h-5 w-5 items-center justify-center rounded-full border border-indigo-200 text-[10px]">
+G
+</span>
+GEO-Score™ · Alpha module
+</p> <h1 class="text-3xl font-semibold tracking-tight text-gray-900">
+Check your content&apos;s <span class="text-indigo-600">GEO-Max index</span>.
+</h1> <p class="max-w-2xl text-sm text-gray-500">
+Paste any draft you want AI agents to quote. We’ll return a sealed GEO-Score™ and a few concrete hints for improvement.
+</p> </section> <!-- 主功能区：输入 + 结果 --> <section class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-6"> <form id="score-form" class="grid gap-6 md:grid-cols-2 md:gap-8"> <!-- 左侧：输入 --> <div class="flex flex-col gap-4"> <div class="flex items-center justify-between gap-3"> <h2 class="text-sm font-medium text-gray-800">
+1. Provide anchors + paste your content
+</h2> <p class="text-[11px] text-gray-400">
+Title required · Question optional · EN / ZH
+</p> </div> <!-- NEW: Article Title (required) --> <div class="space-y-1"> <label for="score-article-title" class="text-xs font-medium text-gray-500">
+Article Title <span class="text-red-500">*</span> </label> <input id="score-article-title" type="text" class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" placeholder="Required. Declared topic anchor..."> <p id="score-title-warning" class="text-[11px] font-medium text-red-600 hidden">
+Article Title is required.
+</p> </div> <!-- NEW: User Question (optional) --> <div class="space-y-1"> <label for="score-user-question" class="text-xs font-medium text-gray-500">
+User Question (optional)
+</label> <input id="score-user-question" type="text" class="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-800 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" placeholder="Optional. Intent anchor for evaluation..."> </div> <textarea id="score-input" class="h-64 w-full resize-none rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-800 outline-none ring-indigo-100 placeholder:text-gray-400 focus:bg-white focus:ring-2" placeholder="Paste a landing page, blog draft, or product intro you want to test..."></textarea> <div id="token-hint" class="mt-2 text-xs text-gray-500"></div> <div class="grid gap-3 sm:grid-cols-1"> <div class="space-y-1"> <label for="score-language" class="text-xs font-medium text-gray-500">
+Language (optional)
+</label> <select id="score-language" class="w-full rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs text-gray-800 outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"> <option value="">Auto detect</option> <option value="en">English</option> <option value="zh">Chinese</option> </select> </div> </div> <div class="flex flex-wrap items-center justify-between gap-3 pt-1"> <p class="text-[11px] text-gray-400">
+We never store your draft. Each run is stateless in Alpha.
+</p> <button id="score-run-btn" type="submit" class="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-1.5 text-xs font-medium text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1">
+Run GEO-Score
+</button> </div> </div> <!-- 右侧：结果 --> <div id="score-output-card" class="flex h-full flex-col justify-between rounded-xl border border-dashed border-indigo-100 bg-indigo-50/60 px-4 py-4 text-sm text-gray-800"> <div class="space-y-3"> <div class="flex items-center justify-between"> <div class="flex flex-col gap-0.5"> <p class="text-xs font-semibold uppercase tracking-wide text-indigo-600">
+Result
+</p> <p id="score-tier-label" class="text-[11px] text-gray-500">
+Free view · GEO index
+</p> </div> <span id="score-badge" class="inline-flex items-center justify-center rounded-full border border-indigo-200 bg-white px-2.5 py-0.5 text-[11px] font-medium text-indigo-700 shadow-sm">
+Waiting for your first run...
+</span> </div> <div class="flex items-baseline gap-4 pt-2"> <div class="flex items-baseline gap-1"> <span id="score-grade" class="text-5xl font-semibold leading-none text-gray-900">
+–
+</span> <span class="text-xs font-medium uppercase tracking-wide text-gray-400">
+GEO-Max
+</span> </div> <div class="space-y-1 text-xs text-gray-500"> <p id="score-summary">
+Your GEO-Score™ will appear here. Free users only see the overall index.
+</p> </div> </div> <div class="mt-3 space-y-1.5 text-xs text-gray-700" id="score-hints"> <p class="font-semibold text-gray-800">
+Improvement hints
+</p> <ul class="list-disc space-y-0.5 pl-4"> <li>Make the topic and scope explicit in the first paragraph.</li> <li>Add 1–2 verifiable numbers (time saved, adoption, cost, year).</li> <li>Use short, self-contained sentences that AI can directly reuse.</li> </ul> </div> </div> <div class="mt-4 border-t border-indigo-100 pt-3 text-[11px] text-gray-500">
+Want full breakdown, decision chains, and content blueprint?
+<a href="/alpha" class="font-medium text-indigo-600 underline-offset-2 hover:underline">
+Join GEO Tools Alpha to unlock full reports →
+</a> </div> </div> </form> </section> <!-- GEO-Alpha Access block --> <section class="mt-10"> <div class="border border-indigo-100 bg-indigo-50/60 rounded-2xl px-5 py-4 md:px-7 md:py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4"> <div class="space-y-1"> <p class="text-xs font-semibold tracking-wide text-indigo-600 uppercase">
+GEO-ALPHA ACCESS
+</p> <p class="text-sm md:text-base font-medium text-gray-900">
+Unlock full GEO-Score™ report and decision chains in the Alpha program.
+</p> <p class="text-xs md:text-sm text-gray-600">
+In the Alpha phase, single GEO-Score™ runs stay free for a limited time.
+            Full index breakdown and content blueprints are only available to a small group of early partners.
+</p> </div> <div class="flex flex-col items-stretch md:items-end gap-2 shrink-0"> <a href="/alpha" class="inline-flex items-center justify-center rounded-full bg-indigo-600 px-4 py-2 text-xs md:text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+Request Alpha access
+</a> <p class="text-[11px] text-gray-500 text-right">
+Limited seats · Invitation only · One-time access fee
+</p> </div> </div> </section> <!-- Login Required Modal (shared) --> <div id="login-required-modal" class="fixed inset-0 z-50 hidden" aria-hidden="true"> <div class="absolute inset-0 bg-black/50"></div> <div class="relative mx-auto mt-24 w-[92%] max-w-md"> <div class="rounded-2xl bg-white shadow-xl ring-1 ring-black/5"> <div class="px-5 py-4 border-b"> <h3 class="text-base font-semibold text-slate-900">Sign in required</h3> <p class="mt-1 text-sm text-slate-600">
+You need to sign in to use this feature in GEO-Max Alpha.
+</p> </div> <div class="px-5 py-4 text-sm text-slate-700">
+After signing in, your tier will be validated by the server via Supabase token and profiles.tier.
+</div> <div class="px-5 py-4 border-t flex items-center justify-end gap-2"> <button type="button" id="login-required-cancel" class="inline-flex items-center rounded-lg border px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+Not now
+</button> <a id="login-required-cta" href="/alpha-access" class="inline-flex items-center rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white hover:bg-slate-800">
+Go to sign in
+</a> </div> </div> </div> </div> </main> <script type="module">
+    // @ts-nocheck
+    // ✅ score 页面允许匿名访问：不要加载 auth-guard.ts（否则会被强制跳转到 /alpha-access）
+    // ✅ fetch 时若存在 supabase access_token，则附带 Authorization: Bearer <token>
+    // ✅ 不再发送 user_tier（由后端依据 token -> profiles.tier 决定）
+    // ✅ 新增：实时估算 tokens + 提交前提示预计消耗 + 超额拦截
+    // ✅ 本次改动：超额提示中的 Upgrade 变成按钮（美化）
+
+    let __supabasePromise = null;
+    async function getSupabaseClient() {
+      if (!__supabasePromise) {
+        __supabasePromise = import("/src/lib/supabaseClient.ts").then((m) => m.supabase);
+      }
+      return __supabasePromise;
+    }
+
+    async function buildAuthHeaders() {
+      const headers = {};
+      try {
+        const supabase = await getSupabaseClient();
+        const { data, error } = await supabase.auth.getSession();
+        if (error) console.warn("[score] getSession error:", error);
+
+        const token = data?.session?.access_token;
+        if (token) headers["Authorization"] = `Bearer ${token}`;
+      } catch (e) {
+        console.warn("[score] buildAuthHeaders failed:", e);
+      }
+      return headers;
+    }
+
+    function openLoginRequiredModal(nextPath) {
+      const modal = document.getElementById("login-required-modal");
+      const cta = document.getElementById("login-required-cta");
+      const cancel = document.getElementById("login-required-cancel");
+
+      if (!modal || !cta || !cancel) {
+        alert("Please sign in to use this feature.");
+        window.location.href = "/alpha-access";
+        return;
+      }
+
+      const next = encodeURIComponent(nextPath || window.location.pathname);
+      cta.setAttribute("href", `/alpha-access?next=${next}`);
+
+      modal.classList.remove("hidden");
+      modal.setAttribute("aria-hidden", "false");
+
+      const close = () => {
+        modal.classList.add("hidden");
+        modal.setAttribute("aria-hidden", "true");
+        cancel.removeEventListener("click", close);
+        modal.removeEventListener("click", onBackdrop);
+        document.removeEventListener("keydown", onEsc);
+      };
+
+      const onBackdrop = (e) => {
+        if (e.target === modal || e.target === modal.firstElementChild) close();
+      };
+
+      const onEsc = (e) => {
+        if (e.key === "Escape") close();
+      };
+
+      cancel.addEventListener("click", close);
+      modal.addEventListener("click", onBackdrop);
+      document.addEventListener("keydown", onEsc);
+    }
+
+    function estimateTokens(text) {
+      if (!text) return 0;
+      const s = String(text);
+      const asciiOnly = s.replace(/[^\x00-\x7F]/g, " ");
+      const asciiWords = (asciiOnly.trim().match(/\S+/g) || []).length;
+      const nonAscii = (s.match(/[^\x00-\x7F]/g) || []).length;
+      return asciiWords + nonAscii;
+    }
+
+    function formatInt(n) {
+      if (typeof n !== "number" || !Number.isFinite(n)) return "—";
+      return String(Math.max(0, Math.floor(n)));
+    }
+
+    function getQuotaRemaining() {
+      const q = window.__GEO_QUOTA__;
+      if (!q) return null;
+      const r = q.tokens_remaining;
+      return typeof r === "number" ? r : null;
+    }
+
+    function getQuotaLimit() {
+      const q = window.__GEO_QUOTA__;
+      if (!q) return null;
+      const l = q.tokens_limit;
+      return typeof l === "number" ? l : null;
+    }
+
+    // ✅ 统一计算：本次预计消耗 tokens（只按输入：title+question+text）
+    function estimateChargeTokens({ title, question, text }) {
+      const t = estimateTokens(title);
+      const q = estimateTokens(question);
+      const x = estimateTokens(text);
+      return {
+        est_total: t + q + x,
+        est_breakdown: { title: t, question: q, text: x },
+      };
+    }
+
+    (function () {
+      const form = document.getElementById("score-form");
+      const input = document.getElementById("score-input");
+      const langSelect = document.getElementById("score-language");
+
+      const titleEl = document.getElementById("score-article-title");
+      const questionEl = document.getElementById("score-user-question");
+      const titleWarnEl = document.getElementById("score-title-warning");
+
+      const runBtn = document.getElementById("score-run-btn");
+      const gradeEl = document.getElementById("score-grade");
+      const badgeEl = document.getElementById("score-badge");
+      const summaryEl = document.getElementById("score-summary");
+      const hintsEl = document.getElementById("score-hints");
+      const tierLabelEl = document.getElementById("score-tier-label");
+
+      const tokenHintEl = document.getElementById("token-hint");
+
+      if (!form || !input || !runBtn || !gradeEl || !badgeEl || !summaryEl || !hintsEl || !titleEl) {
+        console.warn("[GEO-Score] DOM not ready / selector mismatch");
+        return;
+      }
+
+      const API_URL = "http://127.0.0.1:8001/api/geo/score";
+
+      const mapScoreToGrade = (score) => {
+        if (score === undefined || score === null || Number.isNaN(score)) return "–";
+        const s = Number(score);
+        const s100 = s <= 1.00001 ? s * 100 : s;
+        if (s100 >= 85) return "A";
+        if (s100 >= 70) return "B";
+        if (s100 >= 55) return "C";
+        if (s100 >= 40) return "D";
+        return "E";
+      };
+
+      const showTitleWarning = () => {
+        if (!titleWarnEl) return;
+        titleWarnEl.classList.remove("hidden");
+      };
+
+      const hideTitleWarning = () => {
+        if (!titleWarnEl) return;
+        titleWarnEl.classList.add("hidden");
+      };
+
+      // ✅ NEW：统一渲染超额 UI（把 Upgrade 做成按钮）
+      function renderQuotaExceededUI(est_total, remaining, limit) {
+        badgeEl.textContent = "Quota exceeded";
+        summaryEl.textContent =
+          `This run is estimated to cost ${formatInt(est_total)} tokens, but you only have ` +
+          `${formatInt(remaining)} remaining this month.`;
+
+        hintsEl.innerHTML = `
+          <div class="space-y-2">
+            <p class="text-xs font-semibold text-rose-700">Not enough monthly quota.</p>
+            <p class="text-[11px] text-gray-600">Upgrade to unlock more quota.</p>
+            <div class="pt-1">
+              <a
+                href="/alpha"
+                class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1"
+              >
+                Upgrade
+              </a>
+            </div>
+          </div>
+        `;
+
+        // 同步输入区提示（保持一致）
+        updateTokenHint();
+      }
+
+      // ✅ 实时 token 展示（输入区附近）
+      function updateTokenHint() {
+        if (!tokenHintEl) return;
+
+        const title = (titleEl.value || "").trim();
+        const question = (questionEl && questionEl.value ? questionEl.value : "").trim();
+        const text = (input.value || "").trim();
+
+        const { est_total, est_breakdown } = estimateChargeTokens({ title, question, text });
+
+        const remaining = getQuotaRemaining();
+        const limit = getQuotaLimit();
+
+        if (remaining === null || limit === null) {
+          tokenHintEl.className = "mt-2 text-xs text-gray-500";
+          tokenHintEl.textContent =
+            `Estimated tokens (charge): ${formatInt(est_total)} ` +
+            `(title ${formatInt(est_breakdown.title)} + question ${formatInt(est_breakdown.question)} + text ${formatInt(est_breakdown.text)})`;
+          runBtn.textContent = est_total > 0 ? `Run GEO-Score (~${formatInt(est_total)} tokens)` : "Run GEO-Score";
+          return;
+        }
+
+        const after = remaining - est_total;
+
+        if (est_total > remaining) {
+          tokenHintEl.className = "mt-2 text-xs font-medium text-red-600";
+          tokenHintEl.innerHTML =
+            `Estimated charge: <b>${formatInt(est_total)}</b> tokens · ` +
+            `Remaining: <b>${formatInt(remaining)}</b> / ${formatInt(limit)} · ` +
+            `<span class="underline underline-offset-2">Over limit</span>.`;
+          runBtn.textContent = `Run GEO-Score (~${formatInt(est_total)} tokens)`;
+          return;
+        }
+
+        tokenHintEl.className = "mt-2 text-xs text-gray-600";
+        tokenHintEl.innerHTML =
+          `Estimated charge: <b>${formatInt(est_total)}</b> tokens · ` +
+          `Remaining: <b>${formatInt(remaining)}</b> / ${formatInt(limit)} · ` +
+          `After run: <b>${formatInt(after)}</b>`;
+        runBtn.textContent = est_total > 0 ? `Run GEO-Score (~${formatInt(est_total)} tokens)` : "Run GEO-Score";
+      }
+
+      // ✅ 输入变化时更新（title/question/text）
+      const bindRealtime = (el) => {
+        if (!el) return;
+        el.addEventListener("input", updateTokenHint);
+        el.addEventListener("change", updateTokenHint);
+        el.addEventListener("blur", updateTokenHint);
+      };
+      bindRealtime(titleEl);
+      bindRealtime(questionEl);
+      bindRealtime(input);
+
+      window.setTimeout(updateTokenHint, 300);
+      window.setTimeout(updateTokenHint, 1200);
+
+      form.addEventListener("submit", async function (evt) {
+        evt.preventDefault();
+        console.log("[GEO-Score] submit fired");
+
+        const articleTitle = (titleEl.value || "").trim();
+        const userQuestionRaw = (questionEl && questionEl.value ? questionEl.value : "").trim();
+        const text = (input.value || "").trim();
+
+        if (!articleTitle) {
+          showTitleWarning();
+          alert("Please provide the Article Title (required).");
+          updateTokenHint();
+          return;
+        } else {
+          hideTitleWarning();
+        }
+
+        if (!text) {
+          alert("Please paste some content first.");
+          updateTokenHint();
+          return;
+        }
+
+        // ✅ 提交前：明确提示预计消耗 + 超额硬拦截
+        const { est_total } = estimateChargeTokens({
+          title: articleTitle,
+          question: userQuestionRaw,
+          text,
+        });
+
+        const remaining = getQuotaRemaining();
+        const limit = getQuotaLimit();
+
+        if (typeof remaining === "number" && typeof limit === "number") {
+          if (est_total > remaining) {
+            // ✅ 这里改为“按钮 UI”
+            renderQuotaExceededUI(est_total, remaining, limit);
+            return;
+          }
+        }
+
+        runBtn.disabled = true;
+        runBtn.classList.add("opacity-70", "cursor-wait");
+        runBtn.textContent = `Scoring... (~${formatInt(est_total)} tokens)`;
+
+        gradeEl.textContent = "…";
+        badgeEl.textContent = "Scoring in progress…";
+        summaryEl.textContent =
+          `Estimated charge: ${formatInt(est_total)} tokens.` +
+          (typeof remaining === "number" ? ` Remaining: ${formatInt(remaining)}.` : "");
+        hintsEl.innerHTML =
+          '<p class="text-xs text-gray-600">We are analysing your content. This usually takes a few seconds.</p>';
+
+        try {
+          const lang = (langSelect && langSelect.value) || "";
+
+          const runtimeTier = (window.__GEO_USER_TIER__ || window.__GEO_TIER_OVERRIDE__ || "free")
+            .toString()
+            .toLowerCase();
+
+          if (tierLabelEl) {
+            if (runtimeTier === "alpha_base" || runtimeTier === "alpha_pro")
+              tierLabelEl.textContent = "Alpha view · more details";
+            else tierLabelEl.textContent = "Free view · GEO index";
+          }
+
+          const body = {
+            language: lang,
+            article_title: articleTitle,
+            user_question: userQuestionRaw,
+            text,
+            model_ui: "Groq",
+            model_name: "",
+            samples: 1,
+
+            source_text: text,
+            rewritten_text: "",
+            model_name_full: "llama-3.3-70b-versatile",
+          };
+
+          console.log("[GEO-Score] auth gate: before buildAuthHeaders");
+          const authHeaders = await buildAuthHeaders();
+          const hasAuth = !!authHeaders.Authorization;
+          console.log("[GEO-Score] auth gate:", { hasAuth });
+
+          if (!hasAuth) {
+            badgeEl.textContent = "Sign in required";
+            summaryEl.textContent = "Please sign in to run GEO-Score™.";
+            hintsEl.innerHTML =
+              '<p class="text-xs text-gray-700">You are not signed in. After signing in, please run again.</p>';
+
+            openLoginRequiredModal("/score");
+            return;
+          }
+
+          console.log("[GEO-Score] fetch start", { API_URL });
+          const res = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              ...authHeaders,
+            },
+            body: JSON.stringify(body),
+          });
+
+          console.log("[GEO-Score] fetch returned", { ok: res.ok, status: res.status });
+
+          if (!res.ok) {
+            const errText = await res.text().catch(() => "");
+            throw new Error("Score API error: " + res.status + (errText ? " | " + errText : ""));
+          }
+
+          const data = await res.json();
+          console.log("[GEO-Score] response:", data);
+
+          if (data.ok === false) throw new Error(data.error || "GEO scoring failed.");
+
+          const overall =
+            typeof data.sealed_overall === "number"
+              ? data.sealed_overall
+              : typeof data.geo_score === "number"
+              ? data.geo_score
+              : null;
+
+          const grade = data.grade || mapScoreToGrade(overall);
+          const shortSummary =
+            data.summary ||
+            data.short_summary ||
+            ("GEO-Max evaluated this draft and gave it a " + grade + " grade.");
+
+          gradeEl.textContent = grade;
+
+          if (overall !== null && !Number.isNaN(overall)) {
+            const idx100 = Number(overall) * 100;
+
+            let badge = "";
+            if (idx100 >= 85) badge = "A Tier";
+            else if (idx100 >= 70) badge = "B Tier";
+            else if (idx100 >= 55) badge = "C Tier";
+            else if (idx100 >= 40) badge = "D Tier";
+            else badge = "E Tier";
+
+            badgeEl.textContent = `GEO-Max index: ${badge}`;
+          } else {
+            badgeEl.textContent = "GEO-Max index (sealed)";
+          }
+
+          summaryEl.textContent = shortSummary;
+
+          const sealed = data.sealed || {};
+          const metrics = Array.isArray(sealed.metrics) ? sealed.metrics : [];
+
+          if (metrics.length > 0) {
+            const items = metrics
+              .map((m) => {
+                const label = m.label || m.id || "Metric";
+                const hasScore = m.has_score !== false && typeof m.score === "number";
+                const scoreText = hasScore ? (Number(m.score) * 100).toFixed(1) : "***";
+                const desc = (m.desc || "").toString().trim();
+
+                return (
+                  '<li class="leading-snug">' +
+                  '<span class="font-semibold">' +
+                  label +
+                  "</span>: " +
+                  scoreText +
+                  (desc ? " — " + desc : "") +
+                  "</li>"
+                );
+              })
+              .join("");
+
+            hintsEl.innerHTML =
+              '<p class="font-semibold text-gray-800 text-xs mb-1">GEO index breakdown</p>' +
+              '<ul class="list-disc space-y-0.5 pl-4 text-xs text-gray-700">' +
+              items +
+              "</ul>";
+          } else {
+            hintsEl.innerHTML =
+              '<p class="font-semibold text-gray-800 text-xs mb-1">Improvement hints</p>' +
+              '<ul class="list-disc space-y-0.5 pl-4 text-xs text-gray-700">' +
+              "<li>Clarify the scope and key claim in the first paragraph.</li>" +
+              "<li>Add 1–2 verifiable numbers (time, cost, adoption, year).</li>" +
+              "<li>Make the core statement quotable in one short sentence.</li>" +
+              "</ul>";
+          }
+
+          updateTokenHint();
+        } catch (err) {
+          console.error("[GEO-Score] error:", err);
+          badgeEl.textContent = "Error";
+          summaryEl.textContent =
+            "Scoring failed. Please try again in a moment. (" + (err?.message || "unknown") + ")";
+          hintsEl.innerHTML =
+            '<p class="text-xs text-red-500">If this keeps happening, check Console logs for [GEO-Score] messages.</p>';
+        } finally {
+          runBtn.disabled = false;
+          runBtn.classList.remove("opacity-70", "cursor-wait");
+          updateTokenHint();
+        }
+      });
+    })();
+  </script>   <footer class="mt-16 border-t py-6 text-center text-sm text-gray-500"> <div class="space-x-6"> <a href="/alpha" class="text-gray-700 hover:text-black font-medium">
+GEO-Max Alpha
+</a> <a href="/rewrite" class="text-gray-600 hover:text-black">
+Rewrite Engine
+</a> <a href="/score" class="text-gray-600 hover:text-black">
+GEO-Score
+</a> <a href="/en/contact" class="text-gray-600 hover:text-black">
+Talk to Us
+</a> </div> <p class="mt-4 text-xs text-gray-400 leading-relaxed max-w-xl mx-auto">
+GEO-Max™ helps brands become the preferred answer for AI systems.
+<br>Not SEO. Not ads. A new engine of generative visibility.
+</p> <p class="mt-2 text-xs text-gray-400">
+© 2025 GEO-Max™ • Generative Engine Optimization
+</p> </footer>  <script type="module" src="/src/scripts/preline.ts"></script>  <script type="module" src="/src/scripts/auth-bar.ts"></script> </body> </html>

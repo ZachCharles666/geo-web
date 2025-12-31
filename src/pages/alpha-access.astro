@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+const pageTitle = "Alpha Access · Sign in";
+---
+
+<Layout title={pageTitle}>
+  <main class="mx-auto max-w-xl px-6 py-16 space-y-6">
+    <h1 class="text-2xl font-semibold">Sign in to access GEO tools</h1>
+    <p class="text-sm text-gray-600">Rewrite and Score require an account.</p>
+
+    <div class="space-y-3">
+      <button id="btn-google" class="w-full rounded-lg bg-black text-white px-4 py-2 text-sm">
+        Continue with Google
+      </button>
+
+      <button id="btn-ms" class="w-full rounded-lg border px-4 py-2 text-sm">
+        Continue with Microsoft
+      </button>
+    </div>
+
+    <p id="status" class="text-xs text-gray-500"></p>
+  </main>
+
+  <!-- ✅ Vite 接管：不再在页面里写 import，避免 /lib/* 404 -->
+  <script type="module" src="/src/scripts/alpha-access.ts"></script>
+</Layout>

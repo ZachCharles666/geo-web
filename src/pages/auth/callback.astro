@@ -1,0 +1,12 @@
+---
+import Layout from "../../layouts/Layout.astro";
+const pageTitle = "Auth Callback";
+---
+
+<Layout title={pageTitle} showAuthBar={false}>
+  <main class="min-h-screen flex items-center justify-center px-4">
+    <div id="auth-status" class="text-sm text-gray-600">Signing you in…</div>
+  </main>
+  <script type="module" src="/src/scripts/auth-callback.ts"></script>
+
+</Layout>

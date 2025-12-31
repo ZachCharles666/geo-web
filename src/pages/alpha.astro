@@ -1,0 +1,552 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const pageTitle = "GEO Tools Alpha Access";
+const billingBase = import.meta.env.PUBLIC_BILLING_API_BASE || "";
+---
+
+<Layout 
+  title={pageTitle}
+  showAuthBar={true}>
+  <main 
+    class="min-h-screen bg-slate-50 text-slate-900"
+    data-billing-base={billingBase}>
+    <!-- Hero -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10">
+        <div class="max-w-2xl space-y-6">
+          <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-medium text-slate-500">
+            <span class="inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+            <span>Alpha · Limited seats · For GEO believers</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-slate-900">
+            GEO Tools Alpha:
+            <span class="text-indigo-600">Buy Visibility</span>
+            before everyone else notices it exists.
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+            Alpha is not a free trial. It’s an invitation-only phase for people who
+            already believe that large language models will become a major
+            distribution channel. You’re not just buying an evolving tool &mdash;
+            you’re buying a ticket into that future visibility layer.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <a
+              href="#pricing"
+              class="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2.5 text-sm sm:text-base font-semibold text-white shadow-lg shadow-indigo-500/30 hover:bg-indigo-500 transition"
+            >
+              Apply for Alpha access
+            </a>
+            <a
+              href="#pricing"
+              class="inline-flex items-center justify-center rounded-lg border border-slate-300 px-4 py-2.5 text-sm sm:text-base font-medium text-slate-700 hover:border-indigo-400 hover:text-indigo-500 transition"
+            >
+              View plans & benefits
+            </a>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-400">
+            * Alpha seats are limited (Alpha-Base: <span class="font-semibold text-slate-600">300 users</span> ; Alpha-Pro: <span class="font-semibold text-slate-600">50 users</span>).
+            Once filled, this access tier will be closed.
+          </p>
+        </div>
+
+        <!-- Highlight card -->
+        <div class="w-full lg:w-80">
+          <div class="rounded-2xl border border-slate-200 bg-white px-5 py-6 shadow-xl shadow-slate-900/5 space-y-4">
+            <h2 class="text-sm font-semibold text-slate-900">
+              What do you actually get in Alpha?
+            </h2>
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-600">
+              <li class="flex gap-2">
+                <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                <span>Early access to GEO-Rewrite™ and GEO-Score™ for real projects, not just playground demos.</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                <span>Our tools are shaped on live “content → model → search” loops, not synthetic benchmarks.</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                <span>Direct feedback loop with the team &mdash; your use cases can influence the roadmap.</span>
+              </li>
+              <li class="flex gap-2">
+                <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                <span>Locked-in discounts and early access for future tools in the GEO stack.</span>
+              </li>
+
+              <li class="flex gap-2">
+                <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                <span>
+                  A small free playground stays open for everyone
+                  (around 10 trial rewrites total, ~2 runs per day and about 1000 tokens per run),
+                  while Alpha removes these caps and gives you quotas you can actually build workflows on.
+                </span>
+              </li>
+
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="border-t border-slate-200 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-14 space-y-8">
+        <div class="space-y-3 max-w-2xl">
+          <h2 class="text-xl sm:text-2xl font-semibold text-slate-900">
+            In Alpha we focus on two things only: Rewrite &amp; Score.
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600">
+            We deliberately avoid feature bloat in this phase. The point of Alpha is
+            to make two capabilities reliable in real work:
+            <span class="font-semibold text-slate-900">
+              rewriting content in a GEO-friendly way, and scoring it with an interpretable index that answers one question:
+              “Is this piece worth being quoted by AI?”
+            </span>
+          </p>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <!-- Rewrite -->
+          <div class="rounded-2xl border border-slate-200 bg-white p-6 space-y-3">
+            <div class="inline-flex items-center gap-2 rounded-full bg-indigo-500/5 px-3 py-1 text-xs font-medium text-indigo-600">
+              <span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+              <span>GEO-Rewrite™ · Logic-first rewriting</span>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900">
+              Not “Fix my grammar”, but “How would AI talk about my Product?”
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              You paste an existing paragraph &mdash; a product page, LinkedIn post, report
+              section. GEO-Rewrite reshapes the argument structure and evidence flow so
+              the text is easier for AI agents to quote and reuse, while still reading
+              like something a human team could have written.
+            </p>
+            <ul class="mt-3 space-y-2 text-xs sm:text-sm text-slate-600">
+              <li>• Simple industry / scenario selector to bias tone toward your use case.</li>
+              <li>• Designed to later connect with COT engines, but kept lean and stable in Alpha.</li>
+            </ul>
+          </div>
+
+          <!-- Score -->
+          <div class="rounded-2xl border border-slate-200 bg-white p-6 space-y-3">
+            <div class="inline-flex items-center gap-2 rounded-full bg-sky-500/5 px-3 py-1 text-xs font-medium text-sky-600">
+              <span class="h-1.5 w-1.5 rounded-full bg-sky-500"></span>
+              <span>GEO-Score™ · Trust &amp; relevance index</span>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900">
+              A single A–S grade to tell you if this piece is worth pushing.
+            </h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              GEO-Score compresses multiple hidden dimensions into an
+              <strong class="font-semibold">A–S grade</strong> and then explains, in plain language,
+              where the piece is strong today and where it can be improved.
+            </p>
+            <ul class="mt-3 space-y-2 text-xs sm:text-sm text-slate-600">
+              <li>• Helps you prioritise which articles or pages deserve distribution budget.</li>
+              <li>• Alpha supports EN / ZH first, with more languages planned later.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="border-t border-slate-200 bg-slate-900 text-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-16 space-y-10">
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <h2 class="text-2xl sm:text-3xl font-semibold text-white">
+            GEO Tools Alpha Access · limited opening
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300">
+            Alpha is designed as an <span class="font-semibold text-indigo-200">explorer program</span>.
+            Pricing is less about “feature coverage” and more about whether you want a seat
+            before GEO becomes a checkbox feature in everyone else’s stack.
+          </p>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <!-- Alpha-Base -->
+          <div class="relative rounded-2xl border border-slate-700 bg-slate-900/60 p-6 sm:p-7 flex flex-col">
+            <div class="mb-4 flex items-center justify-between gap-3">
+              <div>
+                <h3 class="text-lg font-semibold text-white">Alpha-Base</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                  For solo builders, content leads and curious explorers.
+                </p>
+              </div>
+            </div>
+
+            <div class="mb-5">
+              <p class="text-3xl font-semibold text-white">$99<span class="text-base font-normal text-slate-300"> / year</span></p>
+              <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                About <span class="font-semibold">$0.27 / day</span> — less than a coffee.
+              </p>
+            </div>
+
+            <ul class="space-y-2.5 text-xs sm:text-sm text-slate-100 flex-1">
+              <li>✓ Alpha access to GEO-Rewrite™ & GEO-Score™</li>
+              <li>✓ Up to <span class="font-semibold text-indigo-200">400 calls / month · 200K tokens</span></li>
+              <li>✓ Quota resets every month</li>
+              <li>✓ Private user group (direct line to the builders)</li>
+            </ul>
+
+            <div class="mt-6">
+              <button
+                type="button"
+                data-action="checkout"
+                data-tier="alpha_base"
+                class="inline-flex w-full items-center justify-center rounded-lg border border-slate-500 px-4 py-2.5 text-sm font-medium text-slate-50 hover:border-indigo-300 hover:text-indigo-100 transition"
+              >
+                Apply for Alpha-Base
+              </button>
+            </div>
+          </div>
+
+          <!-- Alpha-Pro -->
+          <div class="relative rounded-2xl border border-indigo-400 bg-gradient-to-b from-indigo-500/15 to-slate-900/90 p-6 sm:p-7 flex flex-col">
+            <div class="mb-4 flex items-center justify-between gap-3">
+              <div>
+                <h3 class="text-lg font-semibold text-white">Alpha-Pro</h3>
+                <p class="text-xs sm:text-sm text-indigo-100 mt-1">
+                  Recommended for heavy users, teams and agencies.
+                </p>
+              </div>
+              <span class="inline-flex items-center rounded-full bg-indigo-500/30 px-3 py-1 text-[11px] font-semibold text-indigo-50">
+                🔥 Recommended
+              </span>
+            </div>
+
+            <div class="mb-5">
+              <p class="text-3xl font-semibold text-white">$299<span class="text-base font-normal text-slate-200"> / year</span></p>
+              <p class="text-xs sm:text-sm text-slate-200 mt-1">
+                About <span class="font-semibold">$0.81 / day</span> — less than a bottle of water
+                to buy future GEO leverage.
+              </p>
+            </div>
+
+            <ul class="space-y-2.5 text-xs sm:text-sm text-slate-50 flex-1">
+              <li>✓ <span class="font-semibold text-indigo-100">1200 calls / month · 500K tokens</span></li>
+              <li>✓ Monthly quota reset</li>
+              <li>✓ Planned overage pricing: <span class="font-semibold">$4 / 50K tokens</span> (when metering goes live)</li>
+              <li>✓ Private group + roadmap voting power</li>
+              <li>✓ Name / logo on “early contributors” page (opt-in)</li>
+              <li>✓ Early access to COT-related features</li>
+              <li>✓ Priority access to future GEO tools</li>
+              <li>✓ <span class="font-semibold text-indigo-100">50% off</span> GEO full subscription for the first 3 years</li>
+            </ul>
+
+            <div class="mt-6">
+              <button
+                type="button"
+                data-action="checkout"
+                data-tier="alpha_pro"
+                class="inline-flex w-full items-center justify-center rounded-lg bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-slate-950 hover:bg-indigo-400 transition shadow-lg shadow-indigo-500/40"
+              >
+                Apply for Alpha-Pro
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- pricing perception + punchline -->
+        <div class="mt-10 grid gap-6 lg:grid-cols-[1.3fr,1fr] items-start">
+          <div class="rounded-2xl border border-slate-700 bg-slate-900/70 p-5 sm:p-6 space-y-4">
+            <h3 class="text-sm sm:text-base font-semibold text-slate-50">
+              Calculate Your "Visibility Cost"
+            </h3>
+            <div class="overflow-hidden rounded-xl border border-slate-700 bg-slate-950/40">
+              <table class="min-w-full text-left text-xs sm:text-sm text-slate-100">
+                <thead class="bg-slate-900/80 text-slate-400 text-[11px] uppercase tracking-wide">
+                  <tr>
+                    <th class="px-4 py-2.5">Plan</th>
+                    <th class="px-4 py-2.5">Yearly</th>
+                    <th class="px-4 py-2.5">Avg. per day</th>
+                    <th class="px-4 py-2.5">Compare this with your daily expenses</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-t border-slate-700/80">
+                    <td class="px-4 py-3 font-semibold text-white">Alpha-Base</td>
+                    <td class="px-4 py-3">$99 / year</td>
+                    <td class="px-4 py-3">$0.27 / day</td>
+                    <td class="px-4 py-3 text-slate-200">
+                      “It costs less than my daily coffee.”
+                    </td>
+                  </tr>
+                  <tr class="border-t border-slate-700/80">
+                    <td class="px-4 py-3 font-semibold text-white">Alpha-Pro</td>
+                    <td class="px-4 py-3">$299 / year</td>
+                    <td class="px-4 py-3">$0.81 / day</td>
+                    <td class="px-4 py-3 text-slate-200">
+                      “For less than a bottle of water a day, I’m buying GEO positioning for the next few years.”
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-rose-400/70 bg-gradient-to-b from-rose-500/20 to-slate-950/90 p-5 sm:p-6 space-y-3">
+            <h3 class="text-sm sm:text-base font-semibold text-rose-50">
+              Still Hesitating?
+            </h3>
+            <p class="text-sm sm:text-base text-rose-50 leading-relaxed">
+              If you never put even a single dollar a day behind your content’s
+              competitiveness, it’s hardly “saving money” &mdash; it’s choosing to stay off the map
+              when AI systems decide what to surface.
+            </p>
+            <p class="text-xs sm:text-[13px] text-rose-100/80">
+              Alpha isn’t about squeezing early users for cash. It’s about filtering for
+              the small group of people who actually want to bet on future GEO visibility
+              and help shape how these tools will work.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 flex justify-center">
+          <a
+            href="/en/contact?src=alpha_access_bottom"
+            class="inline-flex items-center justify-center rounded-lg bg-indigo-500 px-6 py-2.5 text-sm sm:text-base font-semibold text-slate-950 hover:bg-indigo-400 transition shadow-lg shadow-indigo-500/40"
+          >
+            Yes — I want a seat before GEO becomes crowded
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="border-t border-slate-200 bg-slate-100">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-14 space-y-8">
+        <div class="space-y-2 text-center">
+          <h2 class="text-xl sm:text-2xl font-semibold text-slate-900">
+            FAQ
+          </h2>
+          <p class="text-sm text-slate-500">
+            If you’re still hesitating, it’s probably because one or two key details are missing.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <details class="group rounded-xl border border-slate-200 bg-white p-4">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-3">
+              <span class="text-sm sm:text-base font-medium text-slate-900">
+                How is Alpha different from the future “full” version?
+              </span>
+              <span class="text-slate-400 group-open:rotate-180 transition">▾</span>
+            </summary>
+            <div class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Alpha is more like a working lab: fewer features, more focus on the core
+              GEO engine. We prioritise stability and usefulness in real workflows over
+              comfort features. The future full version will add things like bulk
+              processing, reporting, collaboration, and more model options &mdash; but what you help
+              us debug and refine in Alpha will heavily influence the roadmap.
+            </div>
+          </details>
+
+          <details class="group rounded-xl border border-slate-200 bg-white p-4">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-3">
+              <span class="text-sm sm:text-base font-medium text-slate-900">
+                What do “calls” and “tokens” actually mean?
+              </span>
+              <span class="text-slate-400 group-open:rotate-180 transition">▾</span>
+            </summary>
+            <div class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Roughly speaking: <br />
+              <span class="font-semibold text-slate-900">One call</span> ≈ one
+              successful Rewrite or Score request. <br />
+              <span class="font-semibold text-slate-900">Tokens</span> are a unit of
+              text length used by model providers. 200K tokens per month is more than
+              enough for steady experimentation by a small team; 500K suits heavy users,
+              agencies or multiple parallel projects. We’ll keep the metering logic
+              behind a simple UI so you don’t have to deal with raw provider pricing.
+            </div>
+          </details>
+
+          <details class="group rounded-xl border border-slate-200 bg-white p-4">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-3">
+              <span class="text-sm sm:text-base font-medium text-slate-900">
+                Could Alpha pricing end up being “worse” than the future public pricing?
+              </span>
+              <span class="text-slate-400 group-open:rotate-180 transition">▾</span>
+            </summary>
+            <div class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Alpha is structured so that you are not buying “one year of features”, but
+              <span class="font-semibold text-slate-900">locking in a position and discounts</span>. <br /><br />
+              For example, Alpha-Pro includes: <br />
+              • 50% off the full subscription for the first 3 years; <br />
+              • early access to future tools; <br />
+              • public acknowledgement as an early contributor (if you want it). <br /><br />
+              The public version might have different pricing tiers, but Alpha members
+              will not be disadvantaged compared to later users.
+            </div>
+          </details>
+
+          <details class="group rounded-xl border border-slate-200 bg-white p-4">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-3">
+              <span class="text-sm sm:text-base font-medium text-slate-900">
+                I don’t have a big GEO project yet. Is Alpha still worth it?
+              </span>
+              <span class="text-slate-400 group-open:rotate-180 transition">▾</span>
+            </summary>
+            <div class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              If you’re just casually playing with AI tools, you can absolutely wait for
+              the public beta. <br /><br />
+              But if you work in content, brand, SEO, product or AI — and you already
+              believe that LLMs will be a major ranking and discovery layer — then Alpha
+              is less a “tool purchase” and more an early bet on visibility. You’re
+              essentially saying:
+              <span class="font-semibold text-slate-900">
+                “I want to understand and shape GEO before it becomes commodity infrastructure.”
+              </span>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script is:inline define:vars={{ billingBase }}>
+    console.log("[Alpha Checkout] script loaded (no-supabase-sdk)");
+
+    // 来自 Astro define:vars 注入
+    const root = document.querySelector("main[data-billing-base]");
+    const BILLING_API_BASE = root ? String(root.getAttribute("data-billing-base") || "") : "";
+    const BILLING_ENDPOINT =
+      (BILLING_API_BASE ? BILLING_API_BASE.replace(/\/$/, "") : "") + "/api/billing/checkout";
+
+    console.log("[Alpha Checkout] BILLING_ENDPOINT =", BILLING_ENDPOINT);
+
+    const MSG_NEED_LOGIN = "请先登录后再购买 Alpha 资格。";
+    const MSG_INVALID_TIER = "套餐参数无效，请刷新页面后重试。";
+    const MSG_CREATE_FAILED = "创建支付链接失败，请稍后重试或联系支持。";
+    const MSG_NETWORK_FAILED = "网络或服务异常，请稍后重试。";
+
+    let __busy = false;
+    let __tier = "";
+    let __notifyMsg = "";
+
+    function notify() { alert(__notifyMsg); }
+
+    function setBusy() {
+      const nodes = document.querySelectorAll('[data-action="checkout"]');
+      nodes.forEach((node) => {
+        if (!(node instanceof HTMLElement)) return;
+        if (__busy) {
+          if (node instanceof HTMLButtonElement) node.disabled = true;
+          node.setAttribute("aria-disabled", "true");
+          node.style.pointerEvents = "none";
+          node.style.opacity = "0.75";
+        } else {
+          if (node instanceof HTMLButtonElement) node.disabled = false;
+          node.removeAttribute("aria-disabled");
+          node.style.pointerEvents = "";
+          node.style.opacity = "";
+        }
+      });
+    }
+
+    function pickUserIdFromLocalStorage() {
+      try {
+        const keys = Object.keys(localStorage);
+        const sbKey = keys.find((k) => /^sb-[a-z0-9]+-auth-token$/i.test(k));
+        if (!sbKey) return null;
+        const raw = localStorage.getItem(sbKey);
+        if (!raw) return null;
+        const obj = JSON.parse(raw);
+        const id = obj && obj.user && obj.user.id ? String(obj.user.id) : null;
+        return id || null;
+      } catch (e) {
+        console.warn("[Alpha Checkout] pickUserIdFromLocalStorage failed:", e);
+        return null;
+      }
+    }
+
+    async function startCheckout() {
+      if (__tier !== "alpha_base" && __tier !== "alpha_pro") {
+        __notifyMsg = MSG_INVALID_TIER;
+        notify();
+        return;
+      }
+
+      if (__busy) return;
+      __busy = true;
+      setBusy();
+
+      try {
+        const userId = pickUserIdFromLocalStorage();
+        if (!userId) {
+          __notifyMsg = MSG_NEED_LOGIN;
+          notify();
+          return;
+        }
+
+        console.log("[Alpha Checkout] POST", { endpoint: BILLING_ENDPOINT, tier: __tier, user_id: userId });
+
+        const resp = await fetch(BILLING_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tier: __tier, user_id: userId }),
+        });
+
+        console.log("[Alpha Checkout] response", { ok: resp.ok, status: resp.status });
+
+        if (!resp.ok) {
+          const text = await resp.text().catch(() => "");
+          console.error("[Alpha Checkout] checkout failed:", resp.status, text);
+          __notifyMsg = MSG_CREATE_FAILED;
+          notify();
+          return;
+        }
+
+        const data = await resp.json().catch(() => null);
+        const checkoutUrl = data && data.checkout_url ? String(data.checkout_url) : "";
+
+        if (!checkoutUrl) {
+          console.error("[Alpha Checkout] missing checkout_url:", data);
+          __notifyMsg = MSG_CREATE_FAILED;
+          notify();
+          return;
+        }
+
+        window.location.href = checkoutUrl;
+      } catch (e) {
+        console.error("[Alpha Checkout] exception:", e);
+        __notifyMsg = MSG_NETWORK_FAILED;
+        notify();
+      } finally {
+        __busy = false;
+        setBusy();
+      }
+    }
+
+    document.addEventListener("click", (e) => {
+      const t = e.target;
+      if (!(t instanceof Element)) return;
+
+      const el = t.closest('[data-action="checkout"]');
+      if (!el) return;
+
+      e.preventDefault();
+      __tier = el.getAttribute("data-tier") || "";
+
+      console.log("[Alpha Checkout] click", { tier: __tier, busy: __busy, tag: el.tagName });
+      startCheckout();
+    });
+  </script>
+
+
+
+
+</Layout>
+
+
+
+
+

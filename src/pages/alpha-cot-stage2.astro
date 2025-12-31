@@ -1,0 +1,347 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="GEO Alpha · Stage2 Blueprint Playground">
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-6">
+    <header class="space-y-2">
+      <h1 class="text-xl font-semibold">
+        GEO Alpha · Stage2 内容链 & Blueprint Playground
+      </h1>
+      <p class="text-xs text-gray-500">
+        这里专门用于调试 <span class="font-mono">/api/cot/stage2/run</span> 的输出，
+        输入 Stage1 的 Markdown + 解析 JSON，生成内容链（Content Chains）和标题矩阵（Title Matrix）等 Blueprint。
+      </p>
+    </header>
+
+    <!-- 顶部：状态提示栏 -->
+    <section
+      id="stage2-status"
+      class="text-xs rounded-md border px-3 py-2 bg-slate-50 text-gray-600"
+    >
+      Stage2 就绪：请先从 Stage1 页面复制 Markdown / JSON，然后在左侧粘贴后点击「运行 Stage2」。
+    </section>
+
+    <!-- 主体：左右两栏 -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <!-- 左侧：输入区 -->
+      <div class="space-y-4">
+        <div class="space-y-1">
+          <label class="block text-xs font-medium text-gray-700">
+            Stage1 Markdown（从 alpha-cot.astro 页面复制）
+          </label>
+          <textarea
+            id="stage2-input-md"
+            rows="12"
+            class="w-full border rounded-md px-3 py-2 text-[11px] font-mono"
+            placeholder="请将 Stage1 页面生成的 Markdown（stage1_md）粘贴到这里……"
+          ></textarea>
+        </div>
+
+        <div class="space-y-1">
+          <label class="block text-xs font-medium text-gray-700">
+            Stage1 解析后的 JSON（logic_index / mlc_nodes / llc_nodes）
+          </label>
+          <textarea
+            id="stage2-input-json"
+            rows="10"
+            class="w-full border rounded-md px-3 py-2 text-[11px] font-mono"
+            placeholder="请将 Stage1 页面解析得到的 JSON（/cot/stage1/parse 的 data 字段）粘贴到这里……"
+          ></textarea>
+        </div>
+
+        <!-- 可选：基础信息补充，方便传给后端 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label class="block text-xs font-medium text-gray-700">
+              目标问题（可选）
+            </label>
+            <input
+              id="stage2-user-question"
+              type="text"
+              class="w-full border rounded-md px-2 py-1 text-[11px]"
+              placeholder="可选：与 Stage1 同一个 user_question"
+            />
+          </div>
+          <div class="space-y-1">
+            <label class="block text-xs font-medium text-gray-700">
+              Model UI（可选）
+            </label>
+            <select
+              id="stage2-model-ui"
+              class="w-full border rounded-md px-2 py-1 text-[11px]"
+            >
+              <option value="groq" selected>groq</option>
+              <option value="openai">openai</option>
+              <option value="deepseek">deepseek</option>
+              <option value="qwen">qwen</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <button
+            id="stage2-run-btn"
+            type="button"
+            class="inline-flex items-center px-4 py-2 rounded-md border border-indigo-600 text-xs font-medium bg-indigo-600 text-white hover:bg-indigo-700"
+          >
+            运行 Stage2（生成 Blueprint）
+          </button>
+
+          <button
+            id="stage2-clear-btn"
+            type="button"
+            class="inline-flex items-center px-3 py-2 rounded-md border text-xs font-medium bg-white text-gray-700 hover:bg-gray-50"
+          >
+            清空输入 & 输出
+          </button>
+        </div>
+      </div>
+
+      <!-- 右侧：结果区 -->
+      <div class="space-y-4">
+        <div class="space-y-1">
+          <div class="flex items-center justify-between">
+            <label class="block text-xs font-medium text-gray-700">
+              Stage2 Blueprint JSON（chains / titles / abstracts / routes）
+            </label>
+            <button
+              id="stage2-copy-blueprint"
+              type="button"
+              class="px-2 py-1 text-[11px] border rounded-md bg-white hover:bg-gray-50"
+            >
+              复制 Blueprint JSON
+            </button>
+          </div>
+          <textarea
+            id="stage2-blueprint-json"
+            rows="14"
+            class="w-full border rounded-md px-3 py-2 text-[11px] font-mono"
+            placeholder="点击「运行 Stage2」后，这里会显示 Blueprint 的完整 JSON 结构。"
+          ></textarea>
+        </div>
+
+        <!-- 可选：CC 对齐诊断结果 -->
+        <div class="space-y-1">
+          <label class="block text-xs font-medium text-gray-700">
+            CC 对齐诊断（可选：若后端返回 alignment 结果）
+          </label>
+          <textarea
+            id="stage2-cc-diagnose"
+            rows="6"
+            class="w-full border rounded-md px-3 py-2 text-[11px] font-mono"
+            placeholder="如果后端在 Stage2 输出中附带 CC 对齐诊断，这里可以显示 compact 版诊断结果。"
+          ></textarea>
+        </div>
+
+        <!-- 预留：未来 GEO 指数 / 封印视图的位置 -->
+        <div class="space-y-1 border rounded-md px-3 py-2 bg-slate-50">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-medium text-gray-700">
+              预留：GEO 指数封印视图（Free / Alpha / Pro）
+            </span>
+            <span class="text-[10px] text-gray-400">
+              暂时仅 UI 占位，后续再接 /api/geo/score
+            </span>
+          </div>
+          <p class="text-[11px] text-gray-500">
+            后续可以在这里展示：overall_score、已解封的 GEO-LANG / GEO-TRUST 等指标，
+            从而把「内容链 → 评分 → 封印展示」串成一个完整工作流。
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 内联脚本：调用 /api/cot/stage2/run -->
+  <script>
+    // @ts-nocheck
+    // const API_BASE = (import.meta.env.PUBLIC_API_BASE || "").replace(/\/$/, "");
+    // console.log("[stage2] API_BASE =", API_BASE);
+
+    // 临时 debug 版
+    const API_BASE = "http://127.0.0.1:8001";
+
+
+    function setStage2Status(msg, type = "info") {
+      const el = document.getElementById("stage2-status");
+      if (!el) return;
+      el.textContent = msg;
+
+      el.classList.remove(
+        "border-slate-200",
+        "border-red-300",
+        "border-emerald-300",
+        "bg-slate-50",
+        "bg-red-50",
+        "bg-emerald-50",
+      );
+
+      if (type === "error") {
+        el.classList.add("border-red-300", "bg-red-50");
+      } else if (type === "ok") {
+        el.classList.add("border-emerald-300", "bg-emerald-50");
+      } else {
+        el.classList.add("border-slate-200", "bg-slate-50");
+      }
+    }
+
+    async function callStage2Run() {
+      const btn = document.getElementById("stage2-run-btn");
+      const mdEl = document.getElementById("stage2-input-md");
+      const jsonEl = document.getElementById("stage2-input-json");
+      const blueprintEl = document.getElementById("stage2-blueprint-json");
+      const ccDiagEl = document.getElementById("stage2-cc-diagnose");
+      const uqEl = document.getElementById("stage2-user-question");
+      const modelUiEl = document.getElementById("stage2-model-ui");
+
+      if (!mdEl || !jsonEl || !blueprintEl) return;
+
+      const stage1Md = mdEl.value.trim();
+      const stage1JsonText = jsonEl.value.trim();
+
+      if (!stage1Md) {
+        setStage2Status("Stage1 Markdown 为空，请先从 Stage1 页面复制结果。", "error");
+        return;
+      }
+
+      if (!stage1JsonText) {
+        setStage2Status(
+          "Stage1 解析 JSON 为空，请先从 Stage1 页面复制 /cot/stage1/parse 的 data 部分。",
+          "error",
+        );
+        return;
+      }
+
+      let stage1Json = null;
+      try {
+        stage1Json = JSON.parse(stage1JsonText);
+      } catch (e) {
+        console.error("[stage2] JSON parse error", e);
+        setStage2Status("Stage1 JSON 解析失败，请确认格式是否为合法 JSON。", "error");
+        return;
+      }
+
+      const payload = {
+        user_question: uqEl ? uqEl.value || "" : "",
+        stage1_markdown: stage1Md,
+
+        // ⬇️ 品牌简介兜底逻辑增强版
+        brand_brief:
+            (stage1Json &&
+            (
+                stage1Json.brand_brief ||
+                stage1Json.brand_brief_summary ||
+                // 有些解析器会把 brand 信息整理到 brand 节点里
+                (stage1Json.brand && (stage1Json.brand.brief || stage1Json.brand.summary))
+            )) ||
+            "",
+
+        must_expose: (stage1Json && stage1Json.must_expose) || "",
+        expo_hint: "",
+        model_ui: modelUiEl ? modelUiEl.value || "Groq" : "Groq",
+      };
+
+      try {
+        if (btn) btn.disabled = true;
+        setStage2Status("正在调用 /api/cot/stage2/run …", "info");
+
+        const res = await fetch(`${API_BASE}/api/cot/stage2/run`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json().catch(() => null);
+
+        if (!res.ok || !data) {
+          console.error("[stage2] HTTP error", res.status);
+          setStage2Status(`Stage2 调用失败（HTTP ${res.status}）`, "error");
+          return;
+        }
+
+        // 这里按你后端预期结构做一个尽量“宽松”的兼容
+        // 假设：
+        //   data.ok === true
+        //   data.blueprint 里有 chains / titles / abstracts / routes
+        //   data.cc_alignment 里有 CC 对齐诊断（如果你有返回）
+        if (!data.ok) {
+          console.error("[stage2] biz error", data);
+          setStage2Status("Stage2 业务失败，请查看控制台返回。", "error");
+        } else {
+          const bp = data.blueprint || data.data || data;
+          blueprintEl.value = JSON.stringify(bp, null, 2);
+
+          if (ccDiagEl) {
+            const cc = data.cc_alignment || data.cc_diagnose || null;
+            ccDiagEl.value = cc ? JSON.stringify(cc, null, 2) : "";
+          }
+
+          setStage2Status("Stage2 运行完成 ✅ 已生成 Blueprint。", "ok");
+        }
+      } catch (err) {
+        console.error("[stage2] exception", err);
+        setStage2Status("Stage2 调用异常，请查看控制台。", "error");
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    function clearStage2() {
+      const ids = [
+        "stage2-input-md",
+        "stage2-input-json",
+        "stage2-blueprint-json",
+        "stage2-cc-diagnose",
+      ];
+      ids.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+      setStage2Status("已清空输入与输出。", "info");
+    }
+
+    function initStage2() {
+      const runBtn = document.getElementById("stage2-run-btn");
+      const clearBtn = document.getElementById("stage2-clear-btn");
+      const copyBtn = document.getElementById("stage2-copy-blueprint");
+
+      if (runBtn) {
+        runBtn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          callStage2Run();
+        });
+      }
+
+      if (clearBtn) {
+        clearBtn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          clearStage2();
+        });
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          const el = document.getElementById("stage2-blueprint-json");
+          if (el && el.value) {
+            navigator.clipboard
+              .writeText(el.value)
+              .then(() => setStage2Status("Blueprint JSON 已复制到剪贴板。", "ok"))
+              .catch(() =>
+                setStage2Status("复制失败，请手动选择文本复制。", "error"),
+              );
+          }
+        });
+      }
+
+      console.log("[alpha-cot-stage2] init 完成");
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initStage2);
+    } else {
+      initStage2();
+    }
+  </script>
+</Layout>
