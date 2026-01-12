@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import authCallbackScript from "../../scripts/auth-callback.ts?url";
 const pageTitle = "Auth Callback";
 ---
 
@@ -7,6 +8,6 @@ const pageTitle = "Auth Callback";
   <main class="min-h-screen flex items-center justify-center px-4">
     <div id="auth-status" class="text-sm text-gray-600">Signing you in…</div>
   </main>
-  <script type="module" src="/src/scripts/auth-callback.ts"></script>
+  <script type="module" src={authCallbackScript}></script>
 
 </Layout>

@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import alphaAccessScript from "../scripts/alpha-access.ts?url";
 const pageTitle = "Alpha Access · Sign in";
 ---
 
@@ -22,5 +23,5 @@ const pageTitle = "Alpha Access · Sign in";
   </main>
 
   <!-- ✅ Vite 接管：不再在页面里写 import，避免 /lib/* 404 -->
-  <script type="module" src="/src/scripts/alpha-access.ts"></script>
+  <script type="module" src={alphaAccessScript}></script>
 </Layout>
