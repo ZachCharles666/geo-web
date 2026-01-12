@@ -1,7 +1,5 @@
 ---
 import { LEGAL_ENTITY_NAME, SUPPORT_EMAIL, SITE_URL } from "../config/site";
-import prelineUrl from "../scripts/entries/preline-entry.js?url";
-import authBarUrl from "../scripts/entries/auth-bar-entry.js?url";
 
 export interface Hreflang {
   href: string;
@@ -32,6 +30,14 @@ const {
   noindex = false,
   showAuthBar = false, // ✅ 默认不显示，避免影响 /en 等页面视觉
 } = Astro.props;
+
+const isDev = import.meta.env.DEV;
+const prelineScriptSrc = isDev
+  ? "/src/scripts/entries/preline-entry.js"
+  : "/assets/preline.js";
+const authBarScriptSrc = isDev
+  ? "/src/scripts/entries/auth-bar-entry.js"
+  : "/assets/auth-bar.js";
 
 const siteName = "GEO-Max";
 const isZh = String(lang).toLowerCase().startsWith("zh");
@@ -183,9 +189,9 @@ const robotsContent = noindex
       </p>
     </footer>
     {/* ✅ Preline：走 Vite 模块脚本，避免裸模块 import */}
-    <script type="module" src={prelineUrl}></script>
+    <script type="module" src={prelineScriptSrc}></script>
 
     {/* ✅ AuthBar 仅在 showAuthBar=true 时加载 */}
-    {showAuthBar && <script type="module" src={authBarUrl}></script>}
+    {showAuthBar && <script type="module" src={authBarScriptSrc}></script>}
   </body>
 </html>

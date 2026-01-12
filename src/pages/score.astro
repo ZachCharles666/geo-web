@@ -250,7 +250,11 @@ const pageDesc =
     let __supabasePromise = null;
     async function getSupabaseClient() {
       if (!__supabasePromise) {
-        __supabasePromise = import("/src/lib/supabaseClient.ts").then((m) => m.supabase);
+        __supabasePromise = import(
+          import.meta.env.DEV
+            ? "/src/lib/supabaseClient.ts"
+            : "/assets/supabase-client.js"
+        ).then((m) => m.supabase);
       }
       return __supabasePromise;
     }

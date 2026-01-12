@@ -2,7 +2,6 @@
 // const ACTION_URL =
 //   (import.meta.env.PUBLIC_LEAD_API?.replace(/\/$/, '') || '') + '/lead-collect?json=1';
 
-import contactFormScript from "../../../scripts/entries/contact-form-entry.js?url";
 
 const ACTION_URL = 'https://api.oldriver.work/lead-collect?json=1';
 const DEFAULT_QR   = '/assets/qr/qr1.png';
@@ -128,7 +127,12 @@ const DEFAULT_NAME = 'GEO顾问';
               我们重视隐私，仅将你的信息用于对接沟通。
             </p>
           </form>
-          <script type="module" src={contactFormScript}></script>
+          <script
+            type="module"
+            src={import.meta.env.DEV
+              ? "/src/scripts/entries/contact-form-entry.js"
+              : "/assets/contact-form.js"}
+          ></script>
         </div>
       </div>
     </div>
