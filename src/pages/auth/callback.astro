@@ -1,8 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-const authCallbackScriptSrc = import.meta.env.DEV
-  ? "/src/scripts/entries/auth-callback-entry.js"
-  : "/assets/auth-callback.js";
 const pageTitle = "Auth Callback";
 ---
 
@@ -10,6 +7,6 @@ const pageTitle = "Auth Callback";
   <main class="min-h-screen flex items-center justify-center px-4">
     <div id="auth-status" class="text-sm text-gray-600">Signing you in…</div>
   </main>
-  <script type="module" src={authCallbackScriptSrc}></script>
+  <script type="module" src="/scripts/auth-callback.mjs"></script>
 
 </Layout>
