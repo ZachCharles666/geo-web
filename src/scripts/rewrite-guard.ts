@@ -1,6 +1,28 @@
 import { supabase } from "../lib/supabaseClient";
 
+const PUBLIC_PATHS = [
+  "/terms",
+  "/privacy",
+  "/refund",
+  "/pricing",
+  "/about",
+  "/help",
+  "/changelog",
+  "/contact",
+];
+
+function isPublicPath(pathname: string) {
+  const normalized = pathname.replace(/\/+$/, "") || "/";
+  if (PUBLIC_PATHS.includes(normalized)) return true;
+  if (normalized.startsWith("/en/") || normalized.startsWith("/zh/")) {
+    const rest = normalized.replace(/^\/(en|zh)/, "");
+    return PUBLIC_PATHS.includes(rest);
+  }
+  return false;
+}
+
 (async () => {
+  if (isPublicPath(window.location.pathname)) return;
   const { data } = await supabase.auth.getSession();
   const session = data.session;
 

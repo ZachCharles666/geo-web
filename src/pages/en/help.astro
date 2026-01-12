@@ -1,0 +1,76 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { SUPPORT_EMAIL, SITE_URL, LEGAL_ENTITY_NAME } from "../../config/site";
+
+const pageTitle = "Help | GEO-Max";
+const pageDesc = "Support topics and FAQs for GEO-Max subscriptions and usage.";
+const canonical = "/en/help";
+const hreflangs = [
+  { href: "/en/help", hreflang: "en" },
+  { href: "/zh/help", hreflang: "zh-CN" },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="en"
+  hreflangs={hreflangs}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+    <h1 class="text-3xl sm:text-4xl font-semibold text-slate-900">Help & FAQ</h1>
+
+    <div class="mt-8 space-y-6 text-sm sm:text-base text-slate-700 leading-relaxed">
+      <section class="space-y-2">
+        <h2 class="text-xl font-semibold text-slate-900">How do I cancel my subscription?</h2>
+        <p>
+          You can cancel from your account dashboard or by emailing support. Your access remains
+          active until the end of the current billing period. The billing period runs from your
+          purchase date to the same date in the next month (or the next year for annual plans).
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-xl font-semibold text-slate-900">How is usage calculated?</h2>
+        <p>
+          Usage is measured by successful calls and token consumption. Each plan includes a monthly
+          quota that resets every month.
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-xl font-semibold text-slate-900">How do I request a refund?</h2>
+        <p>
+          See the Refund Policy for eligibility. To request a refund, email
+          <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+          with your order details.
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-xl font-semibold text-slate-900">How do I contact support?</h2>
+        <p>
+          Send your question to
+          <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+          and we will reply within 1-2 business days.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": pageTitle,
+      "url": new URL(canonical, SITE_URL).toString(),
+      "inLanguage": "en",
+      "publisher": {
+        "@type": "Organization",
+        "name": LEGAL_ENTITY_NAME,
+        "url": SITE_URL
+      }
+    })}
+  </script>
+</Layout>

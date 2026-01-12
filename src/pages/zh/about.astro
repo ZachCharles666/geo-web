@@ -1,0 +1,56 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { LEGAL_ENTITY_NAME, SUPPORT_EMAIL, SITE_URL } from "../../config/site";
+
+const pageTitle = "关于我们 | GEO-Max";
+const pageDesc = "了解 GEO-Max 与 GEO 工具平台。";
+const canonical = "/zh/about";
+const hreflangs = [
+  { href: "/en/about", hreflang: "en" },
+  { href: "/zh/about", hreflang: "zh-CN" },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="zh-CN"
+  hreflangs={hreflangs}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+    <h1 class="text-3xl sm:text-4xl font-semibold text-slate-900">关于 GEO-Max</h1>
+    <p class="mt-4 text-sm sm:text-base text-slate-700 leading-relaxed">
+      GEO-Max 是一个面向 AI 搜索与生成式答案场景的可见度优化平台，帮助品牌在
+      AI 回答中获得更可信、更高频的引用。
+    </p>
+
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 text-sm sm:text-base text-slate-700">
+      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 class="text-lg font-semibold text-slate-900">主体名称</h2>
+        <p class="mt-2">{LEGAL_ENTITY_NAME}</p>
+      </div>
+      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 class="text-lg font-semibold text-slate-900">支持邮箱</h2>
+        <p class="mt-2">
+          <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": pageTitle,
+      "url": new URL(canonical, SITE_URL).toString(),
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@type": "Organization",
+        "name": LEGAL_ENTITY_NAME,
+        "url": SITE_URL
+      }
+    })}
+  </script>
+</Layout>

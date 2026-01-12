@@ -15,7 +15,7 @@ const items = [
     desc: '系统梳理 AI 搜索生态、平台矩阵与商业化路径，含方法论与案例库。',
     date: '2025-09-30',
     read: '18 min',
-    url: '#',
+    url: '/zh/insights/2025-geo-industry-report',
     tags: ['GEO', '行业研究', '平台矩阵']
   },
   {
@@ -25,7 +25,7 @@ const items = [
     desc: '从可复述性、引用率、覆盖广度 3 指标评出 TOP30，可复现评分明细。',
     date: '2025-08-21',
     read: '12 min',
-    url: '#',
+    url: '/zh/insights/visibility-top30-q3',
     tags: ['排行榜', '可见度', '方法公开']
   },
   {
@@ -35,19 +35,19 @@ const items = [
     desc: '一文厘清传统 SEO 与 GEO 的边界、衔接与协同策略。',
     date: '2025-07-12',
     read: '10 min',
-    url: '#',
+    url: '/zh/insights/seo-to-geo-migration',
     tags: ['策略', '增长', '工作流']
   },
-  {
-    type: 'report',
-    schemaType: 'Dataset',
-    title: 'GEO-Score 公测数据集（v0.9）',
-    desc: '覆盖 10+ 主流大模型、2000+ 语料条目，评分维度与基准说明文档。',
-    date: '2025-06-28',
-    read: 'Data',
-    url: '#',
-    tags: ['Dataset', '评分基准', '开源']
-  },
+  // {
+  //   type: 'report',
+  //   schemaType: 'Dataset',
+  //   title: 'GEO-Score 公测数据集（v0.9）',
+  //   desc: '覆盖 10+ 主流大模型、2000+ 语料条目，评分维度与基准说明文档。',
+  //   date: '2025-06-28',
+  //   read: 'Data',
+  //   url: '/zh/datasets/geo-score-v0-9',
+  //   tags: ['Dataset', '评分基准', '开源']
+  // },
   {
     type: 'trend',
     schemaType: 'Article',
@@ -55,7 +55,7 @@ const items = [
     desc: '微信公众号/抖音/小红书图文侧的结构化变化与运营建议。',
     date: '2025-10-20',
     read: '14 min',
-    url: '#',
+    url: '/zh/insights/content-trend-2025',
     tags: ['平台', '分发机制', '图文']
   },
 ];
@@ -144,12 +144,12 @@ const items = [
   <!-- End Panels -->
 
   <!-- View all -->
-  <div class="mt-10 text-center">
+  <!-- <div class="mt-10 text-center">
     <a href="#" class="inline-flex items-center gap-2 px-4 py-2 rounded-md border text-sm font-medium text-gray-700 hover:bg-gray-50 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-white/10">
       查看全部文章与数据
       <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 5l7 7-7 7M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
-  </div>
+  </div> -->
 
   <!-- JSON-LD ItemList -->
   <script type="application/ld+json">
@@ -157,11 +157,11 @@ const items = [
       "@context": "https://schema.org",
       "@type": "ItemList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "item": { "@type": "Article", "headline": "2025 GEO 行业调研报告（海外 & 国内对照版）", "url": "/insights/2025-geo-industry-report", "datePublished": "2025-09-30" } },
-        { "@type": "ListItem", "position": 2, "item": { "@type": "Article", "headline": "AI 搜索可见度排行榜：30 个品牌跨平台对比（Q3）", "url": "/insights/visibility-top30-q3", "datePublished": "2025-08-21" } },
-        { "@type": "ListItem", "position": 3, "item": { "@type": "Article", "headline": "内容分发新范式：从 SEO 到 GEO 的迁移路线", "url": "/insights/seo-to-geo-migration", "datePublished": "2025-07-12" } },
-        { "@type": "ListItem", "position": 4, "item": { "@type": "Dataset", "name": "GEO-Score 公测数据集（v0.9）", "url": "/datasets/geo-score-v0-9", "datePublished": "2025-06-28" } },
-        { "@type": "ListItem", "position": 5, "item": { "@type": "Article", "headline": "平台分发逻辑追踪：2025 年 10 个月关键变化", "url": "/insights/content-trend-2025", "datePublished": "2025-10-20" } }
+        { "@type": "ListItem", "position": 1, "item": { "@type": "Article", "headline": "2025 GEO 行业调研报告（海外 & 国内对照版）", "url": "/zh/insights/2025-geo-industry-report", "datePublished": "2025-09-30" } },
+        { "@type": "ListItem", "position": 2, "item": { "@type": "Article", "headline": "AI 搜索可见度排行榜：30 个品牌跨平台对比（Q3）", "url": "/zh/insights/visibility-top30-q3", "datePublished": "2025-08-21" } },
+        { "@type": "ListItem", "position": 3, "item": { "@type": "Article", "headline": "内容分发新范式：从 SEO 到 GEO 的迁移路线", "url": "/zh/insights/seo-to-geo-migration", "datePublished": "2025-07-12" } },
+        { "@type": "ListItem", "position": 4, "item": { "@type": "Dataset", "name": "GEO-Score 公测数据集（v0.9）", "url": "/zh/datasets/geo-score-v0-9", "datePublished": "2025-06-28" } },
+        { "@type": "ListItem", "position": 5, "item": { "@type": "Article", "headline": "平台分发逻辑追踪：2025 年 10 个月关键变化", "url": "/zh/insights/content-trend-2025", "datePublished": "2025-10-20" } }
       ]
     }
   </script>

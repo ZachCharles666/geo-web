@@ -1,0 +1,35 @@
+---
+export const prerender = true;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content="0; url=/en/changelog" />
+    <link rel="canonical" href="https://geo-max.tech/en/changelog" />
+    <title>Redirecting… | GEO-Max Changelog</title>
+  </head>
+  <body>
+    <script>
+      (function () {
+        try {
+          var lang = (navigator.language || navigator.languages?.[0] || '').toLowerCase();
+          var isZh = lang.startsWith('zh');
+          window.location.replace(isZh ? "/zh/changelog" : "/en/changelog");
+        } catch (e) {
+          window.location.replace("/en/changelog");
+        }
+      })();
+    </script>
+
+    <noscript>
+      <p>
+        Redirecting… If it doesn’t happen, choose your language:
+        <a href="/zh/changelog">中文更新</a> |
+        <a href="/en/changelog">English Changelog</a>
+      </p>
+    </noscript>
+  </body>
+</html>

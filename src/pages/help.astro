@@ -1,0 +1,35 @@
+---
+export const prerender = true;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content="0; url=/en/help" />
+    <link rel="canonical" href="https://geo-max.tech/en/help" />
+    <title>Redirecting… | GEO-Max Help</title>
+  </head>
+  <body>
+    <script>
+      (function () {
+        try {
+          var lang = (navigator.language || navigator.languages?.[0] || '').toLowerCase();
+          var isZh = lang.startsWith('zh');
+          window.location.replace(isZh ? "/zh/help" : "/en/help");
+        } catch (e) {
+          window.location.replace("/en/help");
+        }
+      })();
+    </script>
+
+    <noscript>
+      <p>
+        Redirecting… If it doesn’t happen, choose your language:
+        <a href="/zh/help">中文帮助</a> |
+        <a href="/en/help">English Help</a>
+      </p>
+    </noscript>
+  </body>
+</html>

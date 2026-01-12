@@ -1,0 +1,56 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { LEGAL_ENTITY_NAME, SUPPORT_EMAIL, SITE_URL } from "../../config/site";
+
+const pageTitle = "About | GEO-Max";
+const pageDesc = "Learn about GEO-Max and the team behind the GEO tools platform.";
+const canonical = "/en/about";
+const hreflangs = [
+  { href: "/en/about", hreflang: "en" },
+  { href: "/zh/about", hreflang: "zh-CN" },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="en"
+  hreflangs={hreflangs}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+    <h1 class="text-3xl sm:text-4xl font-semibold text-slate-900">About GEO-Max</h1>
+    <p class="mt-4 text-sm sm:text-base text-slate-700 leading-relaxed">
+      GEO-Max is a generative engine optimization platform that helps brands become more visible
+      and trusted in AI search and generative answers.
+    </p>
+
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 text-sm sm:text-base text-slate-700">
+      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 class="text-lg font-semibold text-slate-900">Legal Entity</h2>
+        <p class="mt-2">{LEGAL_ENTITY_NAME}</p>
+      </div>
+      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 class="text-lg font-semibold text-slate-900">Support</h2>
+        <p class="mt-2">
+          <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": pageTitle,
+      "url": new URL(canonical, SITE_URL).toString(),
+      "inLanguage": "en",
+      "publisher": {
+        "@type": "Organization",
+        "name": LEGAL_ENTITY_NAME,
+        "url": SITE_URL
+      }
+    })}
+  </script>
+</Layout>

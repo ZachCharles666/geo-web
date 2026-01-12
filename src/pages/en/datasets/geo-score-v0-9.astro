@@ -1,0 +1,276 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { SITE_URL } from "../../../config/site";
+
+const pageTitle = "GEO-Score Public Dataset v0.9: Benchmarking Visibility in the Generative AI Era | GEO-Max";
+const pageDesc = "Public GEO-Score dataset v0.9 and technical report for AI search visibility benchmarking.";
+const canonical = "/en/datasets/geo-score-v0-9";
+const hreflangs = [
+  { href: "/en/datasets/geo-score-v0-9", hreflang: "en" },
+  { href: "/zh/datasets/geo-score-v0-9", hreflang: "zh-CN" },
+];
+const publishedAt = "2025-06-28";
+const readTime = "18 minutes";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="en"
+  hreflangs={hreflangs}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+    <header class="space-y-3">
+      <p class="text-sm font-semibold uppercase tracking-wide text-indigo-600">Dataset Release</p>
+      <h1 class="text-3xl sm:text-4xl font-semibold text-slate-900">
+        GEO-Score Public Dataset v0.9: Benchmarking Visibility in the Generative AI Era
+      </h1>
+      <div class="flex flex-wrap gap-3 text-sm text-slate-500">
+        <span>Published: June 28, 2025</span>
+        <span>Data Release & Technical Report</span>
+        <span>Estimated Reading Time: {readTime}</span>
+      </div>
+    </header>
+
+    <article class="mt-10 space-y-10 text-sm sm:text-base text-slate-700 leading-relaxed">
+      <section class="space-y-3">
+        <h2 class="text-2xl font-semibold text-slate-900">Executive Summary</h2>
+        <p>
+          The rapid evolution of Generative AI search engines has created an urgent need for
+          standardized, transparent, and methodical evaluation. Traditional SEO metrics are
+          insufficient for measuring performance in a landscape where success is defined by
+          citation, source attribution, and integration into AI-generated answers. This document
+          details the public release of GEO-Score Dataset v0.9, the first open-format, multi-model
+          benchmark designed to quantify and analyze Generative Engine Optimization (GEO)
+          performance. This dataset provides researchers, marketers, and developers with the
+          foundational tools to measure, understand, and improve AI search visibility in a
+          systematic way.
+        </p>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">1.0 Introduction: The Need for a GEO Benchmark</h2>
+        <p>
+          As major platforms from Google to Perplexity deploy generative search interfaces, a
+          fundamental question arises: how do we consistently measure a piece of content's or a
+          brand's visibility to these AI models? The opacity of model training and real-time
+          retrieval makes this a complex challenge.
+        </p>
+        <p>
+          The GEO-Score Project was initiated to address this gap. Our goal is to create a
+          community-driven, reproducible benchmark that:
+        </p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>Demystifies AI sourcing behavior with empirical citation data.</li>
+          <li>Establishes common metrics for answer quality and source authority.</li>
+          <li>Enables progress tracking over time and against competitors.</li>
+        </ul>
+        <p>
+          Version 0.9 represents a significant step toward this goal, offering a robust snapshot
+          of the generative search ecosystem as of Q2 2025.
+        </p>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">2.0 Dataset Overview & Core Philosophy</h2>
+        <p>
+          The GEO-Score Dataset is a structured evaluation framework built around prompt parity and
+          multi-model observation. We simulate real-world user intent across a spectrum of
+          complexity and measure how multiple AI engines respond, with a specific focus on the
+          provenance and treatment of cited sources.
+        </p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>Model-Agnostic: Designed to evaluate any public generative search interface.</li>
+          <li>Source-Centric: Scoring emphasizes the how and why of source citation.</li>
+          <li>Intent-Driven: Prompts are categorized to enable granular analysis.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">3.0 What’s Inside the Dataset: A Detailed Breakdown</h2>
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">3.1 AI Model Families & Interfaces (10+ Families)</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Google: Search Generative Experience (SGE) in experimental modes.</li>
+            <li>Microsoft: Copilot (Bing Chat) in Creative, Balanced, and Precise modes.</li>
+            <li>Independent AI Search Engines: Perplexity.ai (Pro & Free), You.com, Phind, Andi.</li>
+            <li>Foundation Model Interfaces: Claude 3 Opus, GPT-4-Turbo via web-search APIs.</li>
+            <li>Regional Models: limited samples from major regional players.</li>
+          </ul>
+          <p class="text-xs text-slate-500">
+            Note: All data is collected via publicly accessible interfaces in compliance with terms.
+          </p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">3.2 Benchmark Prompt Templates & Categorization</h3>
+          <p>
+            We provide 150+ prompt templates to generate 2,000+ test items, isolating GEO-relevant
+            variables.
+          </p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Factual verification & depth.</li>
+            <li>Commercial comparison.</li>
+            <li>Problem-solution troubleshooting.</li>
+            <li>Local/transactional intent.</li>
+            <li>Source authority challenge.</li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">3.3 Test Items & Scoring Dimensions (2000+ Items)</h3>
+          <p>Each test item includes seed prompt, multi-engine outputs, and human annotations.</p>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="min-w-full text-left text-sm">
+              <thead class="bg-slate-50 text-slate-600">
+                <tr>
+                  <th class="px-4 py-3">Dimension</th>
+                  <th class="px-4 py-3">Score 0</th>
+                  <th class="px-4 py-3">Score 3</th>
+                  <th class="px-4 py-3">What It Measures</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="px-4 py-3 font-semibold text-slate-900">Citation Density</td>
+                  <td class="px-4 py-3">No citations.</td>
+                  <td class="px-4 py-3">Every major claim backed by a specific source.</td>
+                  <td class="px-4 py-3">Propensity to show its work.</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-semibold text-slate-900">Source Authority</td>
+                  <td class="px-4 py-3">Low-authority or unverified sources.</td>
+                  <td class="px-4 py-3">Primary sources, official docs, peer-reviewed work.</td>
+                  <td class="px-4 py-3">Quality and trustworthiness of sources.</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-semibold text-slate-900">Answer Balance</td>
+                  <td class="px-4 py-3">Single commercial source treated as fact.</td>
+                  <td class="px-4 py-3">Multiple perspectives, conflicts or limits noted.</td>
+                  <td class="px-4 py-3">Bias awareness and complexity handling.</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-semibold text-slate-900">Evidence Traceability</td>
+                  <td class="px-4 py-3">Generic or unrelated links.</td>
+                  <td class="px-4 py-3">Citation points to the exact verifying section.</td>
+                  <td class="px-4 py-3">Precision in linking claims to evidence.</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-semibold text-slate-900">Structured Presentation</td>
+                  <td class="px-4 py-3">Dense paragraph only.</td>
+                  <td class="px-4 py-3">Lists, tables, bold terms, clear headers.</td>
+                  <td class="px-4 py-3">Formatting for clarity and scannability.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-2">Composite GEO-Score (0-15) is the sum of these five dimensions.</p>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">4.0 Benchmark Notes & Evaluation Rubric</h2>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>Annotation protocol with inter-annotator reliability guidelines.</li>
+          <li>Handling model volatility via repeated sampling and controlled settings.</li>
+        </ul>
+        <div class="space-y-2">
+          <h3 class="text-xl font-semibold text-slate-900">Known Biases & Limitations (v0.9)</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Temporal bias: Q2 2025 snapshot.</li>
+            <li>Language/region bias: English and US-centric.</li>
+            <li>Commercial content bias: under-represents long-tail and personal queries.</li>
+            <li>Black-box limitation: observable output only.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">5.0 Potential Use Cases & Applications</h2>
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">For SEO/GEO Professionals & Brands</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Benchmarking GEO-Score for key query clusters.</li>
+            <li>Competitive analysis on source authority.</li>
+            <li>Content strategy by structure-performance insight.</li>
+          </ul>
+        </div>
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">For AI & Search Researchers</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Model sourcing behavior analysis.</li>
+            <li>Bias detection on commercial or controversial topics.</li>
+            <li>Algorithm development for better citations.</li>
+          </ul>
+        </div>
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">For Tool & Platform Developers</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Validation dataset for auditing and citation tracking tools.</li>
+            <li>Feature development for GEO-optimized content workflows.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">6.0 Access, Contribution, and Roadmap</h2>
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">Access</h3>
+          <p>
+            GEO-Score Public Dataset v0.9 is available under a CC BY-NC-SA 4.0 license. To request
+            access, contact geo-score@[redacted].com and include your name, affiliation, use case,
+            and a brief description of planned usage.
+          </p>
+        </div>
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">Contribution & Roadmap to v1.0</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Expand to non-English prompts and regional models.</li>
+            <li>Increase test items to 10,000+.</li>
+            <li>Add automated scoring alongside human evaluation.</li>
+            <li>Longitudinal tracking for a subset of prompts.</li>
+          </ul>
+          <p>
+            We welcome feedback, collaboration proposals, and anonymized prompt/answer pair
+            contributions from the community.
+          </p>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">7.0 Conclusion: Toward a More Transparent and Effective GEO Landscape</h2>
+        <p>
+          The transition to generative search is a foundational shift. GEO-Score v0.9 provides
+          the tools to move from speculation to measurement, from guesswork to strategy. By
+          establishing a common benchmark, we hope to accelerate responsible GEO practice and
+          AI search development, rewarding quality, verifiability, and authority.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <p class="text-sm text-slate-500">
+          Citation Request: If you use this dataset in research, analysis, or public work, please
+          cite this technical report.
+        </p>
+        <p class="text-sm text-slate-500">
+          License: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International.
+        </p>
+        <p class="text-sm text-slate-500">
+          Disclaimer: This dataset is a research tool. The authors make no warranties regarding the
+          accuracy of underlying model outputs or future performance of systems built on this data.
+        </p>
+      </section>
+    </article>
+  </main>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      "name": "GEO-Score Public Dataset (v0.9)",
+      "datePublished": publishedAt,
+      "url": new URL(canonical, SITE_URL).toString()
+    })}
+  </script>
+</Layout>

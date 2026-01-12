@@ -1,0 +1,78 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { LEGAL_ENTITY_NAME, SUPPORT_EMAIL, SITE_URL } from "../../config/site";
+
+const pageTitle = "Refund Policy | GEO-Max";
+const pageDesc = "Refund eligibility and how to request a refund for GEO-Max subscriptions.";
+const canonical = "/en/refund";
+const hreflangs = [
+  { href: "/en/refund", hreflang: "en" },
+  { href: "/zh/refund", hreflang: "zh-CN" },
+];
+const updatedAt = "2026-01-11";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="en"
+  hreflangs={hreflangs}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+    <h1 class="text-3xl sm:text-4xl font-semibold text-slate-900">Refund Policy</h1>
+    <p class="mt-3 text-sm text-slate-500">Last updated: {updatedAt}</p>
+
+    <div class="mt-8 space-y-8 text-sm sm:text-base text-slate-700 leading-relaxed">
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">1. Eligibility</h2>
+        <p>
+          We consider refund requests for initial purchases made within 7 days, provided the
+          account has not used more than 10% of the included monthly quota. Renewals are generally
+          non-refundable.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">2. Non-Refundable Cases</h2>
+        <p>
+          We do not issue refunds for significant usage, abuse, or violation of our Terms, or for
+          services already delivered in full. Usage is measured by consumed credits, tokens, or
+          calls.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">3. How to Request</h2>
+        <p>
+          Email <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+          with your account email, order details, and reason for the request. We typically respond
+          within 3-5 business days.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">4. Payment Processing</h2>
+        <p>
+          Payments are processed by our billing provider. Approved refunds are returned to the
+          original payment method, subject to processor timelines.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": pageTitle,
+      "url": new URL(canonical, SITE_URL).toString(),
+      "inLanguage": "en",
+      "publisher": {
+        "@type": "Organization",
+        "name": LEGAL_ENTITY_NAME,
+        "url": SITE_URL
+      }
+    })}
+  </script>
+</Layout>

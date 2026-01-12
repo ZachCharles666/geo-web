@@ -1,4 +1,6 @@
 ---
+import { LEGAL_ENTITY_NAME, SUPPORT_EMAIL, SITE_URL } from "../config/site";
+
 export interface Hreflang {
   href: string;
   hreflang: string;
@@ -30,11 +32,21 @@ const {
 } = Astro.props;
 
 const siteName = "GEO-Max";
+const isZh = String(lang).toLowerCase().startsWith("zh");
+const langBase = isZh ? "/zh" : "/en";
+const pricingHref = isZh ? "/zh/alpha" : "/alpha";
+const contactHref = `${langBase}/contact`;
+const termsHref = `${langBase}/terms`;
+const privacyHref = `${langBase}/privacy`;
+const refundHref = `${langBase}/refund`;
+const aboutHref = `${langBase}/about`;
+const helpHref = `${langBase}/help`;
+const changelogHref = `${langBase}/changelog`;
 
 // ✅ 如果环境变量没配置，就给一个合理的默认值（避免本地报错）
 const siteUrl = (envSiteUrl && String(envSiteUrl).trim().length > 0)
   ? String(envSiteUrl).trim()
-  : "https://geo-max.tech";
+  : SITE_URL;
 
 // ✅ 根据 canonical 路径拼出完整 URL
 const canonicalUrl = canonical
@@ -128,31 +140,46 @@ const robotsContent = noindex
 
     {/* Footer：保持在 body 内 */}
     <footer class="mt-16 border-t py-6 text-center text-sm text-gray-500">
-      <div class="space-x-6">
-        <a href="/alpha" class="text-gray-700 hover:text-black font-medium">
-          GEO-Max Alpha
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <a href={pricingHref} class="text-gray-700 hover:text-black font-medium">
+          Pricing
         </a>
-        <a href="/rewrite" class="text-gray-600 hover:text-black">
-          Rewrite Engine
+        <a href={termsHref} class="text-gray-600 hover:text-black">
+          Terms of Service
         </a>
-        <a href="/score" class="text-gray-600 hover:text-black">
-          GEO-Score
+        <a href={privacyHref} class="text-gray-600 hover:text-black">
+          Privacy Policy
         </a>
-        <a href="/en/contact" class="text-gray-600 hover:text-black">
-          Talk to Us
+        <a href={refundHref} class="text-gray-600 hover:text-black">
+          Refund Policy
+        </a>
+        <a href={contactHref} class="text-gray-600 hover:text-black">
+          Contact
+        </a>
+        <a href={aboutHref} class="text-gray-600 hover:text-black">
+          About
+        </a>
+        <a href={helpHref} class="text-gray-600 hover:text-black">
+          Help
+        </a>
+        <a href={changelogHref} class="text-gray-600 hover:text-black">
+          Changelog
         </a>
       </div>
 
       <p class="mt-4 text-xs text-gray-400 leading-relaxed max-w-xl mx-auto">
-        GEO-Max™ helps brands become the preferred answer for AI systems.
+        GEO-Max helps brands become the preferred answer for AI systems.
         <br />Not SEO. Not ads. A new engine of generative visibility.
       </p>
 
+      <p class="mt-3 text-xs text-gray-500">
+        Support: <a class="hover:text-black" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+      </p>
+
       <p class="mt-2 text-xs text-gray-400">
-        © {new Date().getFullYear()} GEO-Max™ • Generative Engine Optimization
+        © {new Date().getFullYear()} {LEGAL_ENTITY_NAME}. All rights reserved.
       </p>
     </footer>
-
     {/* ✅ Preline：走 Vite 模块脚本，避免裸模块 import */}
     <script type="module" src="/src/scripts/preline.ts"></script>
 

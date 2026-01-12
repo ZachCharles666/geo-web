@@ -1,0 +1,136 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { LEGAL_ENTITY_NAME, SUPPORT_EMAIL, SITE_URL } from "../../config/site";
+
+const pageTitle = "服务条款 | GEO-Max";
+const pageDesc = "GEO-Max 服务条款与使用规则。";
+const canonical = "/zh/terms";
+const hreflangs = [
+  { href: "/en/terms", hreflang: "en" },
+  { href: "/zh/terms", hreflang: "zh-CN" },
+];
+const updatedAt = "2026-01-11";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="zh-CN"
+  hreflangs={hreflangs}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+    <h1 class="text-3xl sm:text-4xl font-semibold text-slate-900">服务条款</h1>
+    <p class="mt-3 text-sm text-slate-500">Last updated: {updatedAt}</p>
+
+    <div class="mt-8 space-y-8 text-sm sm:text-base text-slate-700 leading-relaxed">
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">1. 协议说明</h2>
+        <p>
+          本服务条款（“条款”）适用于你对 GEO-Max 及相关服务（“服务”）的使用。
+          使用服务即表示你同意本条款。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">2. 资格与账户</h2>
+        <p>
+          你需年满 18 周岁，并有权代表你的组织签署本条款。你应妥善保管账户信息，
+          并对账户下的行为负责。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">3. 订阅与计费</h2>
+        <p>
+          部分功能需付费订阅。价格、计费周期与权益以价格页展示为准。你授权我们
+          （及支付服务商）向你收取对应费用与税费。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">4. 合理使用</h2>
+        <p>
+          你不得滥用服务、干扰系统运行、进行未授权访问或开展违法、有害、欺骗性活动。
+          我们有权在必要时暂停或终止访问。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">5. 数据与内容</h2>
+        <p>
+          你保留对所提交内容的权利，并授予我们为提供服务所必需的处理许可。
+          你需确保拥有提交内容的合法权利。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">6. 知识产权</h2>
+        <p>
+          服务、软件及相关材料由 {LEGAL_ENTITY_NAME} 拥有并受知识产权法律保护。
+          未经许可不得复制、修改或反向工程。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">7. 第三方服务</h2>
+        <p>
+          服务可能与第三方系统集成。第三方服务的使用受其自身条款约束。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">8. 终止</h2>
+        <p>
+          你可以随时停止使用服务。如你违反本条款或为保护平台与其他用户，
+          我们可暂停或终止服务。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">9. 免责声明</h2>
+        <p>
+          服务按“现状”提供，不保证不间断或无错误，亦不保证输出结果满足你的期望。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">10. 责任限制</h2>
+        <p>
+          在法律允许范围内，{LEGAL_ENTITY_NAME} 不对任何间接、附带、特殊或后果性
+          损失承担责任，包括数据、利润或收入损失。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">11. 适用法律</h2>
+        <p>
+          本条款适用我们主要经营地的法律，并排除冲突法规则。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">12. 联系方式</h2>
+        <p>
+          如有疑问，请联系
+          <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>。
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": pageTitle,
+      "url": new URL(canonical, SITE_URL).toString(),
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@type": "Organization",
+        "name": LEGAL_ENTITY_NAME,
+        "url": SITE_URL
+      }
+    })}
+  </script>
+</Layout>

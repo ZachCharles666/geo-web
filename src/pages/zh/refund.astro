@@ -1,0 +1,75 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { LEGAL_ENTITY_NAME, SUPPORT_EMAIL, SITE_URL } from "../../config/site";
+
+const pageTitle = "退款政策 | GEO-Max";
+const pageDesc = "GEO-Max 订阅退款的条件与流程。";
+const canonical = "/zh/refund";
+const hreflangs = [
+  { href: "/en/refund", hreflang: "en" },
+  { href: "/zh/refund", hreflang: "zh-CN" },
+];
+const updatedAt = "2026-01-11";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="zh-CN"
+  hreflangs={hreflangs}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+    <h1 class="text-3xl sm:text-4xl font-semibold text-slate-900">退款政策</h1>
+    <p class="mt-3 text-sm text-slate-500">Last updated: {updatedAt}</p>
+
+    <div class="mt-8 space-y-8 text-sm sm:text-base text-slate-700 leading-relaxed">
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">1. 退款条件</h2>
+        <p>
+          对于首次购买，我们在 7 天内可受理退款申请，且账户使用量不超过当月配额的 10%。
+          续费订单一般不予退款。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">2. 不可退款情形</h2>
+        <p>
+          如已发生大量使用、存在滥用或违反服务条款的情形，或服务已完整交付，
+          则不予退款。使用量以调用次数、Token 或额度消耗为准。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">3. 退款申请方式</h2>
+        <p>
+          请发送邮件至
+          <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+          ，附上账号邮箱、订单信息与退款原因。我们通常在 3-5 个工作日内回复。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">4. 支付处理</h2>
+        <p>
+          付款由我们的支付服务商处理，退款将原路退回至支付方式，具体到账时间以支付方为准。
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": pageTitle,
+      "url": new URL(canonical, SITE_URL).toString(),
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@type": "Organization",
+        "name": LEGAL_ENTITY_NAME,
+        "url": SITE_URL
+      }
+    })}
+  </script>
+</Layout>

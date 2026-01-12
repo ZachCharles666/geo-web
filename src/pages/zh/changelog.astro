@@ -1,0 +1,68 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { SITE_URL, LEGAL_ENTITY_NAME } from "../../config/site";
+
+const pageTitle = "更新记录 | GEO-Max";
+const pageDesc = "GEO-Max 产品更新与迭代记录。";
+const canonical = "/zh/changelog";
+const hreflangs = [
+  { href: "/en/changelog", hreflang: "en" },
+  { href: "/zh/changelog", hreflang: "zh-CN" },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="zh-CN"
+  hreflangs={hreflangs}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+    <h1 class="text-3xl sm:text-4xl font-semibold text-slate-900">更新记录</h1>
+    <p class="mt-3 text-sm text-slate-500">GEO 工具平台的最新进展。</p>
+
+    <ul class="mt-8 space-y-6 text-sm sm:text-base text-slate-700">
+      <li class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <p class="text-xs text-slate-500">2026-01-08</p>
+        <p class="mt-2 font-semibold text-slate-900">Alpha 结算流程稳定性提升</p>
+        <p class="mt-1">完善了错误处理与状态提示，降低支付失败率。</p>
+      </li>
+      <li class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <p class="text-xs text-slate-500">2025-12-22</p>
+        <p class="mt-2 font-semibold text-slate-900">Rewrite 提示词调优</p>
+        <p class="mt-1">改进了内容结构与引用可读性。</p>
+      </li>
+      <li class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <p class="text-xs text-slate-500">2025-12-10</p>
+        <p class="mt-2 font-semibold text-slate-900">Score 解释性文本优化</p>
+        <p class="mt-1">提升评分原因的可读性与清晰度。</p>
+      </li>
+      <li class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <p class="text-xs text-slate-500">2025-11-28</p>
+        <p class="mt-2 font-semibold text-slate-900">中英文界面对齐</p>
+        <p class="mt-1">统一关键文案与提示信息。</p>
+      </li>
+      <li class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <p class="text-xs text-slate-500">2025-11-05</p>
+        <p class="mt-2 font-semibold text-slate-900">Alpha Access 上线</p>
+        <p class="mt-1">推出 Alpha 付费订阅与权益体系。</p>
+      </li>
+    </ul>
+  </main>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": pageTitle,
+      "url": new URL(canonical, SITE_URL).toString(),
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@type": "Organization",
+        "name": LEGAL_ENTITY_NAME,
+        "url": SITE_URL
+      }
+    })}
+  </script>
+</Layout>

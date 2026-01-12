@@ -1,0 +1,100 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { LEGAL_ENTITY_NAME, SUPPORT_EMAIL, SITE_URL } from "../../config/site";
+
+const pageTitle = "Privacy Policy | GEO-Max";
+const pageDesc = "How GEO-Max collects, uses, and protects your information.";
+const canonical = "/en/privacy";
+const hreflangs = [
+  { href: "/en/privacy", hreflang: "en" },
+  { href: "/zh/privacy", hreflang: "zh-CN" },
+];
+const updatedAt = "2026-01-11";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="en"
+  hreflangs={hreflangs}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+    <h1 class="text-3xl sm:text-4xl font-semibold text-slate-900">Privacy Policy</h1>
+    <p class="mt-3 text-sm text-slate-500">Last updated: {updatedAt}</p>
+
+    <div class="mt-8 space-y-8 text-sm sm:text-base text-slate-700 leading-relaxed">
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">1. Information We Collect</h2>
+        <p>
+          We collect information you provide directly, such as your name, email, company details,
+          and any content you submit. We also collect usage data (such as feature usage, timestamps,
+          and device identifiers) to improve the Service.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">2. How We Use Information</h2>
+        <p>
+          We use your information to provide and improve the Service, process requests, communicate
+          with you, secure the platform, and comply with legal obligations.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">3. Sharing and Disclosure</h2>
+        <p>
+          We share information with trusted service providers (such as hosting and payment
+          processors) only as needed to operate the Service. We do not sell your personal data.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">4. Data Retention</h2>
+        <p>
+          We retain data for as long as necessary to provide the Service or as required by law. You
+          may request deletion of your account data by contacting support.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">5. Security</h2>
+        <p>
+          We take reasonable measures to protect your data, but no system is completely secure. You
+          are responsible for keeping your account credentials safe.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">6. International Transfers</h2>
+        <p>
+          Your information may be processed in countries different from your own. We take steps to
+          protect your data consistent with this policy.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">7. Your Rights</h2>
+        <p>
+          You may request access, correction, or deletion of your personal information. Contact us
+          at <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": pageTitle,
+      "url": new URL(canonical, SITE_URL).toString(),
+      "inLanguage": "en",
+      "publisher": {
+        "@type": "Organization",
+        "name": LEGAL_ENTITY_NAME,
+        "url": SITE_URL
+      }
+    })}
+  </script>
+</Layout>

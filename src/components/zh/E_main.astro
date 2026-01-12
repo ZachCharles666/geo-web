@@ -3,7 +3,7 @@
 ---
 
 <!-- Features -->
-<section class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto" aria-labelledby="geo-tools-title">
+<section class="w-full max-w-[100rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto" aria-labelledby="geo-tools-title">
   <!-- Title -->
   <div class="mx-auto max-w-2xl mb-8 lg:mb-14 text-center">
     <h2 id="geo-tools-title" class="text-3xl lg:text-4xl text-gray-800 font-bold dark:text-gray-200">
@@ -13,13 +13,16 @@
   </div>
   <!-- End Title -->
 
-  <div class="relative xl:w-10/12 xl:mx-auto">
+  <div class="relative xl:w-full xl:mx-auto">
     <!-- Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
       <!-- Card · 内容诊断（单人/小组） -->
       <article class="p-4 relative z-10 bg-white border rounded-xl md:p-10 dark:bg-slate-900 dark:border-gray-700" itemscope itemtype="https://schema.org/SoftwareApplication">
-        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200" itemprop="name">内容诊断（Solo / Pro）</h3>
-        <p class="text-sm text-gray-500" itemprop="description">快速定位薄弱段落、缺失信源与 Schema 建议。</p>
+        <span class="absolute top-0 right-0 rounded-tr-xl rounded-bl-xl text-xs font-medium bg-rose-600 text-white py-1.5 px-3">
+          已上线
+        </span>
+        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200" itemprop="name">已上线：GEO-Rewrite + GEO-Score（Base / Pro）</h3>
+        <p class="text-sm text-gray-500" itemprop="description">Alpha 阶段已开放：内容重写与可见度评分。</p>
 
         <div class="mt-5 grid sm:grid-cols-2 gap-y-2 py-4 sm:gap-x-6 sm:gap-y-0">
           <!-- List -->
@@ -29,21 +32,21 @@
                 <rect width="18" height="18" rx="9" fill="currentColor" fill-opacity="0.1"/>
                 <path d="M12.0603 5.78792c.1908-.22443.5273-.25172.7518-.06095.2244.19077.2517.52735.0609.75178L8.3397 11.8121c-.19376.2279-.53709.2519-.76069.0532L5.17901 9.73195c-.22015-.19569-.23998-.5328-.04429-.75295.19569-.22015.53279-.23998.75294-.04429l1.99245 1.77109 4.18019-4.91788z" fill="currentColor"/>
               </svg>
-              <span class="text-gray-800 dark:text-gray-200">多平台可见度体检（10+ 模型）</span>
+              <span class="text-gray-800 dark:text-gray-200">GEO-Rewrite：结构重写与证据链优化</span>
             </li>
             <li class="flex space-x-3">
               <svg class="flex-shrink-0 h-5 w-5 text-indigo-500" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
                 <rect width="18" height="18" rx="9" fill="currentColor" fill-opacity="0.1"/>
                 <path d="M12.0603 5.78792c.1908-.22443.5273-.25172.7518-.06095.2244.19077.2517.52735.0609.75178L8.3397 11.8121c-.19376.2279-.53709.2519-.76069.0532L5.17901 9.73195c-.22015-.19569-.23998-.5328-.04429-.75295.19569-.22015.53279-.23998.75294-.04429l1.99245 1.77109 4.18019-4.91788z" fill="currentColor"/>
               </svg>
-              <span class="text-gray-800 dark:text-gray-200">可复述性 / 一致性 机器评分</span>
+              <span class="text-gray-800 dark:text-gray-200">GEO-Score：可解释评分</span>
             </li>
             <li class="flex space-x-3">
               <svg class="flex-shrink-0 h-5 w-5 text-indigo-500" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
                 <rect width="18" height="18" rx="9" fill="currentColor" fill-opacity="0.1"/>
                 <path d="M12.0603 5.78792c.1908-.22443.5273-.25172.7518-.06095.2244.19077.2517.52735.0609.75178L8.3397 11.8121c-.19376.2279-.53709.2519-.76069.0532L5.17901 9.73195c-.22015-.19569-.23998-.5328-.04429-.75295.19569-.22015.53279-.23998.75294-.04429l1.99245 1.77109 4.18019-4.91788z" fill="currentColor"/>
               </svg>
-              <span class="text-gray-800 dark:text-gray-200">Schema 建议与自动补全</span>
+              <span class="text-gray-800 dark:text-gray-200">多模型可见度体检（10+ 模型）</span>
             </li>
           </ul>
           <!-- End List -->
@@ -62,26 +65,26 @@
                 <path d='M18 9A9 9 0 1 1 0 9a9 9 0 0 1 18 0Z' fill='currentColor' fill-opacity='0.1'/>
                 <path d='M5.646 5.647A.5.5 0 0 1 6 5.5c.133 0 .26.053.354.147L9 8.293l2.646-2.646a.5.5 0 0 1 .708.707L9.707 9l2.647 2.646a.5.5 0 0 1-.708.708L9 9.707l-2.646 2.647a.5.5 0 0 1-.708-.708L8.293 9 5.646 6.354a.5.5 0 0 1 0-.707Z' fill='currentColor'/>
               </svg>
-              <span class="text-gray-800 dark:text-gray-200">一键生成“问题-证据链”草稿</span>
+              <span class="text-gray-800 dark:text-gray-200">清晰的改进建议与原因说明</span>
             </li>
-            <li class="flex space-x-3">
+            <!-- <li class="flex space-x-3">
               <svg class="flex-shrink-0 h-5 w-5 text-gray-500" width='18' height='18' viewBox='0 0 18 18' fill='none' aria-hidden="true">
                 <path d='M18 9A9 9 0 1 1 0 9a9 9 0 0 1 18 0Z' fill='currentColor' fill-opacity='0.1'/>
                 <path d='M5.646 5.647A.5.5 0 0 1 6 5.5c.133 0 .26.053.354.147L9 8.293l2.646-2.646a.5.5 0 0 1 .708.707L9.707 9l2.647 2.646a.5.5 0 0 1-.708.708L9 9.707l-2.646 2.647a.5.5 0 0 1-.708-.708L8.293 9 5.646 6.354a.5.5 0 0 1 0-.707Z' fill='currentColor'/>
               </svg>
               <span class="text-gray-800 dark:text-gray-200">基础模板库（可自定义）</span>
-            </li>
+            </li> -->
           </ul>
           <!-- End List -->
         </div>
 
         <div class="mt-5 grid grid-cols-2 gap-x-4 py-4">
           <div>
-            <p class="text-sm text-gray-500">随时取消 · 无需信用卡</p>
+            <p class="text-sm text-gray-500">Alpha 资格 · 名额有限</p>
           </div>
           <div class="flex justify-end">
-            <a href="#" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-indigo-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
-              立即开始
+            <a href="/rewrite" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-rose-500/20 font-semibold bg-rose-600 text-white shadow-sm hover:bg-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/40 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-900">
+              立即体验 Rewrite
             </a>
           </div>
         </div>
@@ -93,9 +96,9 @@
 
       <!-- Card · 团队工具套件（Teams） -->
       <article class="shadow-xl shadow-gray-200 p-5 relative z-10 bg-white border rounded-xl md:p-10 dark:bg-slate-900 dark:border-gray-700 dark:shadow-gray-900/[.2]" itemscope itemtype="https://schema.org/SoftwareApplication">
-        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200" itemprop="name">GEO-Score & 报告（Teams）</h3>
-        <p class="text-sm text-gray-500">适合增长中团队：评分、对比评测与自动化报告。</p>
-        <span class="absolute top-0 right-0 rounded-tr-xl rounded-bl-xl text-xs font-medium bg-gray-800 text-white py-1.5 px-3 dark:bg-gray-900">Most popular</span>
+        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200" itemprop="name">即将上线：团队版与自动化</h3>
+        <p class="text-sm text-gray-500">面向团队：看板、对比评测与报告流水线。</p>
+        <span class="absolute top-0 right-0 rounded-tr-xl rounded-bl-xl text-xs font-medium bg-gray-800 text-white py-1.5 px-3 dark:bg-gray-900">即将上线</span>
 
         <div class="mt-5 grid sm:grid-cols-2 gap-y-2 py-4 sm:gap-x-6 sm:gap-y-0">
           <!-- List -->
@@ -105,14 +108,14 @@
                 <rect width="18" height="18" rx="9" fill="currentColor" fill-opacity="0.1"/>
                 <path d="M12.0603 5.78792c.1908-.22443.5273-.25172.7518-.06095.2244.19077.2517.52735.0609.75178L8.3397 11.8121c-.19376.2279-.53709.2519-.76069.0532L5.17901 9.73195c-.22015-.19569-.23998-.5328-.04429-.75295.19569-.22015.53279-.23998.75294-.04429l1.99245 1.77109 4.18019-4.91788z" fill="currentColor"/>
               </svg>
-              <span class="text-gray-800 dark:text-gray-200">GEO-Score 多维评分面板</span>
+              <span class="text-gray-800 dark:text-gray-200">团队可见度看板与共享评分</span>
             </li>
             <li class="flex space-x-3">
               <svg class="flex-shrink-0 h-5 w-5 text-indigo-500" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
                 <rect width="18" height="18" rx="9" fill="currentColor" fill-opacity="0.1"/>
                 <path d="M12.0603 5.78792c.1908-.22443.5273-.25172.7518-.06095.2244.19077.2517.52735.0609.75178L8.3397 11.8121c-.19376.2279-.53709.2519-.76069.0532L5.17901 9.73195c-.22015-.19569-.23998-.5328-.04429-.75295.19569-.22015.53279-.23998.75294-.04429l1.99245 1.77109 4.18019-4.91788z" fill="currentColor"/>
               </svg>
-              <span class="text-gray-800 dark:text-gray-200">平台对比评测（可配置矩阵）</span>
+              <span class="text-gray-800 dark:text-gray-200">跨平台对比矩阵（可配置）</span>
             </li>
             <li class="flex space-x-3">
               <svg class="flex-shrink-0 h-5 w-5 text-indigo-500" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
@@ -138,14 +141,14 @@
                 <rect width="18" height="18" rx="9" fill="currentColor" fill-opacity="0.1"/>
                 <path d="M12.0603 5.78792c.1908-.22443.5273-.25172.7518-.06095.2244.19077.2517.52735.0609.75178L8.3397 11.8121c-.19376.2279-.53709.2519-.76069.0532L5.17901 9.73195c-.22015-.19569-.23998-.5328-.04429-.75295.19569-.22015.53279-.23998.75294-.04429l1.99245 1.77109 4.18019-4.91788z" fill="currentColor"/>
               </svg>
-              <span class="text-gray-800 dark:text-gray-200">版本留痕与变更对比</span>
+              <span class="text-gray-800 dark:text-gray-200">链路推理引擎</span>
             </li>
             <li class="flex space-x-3">
               <svg class="flex-shrink-0 h-5 w-5 text-indigo-500" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
                 <rect width="18" height="18" rx="9" fill="currentColor" fill-opacity="0.1"/>
                 <path d="M12.0603 5.78792c.1908-.22443.5273-.25172.7518-.06095.2244.19077.2517.52735.0609.75178L8.3397 11.8121c-.19376.2279-.53709.2519-.76069.0532L5.17901 9.73195c-.22015-.19569-.23998-.5328-.04429-.75295.19569-.22015.53279-.23998.75294-.04429l1.99245 1.77109 4.18019-4.91788z" fill="currentColor"/>
               </svg>
-              <span class="text-gray-800 dark:text-gray-200">Webhook / API 集成</span>
+              <span class="text-gray-800 dark:text-gray-200">监测 + Webhook / API 集成</span>
             </li>
           </ul>
           <!-- End List -->
@@ -153,12 +156,12 @@
 
         <div class="mt-5 grid grid-cols-2 gap-x-4 py-4">
           <div>
-            <p class="text-sm text-gray-500">随时取消 · 无需信用卡</p>
+            <p class="text-sm text-gray-500">团队早期体验名单</p>
           </div>
           <div class="flex justify-end">
-            <a href="#" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-indigo-500 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
-              开始评分
-            </a>
+        <a href="/zh/contact" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-indigo-500 text-white hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+          申请内测
+        </a>
           </div>
         </div>
 

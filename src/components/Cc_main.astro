@@ -19,26 +19,26 @@ type CaseJsonLdItem = {
 };
 
 const cases = [
-  {
-    name: "Haleon plc",
-    tag: "Consumer Health / Compliance Content",
-    logo: "/assets/logos/haleon.svg",
-    k1label: "Conversion", k1: "+35%",
-    k2label: "Leads",      k2: "×2.3",
-    k3label: "Stability",  k3: "30 days",
-    tip: "MedicalWebPage/FAQ/HowTo schema + indication alignment + citation structure.",
-    url: "#"
-  },
-  {
-    name: "Reckitt",
-    tag: "Home & Health / Multi-region",
-    logo: "/assets/logos/reckitt.svg",
-    k1label: "Search",  k1: "+24%",
-    k2label: "Indexing", k2: "+33%",
-    k3label: "Delivery", k3: "T+10",
-    tip: "Multi-language hreflang + brand-family vocabulary mapping + review aggregation.",
-    url: "#"
-  },
+  // {
+  //   name: "Haleon plc",
+  //   tag: "Consumer Health / Compliance Content",
+  //   logo: "/assets/logos/haleon.svg",
+  //   k1label: "Conversion", k1: "+35%",
+  //   k2label: "Leads",      k2: "×2.3",
+  //   k3label: "Stability",  k3: "30 days",
+  //   tip: "MedicalWebPage/FAQ/HowTo schema + indication alignment + citation structure.",
+  //   url: "#"
+  // },
+  // {
+  //   name: "Reckitt",
+  //   tag: "Home & Health / Multi-region",
+  //   logo: "/assets/logos/reckitt.svg",
+  //   k1label: "Search",  k1: "+24%",
+  //   k2label: "Indexing", k2: "+33%",
+  //   k3label: "Delivery", k3: "T+10",
+  //   tip: "Multi-language hreflang + brand-family vocabulary mapping + review aggregation.",
+  //   url: "#"
+  // },
 
   // === Your additional 7 cases (keep unchanged) ===
   {
@@ -186,13 +186,13 @@ const itemList = {
           </dl>
 
           <!-- Hover tip -->
-          <div class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-6 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+          {/* <div class="pointer-events-none absolute inset-x-0 bottom-0 translate-y-6 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
             <a href={c.url} target="_blank" rel="noopener"
                class="mx-4 mb-4 block rounded-lg bg-white/90 dark:bg-slate-900/90 p-3 text-[11px] leading-5 shadow-lg ring-1 ring-black/5 pointer-events-auto hover:ring-indigo-500/20">
               <div class="mb-1 text-gray-800 dark:text-gray-100">{c.tip}</div>
               <div class="text-[10px] text-indigo-600 dark:text-indigo-300 underline">View details →</div>
             </a>
-          </div>
+          </div> */}
         </article>
       ))
     }

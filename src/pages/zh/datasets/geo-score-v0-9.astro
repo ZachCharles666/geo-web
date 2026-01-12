@@ -1,0 +1,246 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { SITE_URL } from "../../../config/site";
+
+const pageTitle = "GEO-Score公共数据集 v0.9：生成式AI时代的可见性基准 | 奇点GEO";
+const pageDesc = "GEO-Score公共数据集v0.9与技术报告。";
+const canonical = "/zh/datasets/geo-score-v0-9";
+const hreflangs = [
+  { href: "/en/datasets/geo-score-v0-9", hreflang: "en" },
+  { href: "/zh/datasets/geo-score-v0-9", hreflang: "zh-CN" },
+];
+const publishedAt = "2025-06-28";
+const readTime = "18分钟";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="zh-CN"
+  hreflangs={hreflangs}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+    <header class="space-y-3">
+      <p class="text-sm font-semibold uppercase tracking-wide text-indigo-600">数据集发布</p>
+      <h1 class="text-3xl sm:text-4xl font-semibold text-slate-900">
+        GEO-Score公共数据集 v0.9：生成式AI时代的可见性基准
+      </h1>
+      <div class="flex flex-wrap gap-3 text-sm text-slate-500">
+        <span>发布日期：2025年6月28日</span>
+        <span>数据发布与技术报告</span>
+        <span>预计阅读时间：{readTime}</span>
+      </div>
+    </header>
+
+    <article class="mt-10 space-y-10 text-sm sm:text-base text-slate-700 leading-relaxed">
+      <section class="space-y-3">
+        <h2 class="text-2xl font-semibold text-slate-900">报告摘要</h2>
+        <p>
+          生成式AI搜索引擎的快速发展，催生了对标准化、透明化和系统化评估方法的迫切需求。
+          传统SEO指标已不足以衡量在AI生成答案中以引用、信源归属和内容整合来定义成功的
+          新格局。本文档详细介绍 GEO-Score公共数据集 v0.9 的发布，这是首个开放格式、多
+          模型基准测试集，旨在量化与分析GEO绩效，为研究人员、营销人员与开发者提供基础
+          工具。
+        </p>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">1.0 引言：为何需要GEO基准</h2>
+        <p>
+          随着从Google到Perplexity等平台部署生成式搜索界面，我们需要一致性地衡量内容或
+          品牌对AI模型的“可见性”。模型训练与实时检索的不透明性使挑战更复杂。
+        </p>
+        <p>GEO-Score项目旨在建立可复现的社区基准，以：</p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>揭示AI信源选择行为。</li>
+          <li>建立通用指标与定义。</li>
+          <li>支持长期进度追踪与对标。</li>
+        </ul>
+        <p>
+          v0.9 代表重要里程碑，提供截至2025年Q2的生态快照。
+        </p>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">2.0 数据集概述与核心理念</h2>
+        <p>
+          GEO-Score数据集是基于提示词对等与多模型观察的结构化评估框架，模拟多样化意图
+          并关注被引用信源的出处与处理方式。
+        </p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>模型无关性：评估任何公开生成式搜索界面。</li>
+          <li>信源为中心：强调引用方式与原因。</li>
+          <li>意图驱动：按意图分类以支持精细分析。</li>
+        </ul>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">3.0 数据集内容详解</h2>
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">3.1 AI模型系列与界面（10+系列）</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Google：实验模式下的SGE。</li>
+            <li>Microsoft：Copilot多模式输出。</li>
+            <li>独立AI搜索引擎：Perplexity、You.com、Phind、Andi。</li>
+            <li>基础模型接口：Claude 3 Opus、GPT-4-Turbo等联网配置。</li>
+            <li>区域模型：主流区域玩家的有限样本。</li>
+          </ul>
+          <p class="text-xs text-slate-500">注：数据来自公开接口并遵守平台条款。</p>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">3.2 基准提示词模板与分类</h3>
+          <p>提供150+模板，生成2000+测试项，隔离GEO相关变量。</p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>事实核查与深度</li>
+            <li>商业比较</li>
+            <li>问题解决</li>
+            <li>本地/交易意图</li>
+            <li>信源权威性挑战</li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">3.3 测试项目与评分维度（2000+项目）</h3>
+          <p>每个测试项目包含种子提示词、多引擎输出与人工标注评分。</p>
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="min-w-full text-left text-sm">
+              <thead class="bg-slate-50 text-slate-600">
+                <tr>
+                  <th class="px-4 py-3">维度</th>
+                  <th class="px-4 py-3">0分标准</th>
+                  <th class="px-4 py-3">3分标准</th>
+                  <th class="px-4 py-3">衡量内容</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="px-4 py-3 font-semibold text-slate-900">引用密度</td>
+                  <td class="px-4 py-3">无引用。</td>
+                  <td class="px-4 py-3">主要声明都有可点击信源。</td>
+                  <td class="px-4 py-3">模型展示论证过程倾向。</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-semibold text-slate-900">信源权威性</td>
+                  <td class="px-4 py-3">低权威论坛或UGC。</td>
+                  <td class="px-4 py-3">官方文档、同行评审等一手信源。</td>
+                  <td class="px-4 py-3">信源质量与可信度。</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-semibold text-slate-900">答案平衡性</td>
+                  <td class="px-4 py-3">单一商业信源当作事实。</td>
+                  <td class="px-4 py-3">多视角综合，指出冲突或局限。</td>
+                  <td class="px-4 py-3">无偏见与复杂性认知。</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-semibold text-slate-900">证据可追溯性</td>
+                  <td class="px-4 py-3">引用与声明无关页面。</td>
+                  <td class="px-4 py-3">引用直达验证声明的具体章节。</td>
+                  <td class="px-4 py-3">声明-证据匹配精度。</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-semibold text-slate-900">结构化呈现</td>
+                  <td class="px-4 py-3">密集段落。</td>
+                  <td class="px-4 py-3">列表、表格、加粗术语、清晰标题。</td>
+                  <td class="px-4 py-3">格式提升可读性。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-2">综合GEO-Score（0-15）为五个维度之和。</p>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">4.0 基准说明与评估细则</h2>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>标注协议：保障标注一致性的指南与培训。</li>
+          <li>模型波动性处理：多次采样与设置记录。</li>
+        </ul>
+        <div class="space-y-2">
+          <h3 class="text-xl font-semibold text-slate-900">已知偏见与局限（v0.9）</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>时效性偏见：2025年Q2快照。</li>
+            <li>语言/区域偏见：英语与美国为中心。</li>
+            <li>商业内容偏见：对长尾与个人咨询覆盖不足。</li>
+            <li>黑箱限制：仅测量可观察输出。</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">5.0 潜在用例与应用场景</h2>
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">面向SEO/GEO从业者与品牌方</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>基准测试：量化核心查询集群GEO-Score。</li>
+            <li>竞争分析：对比信源权威性。</li>
+            <li>内容策略：识别高分结构。</li>
+          </ul>
+        </div>
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">面向AI与搜索研究人员</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>模型分析：信源选择与事实依据差异。</li>
+            <li>偏见检测：商业与争议话题的信源模式。</li>
+            <li>算法开发：改进引用与权威预测。</li>
+          </ul>
+        </div>
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">面向工具与平台开发者</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>验证数据集：审计与引用追踪工具。</li>
+            <li>功能开发：帮助用户创建GEO优化内容。</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">6.0 访问、贡献与路线图</h2>
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">访问</h3>
+          <p>
+            GEO-Score公共数据集 v0.9 采用 CC BY-NC-SA 4.0 许可证。如需申请访问，
+            请联系 geo-score@[示例].com，并说明姓名、机构、用例与用途说明。
+          </p>
+        </div>
+        <div class="space-y-3">
+          <h3 class="text-xl font-semibold text-slate-900">贡献与v1.0路线图</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>扩展至非英语提示词与区域模型。</li>
+            <li>测试项目扩展到10,000+。</li>
+            <li>引入自动化评分流程。</li>
+            <li>对部分提示词进行纵向追踪。</li>
+          </ul>
+          <p>欢迎社区反馈、合作与匿名提示词/答案对贡献。</p>
+        </div>
+      </section>
+
+      <section class="space-y-4">
+        <h2 class="text-2xl font-semibold text-slate-900">7.0 结论：迈向更透明、更有效的GEO生态</h2>
+        <p>
+          生成式搜索的过渡是信息获取方式的根本变革。GEO-Score公共数据集 v0.9 提供了从
+          推测到测量、从猜测到战略的工具。通过共同基准，我们希望加速GEO实践与AI搜索的
+          负责任发展，奖励高质量、可验证与权威性。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <p class="text-sm text-slate-500">引用要求：如在研究、分析或公开工作中使用，请引用本技术报告。</p>
+        <p class="text-sm text-slate-500">许可证：知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议。</p>
+        <p class="text-sm text-slate-500">免责声明：本数据集为研究工具，不对模型输出准确性或未来表现作任何保证。</p>
+      </section>
+    </article>
+  </main>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      "name": "GEO-Score公共数据集 v0.9",
+      "datePublished": publishedAt,
+      "url": new URL(canonical, SITE_URL).toString()
+    })}
+  </script>
+</Layout>

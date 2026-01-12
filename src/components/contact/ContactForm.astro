@@ -1,4 +1,6 @@
 ---
+import { SUPPORT_EMAIL } from "../../config/site";
+
 // ✅ 建议写法：优先使用环境变量配置 API 基地址，方便以后切换到 Cloudflare / 新域名
 // 在 .env 或 .env.production 中配置：PUBLIC_LEAD_API=https://api.geo-max.ai 或 https://api.oldriver.work
 const ACTION_URL =
@@ -43,6 +45,7 @@ const ACTION_URL =
             method="post"
             action={ACTION_URL}
             data-force-remote="1"
+            data-support-email={SUPPORT_EMAIL}
             class="mt-6 grid gap-5"
           >
 
@@ -259,11 +262,12 @@ const ACTION_URL =
         formEl.reset();
       } catch (err) {
         console.error(err);
-        alert("Submission failed, please try again later.");
+        const supportEmail = formEl.getAttribute("data-support-email") || "support@geo-max.tech";
+        alert(`Submission failed, please try again later or email ${supportEmail}.`);
         btnEl.innerText = prev || "Submit";
         if (resultEl) {
           resultEl.textContent =
-            "❌ Submission failed, please try again later.";
+            `❌ Submission failed. Please email ${supportEmail} for help.`;
         }
       } finally {
         btnEl.disabled = false;

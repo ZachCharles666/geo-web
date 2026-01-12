@@ -6,12 +6,54 @@ type Tier = "free" | "alpha_base" | "alpha_pro";
 const RETURN_TO_KEY = "geo_return_to";
 const UPGRADE_URL = "/alpha"; // 可改：/alpha-access /pricing 等
 
-const GEO_API_BASE =
+const GEO_API_BASE_RAW =
   (import.meta as any).env?.PUBLIC_GEO_API_BASE ||
   (import.meta as any).env?.PUBLIC_SCORE_API ||
-  "http://127.0.0.1:8001";
+  "";
+const GEO_API_BASE_FALLBACK = "http://127.0.0.1:8001";
+const GEO_API_BASE =
+  GEO_API_BASE_RAW || ((import.meta as any).env?.PROD ? "" : GEO_API_BASE_FALLBACK);
+
+if (!GEO_API_BASE && (import.meta as any).env?.PROD) {
+  console.error("[auth] GEO_API_BASE missing in production; quota fetch disabled.");
+}
+
+const QUOTA_MOCK_ENABLED =
+  (import.meta as any).env?.PUBLIC_QUOTA_MOCK === "1" &&
+  !(import.meta as any).env?.PROD;
+const QUOTA_MOCK = {
+  tokens_limit: 200000,
+  tokens_used: 4200,
+  tokens_remaining: 195800,
+};
+
+function normalizeQuota(data: any) {
+  if (!data || typeof data !== "object") return null;
+
+  const hasTokens = (obj: any) =>
+    obj &&
+    (typeof obj.tokens_limit === "number" ||
+      typeof obj.tokens_used === "number" ||
+      typeof obj.tokens_remaining === "number");
+
+  if (data.ok === true) {
+    if (hasTokens(data.data)) return data.data;
+    if (hasTokens(data)) return data;
+  }
+
+  if (hasTokens(data)) return data;
+  return null;
+}
 
 async function fetchMonthlyQuota(accessToken: string) {
+  if (QUOTA_MOCK_ENABLED) {
+    return { ok: true, data: QUOTA_MOCK };
+  }
+
+  if (!GEO_API_BASE) {
+    return { ok: false, data: null };
+  }
+
   const res = await fetch(`${GEO_API_BASE}/api/quota/me`, {
     method: "GET",
     headers: {
@@ -188,7 +230,12 @@ function renderLoggedOut(root: HTMLElement) {
   (window as any).__GEO_QUOTA__ = null;
 }
 
-async function renderLoggedIn(root: HTMLElement, email: string, userId: string) {
+async function renderLoggedIn(
+  root: HTMLElement,
+  email: string,
+  userId: string,
+  session: Session
+) {
   const supabase = getSupabase();
   root.innerHTML = "";
 
@@ -248,11 +295,26 @@ async function renderLoggedIn(root: HTMLElement, email: string, userId: string) 
   // 同步全局：供 score/rewrite 只读
   (window as any).__GEO_USER_TIER__ = tier;
 
+  async function getAccessTokenWithRetry(
+    initialToken: string | undefined,
+    attempts = 3,
+    delayMs = 300
+  ) {
+    if (initialToken) return initialToken;
+    let token = initialToken || "";
+    for (let i = 0; i < attempts; i += 1) {
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+      const { data } = await supabase.auth.getSession();
+      token = data.session?.access_token || "";
+      if (token) break;
+    }
+    return token || null;
+  }
+
   // ✅ 异步拉取本月额度（不阻塞 tier 渲染）
   (async () => {
     try {
-      const { data } = await supabase.auth.getSession();
-      const accessToken = data.session?.access_token;
+      const accessToken = await getAccessTokenWithRetry(session.access_token);
 
       if (!accessToken) {
         quotaLine.style.display = "none";
@@ -261,13 +323,14 @@ async function renderLoggedIn(root: HTMLElement, email: string, userId: string) 
       }
 
       const res = await fetchMonthlyQuota(accessToken);
-      if (!res.ok || !res.data?.ok) {
+      const q = normalizeQuota(res.data);
+      if (!res.ok || !q) {
+        console.error("[auth] quota fetch failed:", res.data);
         quotaLine.style.display = "none";
         (window as any).__GEO_QUOTA__ = null;
         return;
       }
 
-      const q = res.data;
       // 你后端建议返回：tokens_limit / tokens_used / tokens_remaining
       const remaining = q.tokens_remaining ?? null;
       const limit = q.tokens_limit ?? null;
@@ -304,7 +367,7 @@ async function renderBySession(
   const email = user.email || user.id;
 
   if (isStale()) return;
-  await renderLoggedIn(root, email, user.id);
+  await renderLoggedIn(root, email, user.id, session);
 }
 
 async function main() {

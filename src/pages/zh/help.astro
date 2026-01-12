@@ -1,0 +1,73 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { SUPPORT_EMAIL, SITE_URL, LEGAL_ENTITY_NAME } from "../../config/site";
+
+const pageTitle = "帮助中心 | GEO-Max";
+const pageDesc = "订阅、额度、退款与支持的常见问题。";
+const canonical = "/zh/help";
+const hreflangs = [
+  { href: "/en/help", hreflang: "en" },
+  { href: "/zh/help", hreflang: "zh-CN" },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="zh-CN"
+  hreflangs={hreflangs}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+    <h1 class="text-3xl sm:text-4xl font-semibold text-slate-900">帮助与常见问题</h1>
+
+    <div class="mt-8 space-y-6 text-sm sm:text-base text-slate-700 leading-relaxed">
+      <section class="space-y-2">
+        <h2 class="text-xl font-semibold text-slate-900">如何取消订阅？</h2>
+        <p>
+          你可以在账户后台取消订阅，或发送邮件联系支持。取消后可继续使用到当前账单周期结束。
+          账单周期从购买当日开始，按月（或按年）到下一个相同日期为一个周期。
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-xl font-semibold text-slate-900">额度如何计算？</h2>
+        <p>
+          额度以调用次数与 Token 消耗计算。每个订阅计划包含月度额度，按月自动重置。
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-xl font-semibold text-slate-900">如何申请退款？</h2>
+        <p>
+          请先查看退款政策。符合条件时，可发送邮件至
+          <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>。
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h2 class="text-xl font-semibold text-slate-900">如何联系支持？</h2>
+        <p>
+          请发送邮件至
+          <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+          ，我们会在 1-2 个工作日内回复。
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": pageTitle,
+      "url": new URL(canonical, SITE_URL).toString(),
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@type": "Organization",
+        "name": LEGAL_ENTITY_NAME,
+        "url": SITE_URL
+      }
+    })}
+  </script>
+</Layout>

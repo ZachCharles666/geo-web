@@ -1,0 +1,95 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { LEGAL_ENTITY_NAME, SUPPORT_EMAIL, SITE_URL } from "../../config/site";
+
+const pageTitle = "隐私政策 | GEO-Max";
+const pageDesc = "GEO-Max 如何收集、使用与保护你的信息。";
+const canonical = "/zh/privacy";
+const hreflangs = [
+  { href: "/en/privacy", hreflang: "en" },
+  { href: "/zh/privacy", hreflang: "zh-CN" },
+];
+const updatedAt = "2026-01-11";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDesc}
+  canonical={canonical}
+  lang="zh-CN"
+  hreflangs={hreflangs}
+>
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+    <h1 class="text-3xl sm:text-4xl font-semibold text-slate-900">隐私政策</h1>
+    <p class="mt-3 text-sm text-slate-500">Last updated: {updatedAt}</p>
+
+    <div class="mt-8 space-y-8 text-sm sm:text-base text-slate-700 leading-relaxed">
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">1. 我们收集的信息</h2>
+        <p>
+          我们会收集你主动提交的信息（如姓名、邮箱、公司与提交内容），以及使用数据
+          （功能使用、时间戳、设备信息等）以优化服务体验。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">2. 信息使用方式</h2>
+        <p>
+          我们使用你的信息提供与改进服务、处理请求、与您沟通、保障安全并遵守法律义务。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">3. 共享与披露</h2>
+        <p>
+          我们仅在提供服务所必需的范围内与可信服务商（如托管或支付服务）共享信息。
+          我们不会出售你的个人信息。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">4. 数据保留</h2>
+        <p>
+          我们在提供服务所需或法律要求的期限内保留数据。你可通过支持邮箱请求删除。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">5. 安全措施</h2>
+        <p>
+          我们采取合理的安全措施保护数据，但无法保证绝对安全。请妥善保管账户信息。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">6. 跨境传输</h2>
+        <p>
+          你的信息可能在不同国家/地区处理，我们会按本政策标准进行保护。
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-semibold text-slate-900">7. 你的权利</h2>
+        <p>
+          你可请求访问、更正或删除你的个人信息。请联系
+          <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>。
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": pageTitle,
+      "url": new URL(canonical, SITE_URL).toString(),
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@type": "Organization",
+        "name": LEGAL_ENTITY_NAME,
+        "url": SITE_URL
+      }
+    })}
+  </script>
+</Layout>
