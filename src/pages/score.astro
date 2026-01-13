@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 const pageTitle = 'GEO-Score™ | GEO-Max Alpha';
 const pageDesc =
   'Evaluate how quotable and GEO-friendly your content is. Free users see a sealed index. Alpha users unlock deeper explanations.';
+const geoApiBase = import.meta.env.PUBLIC_GEO_API_BASE || '';
 ---
 
 <Layout title={pageTitle} description={pageDesc} showAuthBar={true}>
@@ -239,7 +240,7 @@ const pageDesc =
 
   </main>
 
-  <script type="module">
+  <script type="module" define:vars={{ geoApiBase }}>
     // @ts-nocheck
     // ✅ score 页面允许匿名访问：不要加载 auth-guard.ts（否则会被强制跳转到 /alpha-access）
     // ✅ fetch 时若存在 supabase access_token，则附带 Authorization: Bearer <token>
@@ -387,7 +388,10 @@ const pageDesc =
         return;
       }
 
-      const API_URL = "http://127.0.0.1:8001/api/geo/score";
+      const API_BASE = geoApiBase || "";
+      const API_URL = API_BASE
+        ? API_BASE.replace(/\/$/, "") + "/api/geo/score"
+        : "/api/geo/score";
 
       const mapScoreToGrade = (score) => {
         if (score === undefined || score === null || Number.isNaN(score)) return "–";

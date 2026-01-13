@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const geoApiBase = import.meta.env.PUBLIC_GEO_API_BASE || '';
 ---
 
 <Layout
@@ -245,7 +247,7 @@ import Layout from '../layouts/Layout.astro';
 
   </main>
 
-  <script type="module">
+  <script type="module" define:vars={{ geoApiBase }}>
     // @ts-nocheck
     // ✅ rewrite 页面允许匿名访问：不要加载 auth-guard.ts（否则会被强制跳转到 /alpha-access）
     // ✅ 点击 Run 时：如果后端要求登录，则没有 token 直接弹 Modal，不发请求
@@ -253,7 +255,10 @@ import Layout from '../layouts/Layout.astro';
     // ✅ 不再发送 user_tier / X-User-Tier（后端依据 token -> profiles.tier 决定）
     // ✅ 新增：实时估算 tokens（title+question+text）+ 提交前提示预计消耗 + 额度不足硬拦截
 
-    const FETCH_URL = "http://127.0.0.1:8001/api/rewrite";
+    const API_BASE = geoApiBase || "";
+    const FETCH_URL = API_BASE
+      ? API_BASE.replace(/\/$/, "") + "/api/rewrite"
+      : "/api/rewrite";
 
     // -----------------------------
     // Supabase client import cache（避免每次点击都 import）
