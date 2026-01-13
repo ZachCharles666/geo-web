@@ -1,0 +1,300 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const pageTitle = "Pricing | GEO-Max";
+const billingBase = import.meta.env.PUBLIC_BILLING_API_BASE || "";
+---
+
+<Layout title={pageTitle} showAuthBar={true}>
+  <main class="min-h-screen bg-slate-900 text-slate-50" data-billing-base={billingBase}>
+    <section id="pricing" class="bg-slate-900 text-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-16 space-y-10">
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <h1 class="text-2xl sm:text-3xl font-semibold text-white">
+            GEO Tools Alpha Access · limited opening
+          </h1>
+          <p class="text-sm sm:text-base text-slate-300">
+            Alpha is designed as an <span class="font-semibold text-indigo-200">explorer program</span>.
+            Pricing is less about “feature coverage” and more about whether you want a seat
+            before GEO becomes a checkbox feature in everyone else’s stack.
+          </p>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+          <!-- Alpha-Base -->
+          <div class="relative rounded-2xl border border-slate-700 bg-slate-900/60 p-6 sm:p-7 flex flex-col">
+            <div class="mb-4 flex items-center justify-between gap-3">
+              <div>
+                <h2 class="text-lg font-semibold text-white">Alpha-Base</h2>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                  For solo builders, content leads and curious explorers.
+                </p>
+              </div>
+            </div>
+
+            <div class="mb-5">
+              <p class="text-3xl font-semibold text-white">$99<span class="text-base font-normal text-slate-300"> / year</span></p>
+              <p class="text-xs sm:text-sm text-slate-400 mt-1">
+                About <span class="font-semibold">$0.27 / day</span> — less than a coffee.
+              </p>
+            </div>
+
+            <ul class="space-y-2.5 text-xs sm:text-sm text-slate-100 flex-1">
+              <li>? Alpha access to GEO-Rewrite™ & GEO-Score™</li>
+              <li>? Up to <span class="font-semibold text-indigo-200">400 calls / month · 200K tokens</span></li>
+              <li>? Quota resets every month</li>
+              <li>? Private user group (direct line to the builders)</li>
+            </ul>
+
+            <div class="mt-6">
+              <button
+                type="button"
+                data-action="checkout"
+                data-tier="alpha_base"
+                class="inline-flex w-full items-center justify-center rounded-lg border border-slate-500 px-4 py-2.5 text-sm font-medium text-slate-50 hover:border-indigo-300 hover:text-indigo-100 transition"
+              >
+                Subscribe Alpha-Base
+              </button>
+            </div>
+          </div>
+
+          <!-- Alpha-Pro -->
+          <div class="relative rounded-2xl border border-indigo-400 bg-gradient-to-b from-indigo-500/15 to-slate-900/90 p-6 sm:p-7 flex flex-col">
+            <div class="mb-4 flex items-center justify-between gap-3">
+              <div>
+                <h2 class="text-lg font-semibold text-white">Alpha-Pro</h2>
+                <p class="text-xs sm:text-sm text-indigo-100 mt-1">
+                  Recommended for heavy users, teams and agencies.
+                </p>
+              </div>
+              <span class="inline-flex items-center rounded-full bg-indigo-500/30 px-3 py-1 text-[11px] font-semibold text-indigo-50">
+                ?? Recommended
+              </span>
+            </div>
+
+            <div class="mb-5">
+              <p class="text-3xl font-semibold text-white">$299<span class="text-base font-normal text-slate-200"> / year</span></p>
+              <p class="text-xs sm:text-sm text-slate-200 mt-1">
+                About <span class="font-semibold">$0.81 / day</span> — less than a bottle of water
+                to buy future GEO leverage.
+              </p>
+            </div>
+
+            <ul class="space-y-2.5 text-xs sm:text-sm text-slate-50 flex-1">
+              <li>? <span class="font-semibold text-indigo-100">1200 calls / month · 500K tokens</span></li>
+              <li>? Monthly quota reset</li>
+              <li>? Planned overage pricing: <span class="font-semibold">$4 / 50K tokens</span> (when metering goes live)</li>
+              <li>? Private group + roadmap voting power</li>
+              <li>? Name / logo on “early contributors” page (opt-in)</li>
+              <li>? Early access to New features</li>
+              <li>? Priority access to future GEO tools</li>
+              <li>? <span class="font-semibold text-indigo-100">50% off</span> GEO full subscription for the first 3 years</li>
+            </ul>
+
+            <div class="mt-6">
+              <button
+                type="button"
+                data-action="checkout"
+                data-tier="alpha_pro"
+                class="inline-flex w-full items-center justify-center rounded-lg bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-slate-950 hover:bg-indigo-400 transition shadow-lg shadow-indigo-500/40"
+              >
+                Subscribe Alpha-Pro
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-[1.3fr,1fr] items-start">
+          <div class="rounded-2xl border border-slate-700 bg-slate-900/70 p-5 sm:p-6 space-y-4">
+            <h3 class="text-sm sm:text-base font-semibold text-slate-50">
+              Calculate Your "Visibility Cost"
+            </h3>
+            <div class="overflow-hidden rounded-xl border border-slate-700 bg-slate-950/40">
+              <table class="min-w-full text-left text-xs sm:text-sm text-slate-100">
+                <thead class="bg-slate-900/80 text-slate-400 text-[11px] uppercase tracking-wide">
+                  <tr>
+                    <th class="px-4 py-2.5">Plan</th>
+                    <th class="px-4 py-2.5">Yearly</th>
+                    <th class="px-4 py-2.5">Avg. per day</th>
+                    <th class="px-4 py-2.5">Compare this with your daily expenses</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-t border-slate-700/80">
+                    <td class="px-4 py-3 font-semibold text-white">Alpha-Base</td>
+                    <td class="px-4 py-3">$99 / year</td>
+                    <td class="px-4 py-3">$0.27 / day</td>
+                    <td class="px-4 py-3 text-slate-200">
+                      “It costs less than my daily coffee.”
+                    </td>
+                  </tr>
+                  <tr class="border-t border-slate-700/80">
+                    <td class="px-4 py-3 font-semibold text-white">Alpha-Pro</td>
+                    <td class="px-4 py-3">$299 / year</td>
+                    <td class="px-4 py-3">$0.81 / day</td>
+                    <td class="px-4 py-3 text-slate-200">
+                      “For less than a bottle of water a day, I’m buying GEO positioning for the next few years.”
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-rose-400/70 bg-gradient-to-b from-rose-500/20 to-slate-950/90 p-5 sm:p-6 space-y-3">
+            <h3 class="text-sm sm:text-base font-semibold text-rose-50">
+              Still Hesitating?
+            </h3>
+            <p class="text-sm sm:text-base text-rose-50 leading-relaxed">
+              If you never put even a single dollar a day behind your content’s
+              competitiveness, it’s hardly “saving money” — it’s choosing to stay off the map
+              when AI systems decide what to surface.
+            </p>
+            <p class="text-xs sm:text-[13px] text-rose-100/80">
+              Alpha isn’t about squeezing early users for cash. It’s about filtering for
+              the small group of people who actually want to bet on future GEO visibility
+              and help shape how these tools will work.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 flex justify-center">
+          <a
+            href="#pricing"
+            class="inline-flex items-center justify-center rounded-lg bg-indigo-500 px-6 py-2.5 text-sm sm:text-base font-semibold text-slate-950 hover:bg-indigo-400 transition shadow-lg shadow-indigo-500/40"
+          >
+            Yes — I want a seat before GEO becomes crowded
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script is:inline define:vars={{ billingBase }}>
+    console.log("[Pricing Checkout] script loaded (no-supabase-sdk)");
+
+    const root = document.querySelector("main[data-billing-base]");
+    const BILLING_API_BASE = root ? String(root.getAttribute("data-billing-base") || "") : "";
+    const BILLING_ENDPOINT =
+      (BILLING_API_BASE ? BILLING_API_BASE.replace(/\/$/, "") : "") + "/api/billing/checkout";
+
+    console.log("[Pricing Checkout] BILLING_ENDPOINT =", BILLING_ENDPOINT);
+
+    const MSG_NEED_LOGIN = "请先登录后再购买 Alpha 资格。";
+    const MSG_INVALID_TIER = "套餐参数无效，请刷新页面后重试。";
+    const MSG_CREATE_FAILED = "创建支付链接失败，请稍后重试或联系支持。";
+    const MSG_NETWORK_FAILED = "网络或服务异常，请稍后重试。";
+
+    let __busy = false;
+    let __tier = "";
+    let __notifyMsg = "";
+
+    function notify() { alert(__notifyMsg); }
+
+    function setBusy() {
+      const nodes = document.querySelectorAll('[data-action="checkout"]');
+      nodes.forEach((node) => {
+        if (!(node instanceof HTMLElement)) return;
+        if (__busy) {
+          if (node instanceof HTMLButtonElement) node.disabled = true;
+          node.setAttribute("aria-disabled", "true");
+          node.style.pointerEvents = "none";
+          node.style.opacity = "0.75";
+        } else {
+          if (node instanceof HTMLButtonElement) node.disabled = false;
+          node.removeAttribute("aria-disabled");
+          node.style.pointerEvents = "";
+          node.style.opacity = "";
+        }
+      });
+    }
+
+    function pickUserIdFromLocalStorage() {
+      try {
+        const keys = Object.keys(localStorage);
+        const sbKey = keys.find((k) => /^sb-[a-z0-9]+-auth-token$/i.test(k));
+        if (!sbKey) return null;
+        const raw = localStorage.getItem(sbKey);
+        if (!raw) return null;
+        const obj = JSON.parse(raw);
+        const id = obj && obj.user && obj.user.id ? String(obj.user.id) : null;
+        return id || null;
+      } catch (e) {
+        console.warn("[Pricing Checkout] pickUserIdFromLocalStorage failed:", e);
+        return null;
+      }
+    }
+
+    async function startCheckout() {
+      if (__tier !== "alpha_base" && __tier !== "alpha_pro") {
+        __notifyMsg = MSG_INVALID_TIER;
+        notify();
+        return;
+      }
+
+      if (__busy) return;
+      __busy = true;
+      setBusy();
+
+      try {
+        const userId = pickUserIdFromLocalStorage();
+        if (!userId) {
+          __notifyMsg = MSG_NEED_LOGIN;
+          notify();
+          return;
+        }
+
+        console.log("[Pricing Checkout] POST", { endpoint: BILLING_ENDPOINT, tier: __tier, user_id: userId });
+
+        const resp = await fetch(BILLING_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tier: __tier, user_id: userId }),
+        });
+
+        console.log("[Pricing Checkout] response", { ok: resp.ok, status: resp.status });
+
+        if (!resp.ok) {
+          const text = await resp.text().catch(() => "");
+          console.error("[Pricing Checkout] checkout failed:", resp.status, text);
+          __notifyMsg = MSG_CREATE_FAILED;
+          notify();
+          return;
+        }
+
+        const data = await resp.json().catch(() => null);
+        const checkoutUrl = data && data.checkout_url ? String(data.checkout_url) : "";
+
+        if (!checkoutUrl) {
+          console.error("[Pricing Checkout] missing checkout_url:", data);
+          __notifyMsg = MSG_CREATE_FAILED;
+          notify();
+          return;
+        }
+
+        window.location.href = checkoutUrl;
+      } catch (e) {
+        console.error("[Pricing Checkout] exception:", e);
+        __notifyMsg = MSG_NETWORK_FAILED;
+        notify();
+      } finally {
+        __busy = false;
+        setBusy();
+      }
+    }
+
+    document.addEventListener("click", (e) => {
+      const t = e.target;
+      if (!(t instanceof Element)) return;
+
+      const el = t.closest('[data-action="checkout"]');
+      if (!el) return;
+
+      e.preventDefault();
+      __tier = el.getAttribute("data-tier") || "";
+
+      console.log("[Pricing Checkout] click", { tier: __tier, busy: __busy, tag: el.tagName });
+      startCheckout();
+    });
+  </script>
+</Layout>

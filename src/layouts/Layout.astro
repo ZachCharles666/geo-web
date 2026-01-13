@@ -36,7 +36,7 @@ const isProd = import.meta.env.PROD;
 const siteName = "GEO-Max";
 const isZh = String(lang).toLowerCase().startsWith("zh");
 const langBase = isZh ? "/zh" : "/en";
-const pricingHref = isZh ? "/zh/alpha" : "/alpha";
+const pricingHref = "/pricing";
 const contactHref = `${langBase}/contact`;
 const termsHref = `${langBase}/terms`;
 const privacyHref = `${langBase}/privacy`;
@@ -123,6 +123,7 @@ const robotsContent = noindex
             </a>
 
             <nav class="hidden sm:flex items-center gap-3 text-sm text-gray-600">
+              <a href="/pricing" class="hover:text-black">Pricing</a>
               <a href="/alpha" class="hover:text-black">Alpha</a>
               <a href="/rewrite" class="hover:text-black">Rewrite</a>
               <a href="/score" class="hover:text-black">Score</a>

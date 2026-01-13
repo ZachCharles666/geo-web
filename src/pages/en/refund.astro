@@ -25,37 +25,33 @@ const updatedAt = "2026-01-11";
 
     <div class="mt-8 space-y-8 text-sm sm:text-base text-slate-700 leading-relaxed">
       <section class="space-y-3">
-        <h2 class="text-xl font-semibold text-slate-900">1. Eligibility</h2>
+        <p>We offer a 14-day refund policy.</p>
         <p>
-          We consider refund requests for initial purchases made within 7 days, provided the
-          account has not used more than 10% of the included monthly quota. Renewals are generally
-          non-refundable.
+          If you are not satisfied with your purchase, you may request a refund within 14 days of
+          the initial payment date, no questions asked.
         </p>
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-xl font-semibold text-slate-900">2. Non-Refundable Cases</h2>
+        <h2 class="text-xl font-semibold text-slate-900">How to Request a Refund</h2>
         <p>
-          We do not issue refunds for significant usage, abuse, or violation of our Terms, or for
-          services already delivered in full. Usage is measured by consumed credits, tokens, or
-          calls.
+          To request a refund, please email
+          <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
+          and include:
         </p>
+        <ul class="list-disc pl-5 space-y-1">
+          <li>The email address associated with your account</li>
+          <li>Your order details (e.g., receipt or transaction ID, if available)</li>
+        </ul>
+        <p>We typically respond within 3-5 business days.</p>
       </section>
 
       <section class="space-y-3">
-        <h2 class="text-xl font-semibold text-slate-900">3. How to Request</h2>
+        <h2 class="text-xl font-semibold text-slate-900">Refund Processing</h2>
         <p>
-          Email <a class="text-indigo-600 hover:underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
-          with your account email, order details, and reason for the request. We typically respond
-          within 3-5 business days.
-        </p>
-      </section>
-
-      <section class="space-y-3">
-        <h2 class="text-xl font-semibold text-slate-900">4. Payment Processing</h2>
-        <p>
-          Payments are processed by our billing provider. Approved refunds are returned to the
-          original payment method, subject to processor timelines.
+          Payments are processed by our billing provider. Approved refunds will be returned to the
+          original payment method. Refund processing times may vary depending on your bank or card
+          issuer.
         </p>
       </section>
     </div>
