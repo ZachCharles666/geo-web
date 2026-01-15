@@ -1,0 +1,126 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const pageTitle = "Join the Waitlist | GEO-Max";
+const pageDescription =
+  "Get early access to GEO tools. Join the waitlist while Paddle review is in progress.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <main class="min-h-screen bg-slate-950 text-slate-100">
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.18),_transparent_52%)]"></div>
+      <div class="relative mx-auto max-w-5xl px-6 py-16 sm:py-20 lg:py-24">
+        <div class="grid gap-10 lg:grid-cols-[1.05fr,0.95fr] lg:items-start">
+          <div class="space-y-6">
+            <div class="inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900/70 px-3 py-1 text-xs text-slate-300">
+              <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+              <span>Early access · Waitlist only</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight text-white">
+              Get early access to GEO-Max.
+            </h1>
+            <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+              Paddle review is in progress.<br />
+              Join the waitlist to get invited to GEO-Max Alpha and try GEO-Score and Rewrite before public access.<br />
+              Invitations are sent in limited batches.
+            </p>
+
+            <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 sm:p-6 space-y-4 text-sm text-slate-300">
+              <h2 class="text-sm font-semibold text-white">What you get</h2>
+              <ul class="space-y-2">
+                <li>Early access to GEO-Score and GEO-Rewrite</li>
+                <li>Priority onboarding & direct feedback channel</li>
+                <li>Invite-only updates during Alpha</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 sm:p-7 shadow-2xl shadow-black/30">
+            <h2 class="text-lg font-semibold text-white">Request an invite</h2>
+            <p class="mt-2 text-xs text-slate-400">
+              We only use this to notify you about invitations.
+            </p>
+
+            <form id="waitlist-form" class="mt-6 space-y-4">
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-slate-200" for="waitlist-email">Email</label>
+                <input
+                  id="waitlist-email"
+                  name="email"
+                  type="email"
+                  required
+                  autocomplete="email"
+                  maxlength="200"
+                  class="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:border-indigo-400 focus:outline-none"
+                  placeholder="you@company.com"
+                />
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-slate-200" for="waitlist-role">Role (optional)</label>
+                <input
+                  id="waitlist-role"
+                  name="role"
+                  type="text"
+                  autocomplete="organization-title"
+                  maxlength="80"
+                  class="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:border-indigo-400 focus:outline-none"
+                  placeholder="Founder / Marketing / SEO"
+                />
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-slate-200" for="waitlist-website">Website (optional)</label>
+                <input
+                  id="waitlist-website"
+                  name="website"
+                  type="url"
+                  autocomplete="url"
+                  maxlength="200"
+                  class="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:border-indigo-400 focus:outline-none"
+                  placeholder="https://example.com"
+                />
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-xs font-medium text-slate-200" for="waitlist-note">Notes (optional)</label>
+                <textarea
+                  id="waitlist-note"
+                  name="note"
+                  rows="3"
+                  maxlength="300"
+                  class="w-full resize-none rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-600 focus:border-indigo-400 focus:outline-none"
+                  placeholder="What are you hoping to solve with GEO?"
+                ></textarea>
+              </div>
+
+              <button
+                id="waitlist-submit"
+                type="submit"
+                class="inline-flex w-full items-center justify-center rounded-lg bg-indigo-500 px-4 py-2.5 text-sm font-semibold text-slate-950 hover:bg-indigo-400 transition shadow-lg shadow-indigo-500/30"
+              >
+                Join Waitlist
+              </button>
+
+              <p
+                id="waitlist-status"
+                class="text-xs text-slate-400"
+                aria-live="polite"
+              ></p>
+              <button
+                id="waitlist-reset"
+                type="button"
+                class="hidden text-xs text-slate-400 hover:text-white"
+              >
+                Use a different email
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="/scripts/waitlist.mjs"></script>
+</Layout>

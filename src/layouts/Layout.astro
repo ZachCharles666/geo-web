@@ -187,6 +187,7 @@ const robotsContent = noindex
       define:vars={{
         PUBLIC_SUPABASE_URL: import.meta.env.PUBLIC_SUPABASE_URL || "",
         PUBLIC_SUPABASE_ANON_KEY: import.meta.env.PUBLIC_SUPABASE_ANON_KEY || "",
+        PUBLIC_WAITLIST_WEBHOOK: import.meta.env.PUBLIC_WAITLIST_WEBHOOK || "",
         PUBLIC_GEO_API_BASE: import.meta.env.PUBLIC_GEO_API_BASE || "",
         PUBLIC_SCORE_API: import.meta.env.PUBLIC_SCORE_API || "",
         PUBLIC_QUOTA_MOCK: import.meta.env.PUBLIC_QUOTA_MOCK || "0",
@@ -197,6 +198,7 @@ const robotsContent = noindex
       window.__GEO_PUBLIC__ = {
         PUBLIC_SUPABASE_URL,
         PUBLIC_SUPABASE_ANON_KEY,
+        PUBLIC_WAITLIST_WEBHOOK,
         PUBLIC_GEO_API_BASE,
         PUBLIC_SCORE_API,
         PUBLIC_QUOTA_MOCK,
