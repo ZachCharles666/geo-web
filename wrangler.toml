@@ -1,6 +1,0 @@
-name = "waitlist-collect"
-main = "serverless/waitlist-collect.js"
-compatibility_date = "2025-01-01"
-
-[vars]
-WAITLIST_TG_ENABLED = "1"
